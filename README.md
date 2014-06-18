@@ -1,4 +1,4 @@
-WatsiAndroidApp
+Watsi AndroidApp
 ===============
 
 Android App for Watsi. Connecting Patients to Donors.
