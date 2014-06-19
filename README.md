@@ -1,12 +1,12 @@
 Watsi AndroidApp
 ===============
 
-Android App for Watsi. Connecting Patients to Donors.
+Android App for Watsi. Connecting patients to donors.
 
 
 High Level User Stories :
 
-  As an app user I can 
+  "As an app user I can ..."
   
 * See list of patients needs donations.
 * Select patient and read his/her story and understand medical needs.
@@ -24,3 +24,4 @@ High Level User Stories :
 * Turn on/off notification messages.
 * Login with Facebook/Twitter.
 * Signup to Watsi
+
