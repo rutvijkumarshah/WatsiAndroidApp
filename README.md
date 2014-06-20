@@ -1,7 +1,7 @@
-Watsi AndroidApp
+Watsi Android Application
 ===============
 
-Android App for Watsi. Connecting patients to donors.
+Android App for Watsi. "Connecting patients to donors."
 
 
 High Level User Stories :
