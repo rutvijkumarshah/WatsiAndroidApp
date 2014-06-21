@@ -17,7 +17,7 @@ High Level User Stories :
 * See list of patients with need with urgency and read his/her story.
 * Share patients story on my facebook,twitter,whatsApp.
 * Receives "high five" notification when the patient ( whom I have donated) got fully funded.
-* Receives Ddnation campaign messages as feed.
+* Receives Donation campaign messages as feed.
 * Share donation campaign messages in social media.
 * Subscribe to Patients to get notification of donation progress.
 * Receives notifiaction message when new patients gets added to pool.
