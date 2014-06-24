@@ -40,8 +40,9 @@ High Level User Stories :
 * Share patients story on my facebook,twitter,whatsApp.
 * Everyshare should tell about the app
 
-
-
+### Map
+* Show heat map of donations
+* Anymore ideas ?
 
 
 
