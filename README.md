@@ -24,4 +24,5 @@ High Level User Stories :
 * Turn on/off notification messages.
 * Login with Facebook/Twitter.
 * Signup to Watsi
+* Match amount that your friend payed.
 
