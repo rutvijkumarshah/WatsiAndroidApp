@@ -7,15 +7,24 @@ Android App for Watsi. "Connecting patients to donors."
 High Level User Stories :
 
   "As an app user I can ..."
-  
-* See list of patients needs donations.
+
+### Patients
+
 * Select patient and read his/her story and understand medical needs.
 * Select patient and see how much donation is targeted.
 * Select patient and see donation progress.
 * Select patient and click donate to donate money which opens Watsi website .
+
+### Feed (Timeline)
+* See list of patients needs donations.
+* Receives "high five" notification when the patient ( whom I have donated) got fully funded.
+* Every donation will notified in users feed
+
+### Social Network
+
 * See list of fully funded patients and read his/her story.
-* See list of patients with need with urgency and read his/her story.(Read how watsi works i dont think this will be required. )
 * Share patients story on my facebook,twitter,whatsApp.
+* Each patients story can be shared on social networks.Share will ask friends to donate for the patient.
 * Receives "high five" notification when the patient ( whom I have donated) got fully funded.
 * Receives Donation campaign messages as feed.
 * Share donation campaign messages in social media.
@@ -25,4 +34,5 @@ High Level User Stories :
 * Login with Facebook/Twitter.
 * Signup to Watsi
 * Match amount that your friend payed.
+
 
