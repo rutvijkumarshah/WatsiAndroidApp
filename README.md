@@ -42,7 +42,7 @@ High Level User Stories :
 
 ### Map
 * Show heat map of donations
-* Anymore ideas ?
+
 
 
 
