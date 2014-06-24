@@ -20,26 +20,28 @@ High Level User Stories :
 * See list of patients needs donations.
 * Receives "high five" notification when the patient ( whom I have donated) got fully funded.
 * Every donation will notified in users feed
+* Should be able to share media (images and videos) in the timelien
+* Receives notifiaction message when new patients gets added to pool.
+* filter out patients in the feed
+
+### Campaign
+* Create a campaign for a patient
 
 ### User
 * Profile
 * Image, name, screen name
 * History of donations - patients that he has donated to, patients he is supporting
 * Settings
+  * Turn on/off notification messages.
 
 
 ### Social Networking
-
-* Share patients story on my facebook,twitter,whatsApp.
-* Each patients story can be shared on social networks.Share will ask friends to donate for the patient.
-* Receives "high five" notification when the patient ( whom I have donated) got fully funded.
-* Receives Donation campaign messages as feed.
-* Share donation campaign messages in social media.
-* Subscribe to Patients to get notification of donation progress.
-* Receives notifiaction message when new patients gets added to pool.
-* Turn on/off notification messages.
 * Login with Facebook/Twitter.
-* Signup to Watsi
-* Match amount that your friend payed.
+* Share patients story on my facebook,twitter,whatsApp.
+* Everyshare should tell about the app
+
+
+
+
 
 
