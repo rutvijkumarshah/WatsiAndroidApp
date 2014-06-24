@@ -14,6 +14,7 @@ High Level User Stories :
 * Select patient and see how much donation is targeted.
 * Select patient and see donation progress.
 * Select patient and click donate to donate money which opens Watsi website .
+* See list of fully funded patients and read his/her story.
 
 ### Feed (Timeline)
 * See list of patients needs donations.
@@ -22,7 +23,6 @@ High Level User Stories :
 
 ### Social Network
 
-* See list of fully funded patients and read his/her story.
 * Share patients story on my facebook,twitter,whatsApp.
 * Each patients story can be shared on social networks.Share will ask friends to donate for the patient.
 * Receives "high five" notification when the patient ( whom I have donated) got fully funded.
