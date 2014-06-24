@@ -21,7 +21,14 @@ High Level User Stories :
 * Receives "high five" notification when the patient ( whom I have donated) got fully funded.
 * Every donation will notified in users feed
 
-### Social Network
+### User
+* Profile
+* Image, name, screen name
+* History of donations - patients that he has donated to, patients he is supporting
+* Settings
+
+
+### Social Networking
 
 * Share patients story on my facebook,twitter,whatsApp.
 * Each patients story can be shared on social networks.Share will ask friends to donate for the patient.
