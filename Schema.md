@@ -1,6 +1,6 @@
-#Highlevel schema model for Watsi App
-![Schema Diagram](http://www.gliffy.com/go/publish/image/5928235/L.png)
+### Watsi Android app Schema 
 
+![Schema Diagram](http://www.gliffy.com/go/publish/image/5928235/L.png)
 
 
 
