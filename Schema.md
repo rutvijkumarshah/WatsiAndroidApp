@@ -38,6 +38,7 @@ Donation:
   	- isAnonymous							: Boolean
   	- donation_amount					: Double
   	- donated_at							: Date
+	- patient            :Patient
 
 Medical Partner:
 
