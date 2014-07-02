@@ -1,7 +1,10 @@
 #Highlevel schema model for Watsi App
 ![Schema Diagram](http://www.gliffy.com/go/publish/image/5928235/L.png)
 
-### Please Open file it text editor this not correctly formatted for Markdown.
+
+
+
+### Text Version  Please Open file it text editor this not correctly formatted for Markdown.
 
 Patient:
 
