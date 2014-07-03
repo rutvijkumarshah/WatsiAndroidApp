@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="C:\Bootcamp\workspace\WatsiAndroidApp\res" >
+            <file
+                name="ic_launcher"
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\drawable-ldpi\ic_launcher.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="main"
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\layout\main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                path="C:\Bootcamp\workspace\WatsiAndroidApp\res\values\strings.xml"
+                qualifiers="" >
+                <string name="app_name" >ParseStarterProject
+                </string>
+                <string name="hello" >Hello World, ParseStarterProjectActivity!
+                </string>
+            </file>
+        </source>
+        <source path="C:\Bootcamp\workspace\WatsiAndroidApp\build\res\rs\release" />
+        <source path="C:\Bootcamp\workspace\WatsiAndroidApp\build\res\generated\release" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="C:\Bootcamp\workspace\WatsiAndroidApp\src\release\res" />
+    </dataSet>
+
+</merger>
