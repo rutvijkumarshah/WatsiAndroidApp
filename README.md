@@ -1,3 +1,7 @@
+
+
+[![Build Status](https://travis-ci.org/rutvijkumarshah/WatsiAndroidApp.svg?branch=master)](https://travis-ci.org/rutvijkumarshah/WatsiAndroidApp.svg?branch=master)
+
 Watsi Android Application
 ===============
 
