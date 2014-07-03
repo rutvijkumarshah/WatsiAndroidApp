@@ -19,8 +19,8 @@ public class WatsiMainActivityTest extends
   
   @Override
   protected void setUp() throws Exception {
-    super.setUp();
-   
+    super.setUp(); 
+  }
   
   public void testChangeText() {
   }
