@@ -23,6 +23,6 @@ public class WatsiMainActivityTest extends
    
   
   public void testChangeText() {
-   
+  }
 
 }
