@@ -12,7 +12,8 @@ public class WatsiApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
+		// useful for temporarily storing data to local datastore so that it can be synced later.
+		 Parse.enableLocalDatastore(getApplicationContext());
 		// Add your initialization code here
 		Parse.initialize(this, "tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ", "SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS");
 
