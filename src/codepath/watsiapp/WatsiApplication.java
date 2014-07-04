@@ -12,8 +12,8 @@ public class WatsiApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// useful for temporarily storing data to local datastore so that it can be synced later.
-		 Parse.enableLocalDatastore(getApplicationContext());
+		parsePreInit();
+
 		// Add your initialization code here
 		Parse.initialize(this, "tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ", "SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS");
 
@@ -28,6 +28,18 @@ public class WatsiApplication extends Application {
 		testParseIntegration();
 	}
 	
+	/**
+	 * Parse has many configurations that can be turned on or off before initialization. 
+	 * All of them can go inside this function.
+	 */	
+	private void parsePreInit() {
+		// useful for temporarily storing data to local datastore so that it can be synced later.
+		 Parse.enableLocalDatastore(getApplicationContext());
+		
+	}
+
+
+
 	private void testParseIntegration() {
 		ParseObject testObject = new ParseObject("TestObject");
 		testObject.put("foo", "bar");
