@@ -1,6 +1,7 @@
 package codepath.watsiapp;
 
 import android.app.Application;
+import codepath.watsiapp.models.Donor;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -33,6 +34,8 @@ public class WatsiApplication extends Application {
 	 * All of them can go inside this function.
 	 */	
 	private void parsePreInit() {
+		//Register Models
+		ParseObject.registerSubclass(Donor.class);
 		// useful for temporarily storing data to local datastore so that it can be synced later.
 		 Parse.enableLocalDatastore(getApplicationContext());
 		
