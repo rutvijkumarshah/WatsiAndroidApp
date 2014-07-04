@@ -12,12 +12,6 @@ public class WatsiMainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		ParseAnalytics.trackAppOpened(getIntent());
-		testParsePushNotification();
 		
-	}
-	
-	private void testParsePushNotification() {
-		PushService.setDefaultPushCallback(this, WatsiMainActivity.class);
-		ParseAnalytics.trackAppOpened(getIntent());
 	}
 }
