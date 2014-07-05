@@ -10,6 +10,15 @@ buildscript {
 
 apply plugin: 'android'
 
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:13.0.+'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1@aar'
+}
+
 android {
   compileSdkVersion 19
   buildToolsVersion '19.0.3'
