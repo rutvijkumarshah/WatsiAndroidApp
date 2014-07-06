@@ -34,7 +34,7 @@ Finally, if you are experimenting with different versions of Gradle, remember to
 
 ## Install API 19 and Build Tools
 
-In order for Gradle to work, ensure you have the API 17 SDK installed including the **latest Android SDK Platform-tools and Android SDK Build-tools**. Check this in the Android SDK Manager from within Eclipse. 
+In order for Gradle to work, ensure you have the API 19 SDK installed including the **latest Android SDK Platform-tools and Android SDK Build-tools**. Check this in the Android SDK Manager from within Eclipse. 
 
 ## Testing Gradle
 
