@@ -1,6 +1,7 @@
 package codepath.watsiapp;
 
 import android.app.Application;
+import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donor;
 
 import com.parse.Parse;

@@ -4,9 +4,16 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
+	<com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/slidingTabStrip"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+     />
 
+	<android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slidingTabStrip"
+    />
 </LinearLayout>

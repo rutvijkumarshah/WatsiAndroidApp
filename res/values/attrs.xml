@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Andreas/workspace/PagerSlidingTabStrip/library/res/values/colors.xml -->
-    <eat-comment />
-
-    <color name="background_tab_pressed">#6633B5E5</color>
-    <!-- From: file:/C:/Users/Andreas/workspace/PagerSlidingTabStrip/library/res/values/attrs.xml -->
-    <eat-comment />
-
     <declare-styleable name="PagerSlidingTabStrip">
         <attr name="pstsIndicatorColor" format="color" />
         <attr name="pstsUnderlineColor" format="color" />
