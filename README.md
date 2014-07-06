@@ -57,9 +57,11 @@ gradle clean build
 
 
 
-# Adding Third party library
+## Adding Third party library
 
 ### 1. Adding third party library (JAR) available as gradle dependency
+```bash
+
 Add dependency in build.gradle,for example
 android {
 	...   
@@ -67,12 +69,15 @@ android {
           compile "joda-time:joda-time:2.2"
   }
 }
+```
 
 ### 2. Adding third party library (JAR) NOT available as gradle dependency
 copy jar file to locallibs dir
 
 ### 3. Adding third party library (AAR) project
 Add dependency in build.gradle,for example
+```bash
+
 android {
 	...   
   dependencies {
@@ -80,8 +85,10 @@ android {
   }
 }
 
-### Rebuild Eclipse project
+```
+
+### Rebuild and Import Eclipse project after new third party library inclusion.
 1. Delete Project in eclipse (without deleting source code )
-2. run gradle clean build
+2. Run gradle clean build
 3. Import project in Eclipse as Android project make sure to select all jars/aar projects
 4. Email to team about new dependency so every one will follow all steps under Rebuild Eclipse project
