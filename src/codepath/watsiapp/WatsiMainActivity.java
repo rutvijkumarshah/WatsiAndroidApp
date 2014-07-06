@@ -6,6 +6,9 @@ import android.os.Bundle;
 import com.parse.ParseAnalytics;
 import com.parse.PushService;
 
+import android.support.v4.app.Fragment;
+import com.astuetz.PagerSlidingTabStrip;
+
 public class WatsiMainActivity extends Activity {
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
