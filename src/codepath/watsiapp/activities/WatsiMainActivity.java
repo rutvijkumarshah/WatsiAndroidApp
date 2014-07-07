@@ -33,19 +33,19 @@ public class WatsiMainActivity extends FragmentActivity {
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
         tabs.setViewPager(vpPager);
-        //tabs.setTextColor(getResources().getColor(R.color.TwitterBlue));
+        tabs.setTextColor(getResources().getColor(android.R.color.holo_red_light));
 
-        //tabs.setIndicatorColor(getResources().getColor(R.color.TwitterBlue));
+        tabs.setIndicatorColor(getResources().getColor(android.R.color.holo_red_light));
         tabs.setDividerColor(getResources().getColor(android.R.color.white));
         tabs.setShouldExpand(true);
-        tabs.setAllCaps(true); 
+        tabs.setAllCaps(false); 
         
 		
 	}
 	
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 		
-		private static final String LABLES[]= {"Feed,Patients"};
+		private static final String LABLES[]= {"Feed","Patients"};
 		
 
 		public PatientsPagerAdapter(FragmentManager fragmentManager) {
