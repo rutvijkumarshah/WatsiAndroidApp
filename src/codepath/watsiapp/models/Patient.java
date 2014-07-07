@@ -6,10 +6,18 @@ import java.util.Date;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+/***
+ * Represents Patient in Application.
+ * 
+ * @author Rutvijkumar Shah
+ *
+ */
 @ParseClassName("Patient")
 public class Patient extends ParseObject {
 
-	
+	public MedicalPartner getMedicalPartner() {
+        return (MedicalPartner) getParseObject("medicalPartner");
+	}
 	public String getFirstName() {
 		return getString("firstName");
 		
@@ -43,12 +51,13 @@ public class Patient extends ParseObject {
 		return getString("country");
 	}
 	public String getStory() {
+		
 		return getString("story");
 	}
+	public String getPhotoUrl() {
+		return getParseFile("photo").getUrl();
 	
-	
-	//image , medical partner
-	
+	}
 	
 }
 
