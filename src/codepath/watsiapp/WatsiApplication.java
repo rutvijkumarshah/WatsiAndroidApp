@@ -29,9 +29,7 @@ public class WatsiApplication extends Application {
 		// If you would like all objects to be private by default, remove this
 		// line.
 		defaultACL.setPublicReadAccess(true);
-
 		ParseACL.setDefaultACL(defaultACL, true);
-		testParseIntegration();
 	}
 
 	private void configurePush() {
@@ -53,10 +51,6 @@ public class WatsiApplication extends Application {
 
 	}
 
-	private void testParseIntegration() {
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
-	}
+	
 
 }

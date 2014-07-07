@@ -40,12 +40,13 @@ public class WatsiMainActivity extends FragmentActivity {
         tabs.setShouldExpand(true);
         tabs.setAllCaps(false); 
         
+        
 		
 	}
 	
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 		
-		private static final String LABLES[]= {"Feed","Patients"};
+		private static final String LABLES[]= {"Watsi News","Help"};
 		
 
 		public PatientsPagerAdapter(FragmentManager fragmentManager) {
