@@ -13,6 +13,5 @@
         <attr name="pstsTabBackground" format="reference" />
         <attr name="pstsShouldExpand" format="boolean" />
         <attr name="pstsTextAllCaps" format="boolean" />
-    </declare-styleable>
-
+    </declare-styleable>    
 </resources>

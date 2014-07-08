@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, ParseStarterProjectActivity!</string>
     <string name="app_name">Watsi</string>
+  
 </resources>

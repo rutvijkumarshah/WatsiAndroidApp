@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_tab_pressed">#6633B5E5</color>
+  <color name="holo_green_light">#ff99cc00</color>
+  <color name="holo_green_dark">#ff669900</color>
 </resources>
