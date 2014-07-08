@@ -7,7 +7,7 @@
             android:shape="ring"
              android:useLevel="false"
             android:thicknessRatio="8.9" >
-            <solid android:color="@android:color/holo_red_light" />
+            <solid android:color="@android:color/transparent" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
@@ -15,7 +15,7 @@
             android:innerRadiusRatio="3"
             android:shape="ring"
             android:thicknessRatio="8.9" >
-            <solid android:color="@android:color/holo_green_dark" />
+            <solid android:color="@color/watsi_blue" />
         </shape>
     </item>
 
