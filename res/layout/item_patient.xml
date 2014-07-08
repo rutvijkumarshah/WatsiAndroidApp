@@ -3,32 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/imageArea"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_margin="8dp"
         >
-        
-    	<ImageView
-        android:id="@+id/progressBarImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        />
     	<ProgressBar
             android:id="@+id/progressBarToday"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:progress="90"
-            
+            android:layout_centerHorizontal="true" 
+            android:layout_centerVertical="true" 
+              
             android:indeterminate="false"
             android:max="100"
             android:progressDrawable="@drawable/progressbar" />
-    	
+
+    	<ImageView
+    	    android:id="@+id/progressBarImageView"
+    	    android:layout_width="60dp"
+    	    android:layout_height="60dp"
+    	    android:layout_centerHorizontal="true" 
+            android:layout_centerVertical="true" 
+            
+    	    android:scaleType="centerCrop" />
     
-    </FrameLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/name"
