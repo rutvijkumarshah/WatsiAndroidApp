@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/imageArea"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        >
+        <ProgressBar
+            android:id="@+id/progressBarToday"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:progress="90"
+            
+            android:indeterminate="false"
+            android:max="100"
+            android:progressDrawable="@drawable/progressbar" />
+
+    <com.parse.ParseImageView
+        android:id="@+id/progressBarImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/progressBarToday"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="24dp"
+        android:scaleType="centerCrop"
+        />
+    
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageArea"
+        android:layout_centerHorizontal="true"
+        android:text="Name here"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

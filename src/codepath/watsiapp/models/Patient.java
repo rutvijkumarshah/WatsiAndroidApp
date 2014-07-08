@@ -4,6 +4,7 @@ package codepath.watsiapp.models;
 import java.util.Date;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 /***
@@ -15,15 +16,25 @@ import com.parse.ParseObject;
 @ParseClassName("Patient")
 public class Patient extends ParseObject {
 
+	private static final String EMPTY_STRING="".intern();
+	
 	public MedicalPartner getMedicalPartner() {
         return (MedicalPartner) getParseObject("medicalPartner");
 	}
 	public String getFirstName() {
-		return getString("firstName");
+		String fname=getString("firstName");
+		if(fname == null) {
+			fname=EMPTY_STRING;
+		}
+		return fname;
 		
 	}
 	public String getLastName() {
-		return getString("lastName");
+		String lname=getString("lastName");
+		if( lname == null) {
+			lname=EMPTY_STRING;
+		}
+		return lname;
 	}
 	public Date getDateAdded() {
 		return getDate("createdAt");
@@ -58,6 +69,11 @@ public class Patient extends ParseObject {
 		return getParseFile("photo").getUrl();
 	
 	}
+	public ParseFile getPhoto() {
+		return getParseFile("photo");
+	
+	}
+	
 	
 }
 

@@ -2,24 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <ProgressBar
-            android:id="@+id/progressBarToday"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:progress="90"
-            android:indeterminate="false"
-            android:max="100"
-            android:progressDrawable="@drawable/progressbar" />
-
-    <ImageView
-        android:id="@+id/progressBarImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignBottom="@+id/progressBarToday"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="24dp"
-        android:scaleType="centerCrop" />
+    
+    <ListView
+        android:id="@+id/patient_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
     
 </RelativeLayout>

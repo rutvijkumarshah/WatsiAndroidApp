@@ -4,6 +4,7 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donor;
+import codepath.watsiapp.models.Patient;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -68,6 +69,7 @@ public class WatsiApplication extends Application {
 	private void parsePreInit() {
 		// Register Models
 		ParseObject.registerSubclass(Donor.class);
+		ParseObject.registerSubclass(Patient.class);
 		// useful for temporarily storing data to local datastore so that it can
 		// be synced later.
 		Parse.enableLocalDatastore(getApplicationContext());
