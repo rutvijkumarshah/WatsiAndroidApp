@@ -25,18 +25,17 @@ package codepath.watsiapp.adapters;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.Patient;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
-	private String url="https://d3w52z135jkm97.cloudfront.net/uploads/profile/image/2237/profile_Ny-33537.pre_op-03_.jpg";
 	public PatientAdapter(Context context) {
 		// load all patients
 		// if required this is the place to apply where filters on patients list
@@ -54,17 +53,11 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		}
 
 		// Add and download the image
-		ParseImageView patientImage = (ParseImageView) v
+		ImageView patientImage = (ImageView) v
 				.findViewById(R.id.progressBarImageView);
 		
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(patient.getPhotoUrl(), patientImage);
-
-//		ParseFile imageFile = patient.getPhoto();
-//		if (imageFile != null) {
-//			patientImage.setParseFile(imageFile);
-//			patientImage.loadInBackground();
-//		}
 
 		// Add the title view
 		TextView titleTextView = (TextView) v.findViewById(R.id.name);
