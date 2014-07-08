@@ -23,7 +23,7 @@ Patient:
 	  - Story										    : String CLOB/HTML
 
 
-Donar:
+Donor:
 
   	- id                                        : long
   	- email                                     : String email 
