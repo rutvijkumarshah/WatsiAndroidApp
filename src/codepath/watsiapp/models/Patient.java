@@ -66,14 +66,13 @@ public class Patient extends ParseObject {
 		return getString("story");
 	}
 	public String getPhotoUrl() {
-		return getParseFile("photo").getUrl();
+		return getString("photoUrl");
 	
 	}
-	public ParseFile getPhoto() {
-		return getParseFile("photo");
+	public String getProfileUrl() {
+		return getString("profileUrl");
 	
 	}
-	
 	public String getFullName() {
 		return getFirstName()+" "+getLastName();
 	}

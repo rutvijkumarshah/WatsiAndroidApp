@@ -118,7 +118,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.percentageFunded.setText(donationProgressPecentage+" % Funded"); //TODO  will be externalized String as template string
 				
 		//donationTOGO
-		viewHolder.donationTogo.setText(patient.getDonationToGo()+" to go");//TODO  will be externalized String as template string
+		viewHolder.donationTogo.setText("$ "+patient.getDonationToGo()+" to go");//TODO  will be externalized String as template string
 
 		//medical need
 		viewHolder.medicalNeed.setText(patient.getMedicalNeed());
