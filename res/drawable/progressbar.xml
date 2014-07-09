@@ -15,7 +15,7 @@
             android:innerRadiusRatio="3"
             android:shape="ring"
             android:thicknessRatio="8.9" >
-            <solid android:color="@color/watsi_blue" />
+            <solid android:color="@color/progress_color" />
         </shape>
     </item>
 
