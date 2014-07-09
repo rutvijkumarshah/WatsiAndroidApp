@@ -62,6 +62,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		// Add the title view
 		TextView titleTextView = (TextView) v.findViewById(R.id.name);
 		titleTextView.setText(patient.getFirstName()+" "+patient.getLastName());
+		
+		
 
 		return v;
 

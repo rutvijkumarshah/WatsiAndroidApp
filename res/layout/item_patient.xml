@@ -41,45 +41,17 @@
         android:layout_toRightOf="@+id/imageArea"
         android:text="Balika fasfaskfasf"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white" />
-
-    <TextView
-        android:id="@+id/age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:text="4 Years"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+     />
 
     <TextView
         android:id="@+id/medicalNeeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageArea"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
         android:text="Medical need will go here should be max two lines text with elipses"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Button
-        android:id="@+id/donate_btn"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/medicalNeeds"
-        android:layout_alignStart="@+id/medicalNeeds"
-        android:layout_marginTop="10dp"
-        android:text="Donate" />
-    <Button
-        android:id="@+id/share_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/location"
-        android:layout_alignTop="@+id/donate_btn"
-        android:layout_marginLeft="17dp"
-        android:text="Share" />
-
 
     <TextView
         android:id="@+id/location"
@@ -93,16 +65,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/percent_funded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/age"
-        android:layout_below="@+id/age"
-        android:layout_marginTop="8dp"
-        android:text="60% Funded"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:layout_marginLeft="8dp"
         android:id="@+id/donation_togo"
         android:layout_width="wrap_content"
@@ -110,6 +72,26 @@
         android:layout_alignBaseline="@+id/percent_funded"
         android:layout_toRightOf="@+id/percent_funded"
         android:text="$500 to go"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/percent_funded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageArea"
+        android:layout_alignLeft="@+id/age"
+        android:layout_alignStart="@+id/age"
+        android:text="60% Funded"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/imageArea"
+        android:text="4 Years"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
