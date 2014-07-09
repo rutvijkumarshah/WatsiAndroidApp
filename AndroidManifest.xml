@@ -21,8 +21,8 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="codepath.watsiapp.permission.C2D_MESSAGE" />
-        
-        <application
+
+    <application
         android:name="WatsiApplication"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme" 
@@ -56,5 +56,4 @@
             </intent-filter>
         </receiver>
     </application>
-
 </manifest>
