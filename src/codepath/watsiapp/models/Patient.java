@@ -43,11 +43,11 @@ public class Patient extends ParseObject {
 		return getString("medicalNeed");
 	}
 	public double getTargetDonation() {
-		return (Double) getNumber("targetDonation");
+		return  getNumber("targetDonation").doubleValue();
 		
 	}
 	public double getDonationReceived() {
-		return (Double)getNumber("donationReceived");
+		return getNumber("receivedDonation").doubleValue();
 	}
 	public boolean isFullyFunded() {
 		return (Boolean) getBoolean("isFullyFunded");
@@ -74,6 +74,16 @@ public class Patient extends ParseObject {
 	
 	}
 	
-	
+	public String getFullName() {
+		return getFirstName()+" "+getLastName();
+	}
+	public int getDonationProgressPecentage() {
+		double donationReceived = getDonationReceived();
+		double targetDonation = getTargetDonation();
+		return (int) ((donationReceived*100)/targetDonation);
+	}
+	public double getDonationToGo() {
+		return getTargetDonation() - getDonationReceived();
+	}
 }
 
