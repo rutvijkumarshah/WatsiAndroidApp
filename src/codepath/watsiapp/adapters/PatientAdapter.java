@@ -24,14 +24,18 @@ package codepath.watsiapp.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseQuery;
@@ -40,6 +44,7 @@ import com.parse.ParseQueryAdapter;
 public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	private static final String TAG = "PATIENT_ADAPTER";
+	private FragmentActivity activity;
 
 	// View lookup cache
 	private static class ViewHolder {
@@ -51,6 +56,9 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		TextView medicalNeed;
 		ImageView patientPhoto;
 		ProgressBar donationProgress;
+		Button donateBtn;
+		ImageView shareAction;
+		// DonateShareFragment donanteAndShareFragment;
 	}
 
 	private ViewHolder viewHolder;
@@ -64,10 +72,12 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 						.orderByAscending("isFullyFunded");
 			}
 		});
+		activity = (FragmentActivity) context;
 	}
 
 	@Override
-	public View getItemView(Patient patient, View convertView, ViewGroup parent) {
+	public View getItemView(final Patient patient, View convertView,
+			ViewGroup parent) {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 
@@ -91,6 +101,11 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			viewHolder.donationProgress = (ProgressBar) convertView
 					.findViewById(R.id.progressBarToday);
+
+			viewHolder.donateBtn = (Button) convertView
+					.findViewById(R.id.donateBtn);
+			viewHolder.shareAction = (ImageView) convertView
+					.findViewById(R.id.shareIv);
 
 			convertView.setTag(viewHolder);
 		} else {
@@ -146,7 +161,46 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		}
 
 		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
+		// viewHolder.donanteAndShareFragment=setDonateAndShareFragment(patient);
+
+		viewHolder.donateBtn.setTag(patient);
+		viewHolder.shareAction.setTag(patient);
+
+		viewHolder.shareAction.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Util.startShareIntent(activity,(Patient)v.getTag());
+
+			}
+		});
+
+		viewHolder.donateBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Util.startFundTreatmentIntent(activity,(Patient)v.getTag());
+			}
+		});
 		return convertView;
 	}
+
+//	private DonateShareFragment setDonateAndShareFragment(Patient patient) {
+//
+//		DonateShareFragment donateShare = DonateShareFragment
+//				.newInstance(patient);
+//		// Begin the transaction
+//		FragmentTransaction ft = activity.getSupportFragmentManager()
+//				.beginTransaction();
+//
+//		// Replace the container with the new fragment
+//		ft.add(R.id.hostOfShareDonateFragment, donateShare);
+//		// or ft.add(R.id.your_placeholder, new FooFragment());
+//		// Execute the changes specified
+//		ft.commit();
+//
+//		return donateShare;
+//
+//	}
 
 }

@@ -12,11 +12,6 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.PatientAdapter;
 
 public class PatientListFragment extends Fragment {
-
-	private ProgressBar progressBarToday;
-	private String url="https://d3w52z135jkm97.cloudfront.net/uploads/profile/image/2237/profile_Ny-33537.pre_op-03_.jpg";
-			//progressBarImageView
-	private ImageView img;
 	
 	private PatientAdapter patientAdapter;
 	private ListView listView;
@@ -43,25 +38,6 @@ public class PatientListFragment extends Fragment {
 
 		return v;
 	}
-
-
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//
-//		View v = inflater.inflate(R.layout.fragment_patient_list, container,
-//				false);
-//
-//		progressBarToday=(ProgressBar)v.findViewById(R.id.progressBarToday);
-//		
-//		img=(ImageView)v.findViewById(R.id.progressBarImageView);
-//		ImageLoader imageLoader = ImageLoader.getInstance();
-//		
-//		
-//		imageLoader.displayImage(url, img);
-//
-//		return v;
-//	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
