@@ -60,7 +60,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		// if required this is the place to apply where filters on patients list
 		super(context, new ParseQueryAdapter.QueryFactory<Patient>() {
 			public ParseQuery create() {
-				return new ParseQuery("Patient");
+				return new ParseQuery("Patient").orderByAscending("isFullyFunded");
 			}
 		});
 		fullyFundedProgressDrawable = context.getResources().getDrawable(R.drawable.fully_funded_progressbar);
