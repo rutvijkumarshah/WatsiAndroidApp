@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,6 +52,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	private ViewHolder viewHolder;
 
+	private Drawable fullyFundedProgressDrawable=null;
+	private Drawable inProgressDrawable=null;
 	
 	public PatientAdapter(Context context) {
 		// load all patients
@@ -60,6 +63,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 				return new ParseQuery("Patient");
 			}
 		});
+		fullyFundedProgressDrawable = context.getResources().getDrawable(R.drawable.fully_funded_progressbar);
+		inProgressDrawable = context.getResources().getDrawable(R.drawable.progressbar);
 	}
 
 	@Override
@@ -122,6 +127,13 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 		//medical need
 		viewHolder.medicalNeed.setText(patient.getMedicalNeed());
+		if(patient.isFullyFunded()) {
+			
+			viewHolder.donationProgress.setProgressDrawable(fullyFundedProgressDrawable);
+		}else {
+			viewHolder.donationProgress.setProgressDrawable(inProgressDrawable);
+		}
+		
 		return convertView;
 
 	}
