@@ -24,6 +24,7 @@ package codepath.watsiapp.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,13 +39,15 @@ import com.parse.ParseQueryAdapter;
 
 public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
+	private static final String TAG = "PATIENT_ADAPTER";
+
 	// View lookup cache
 	private static class ViewHolder {
 		TextView name;
-		TextView age; 
-		TextView location; 
-		TextView percentageFunded; 
-		TextView donationTogo; 	
+		TextView age;
+		TextView location;
+		TextView percentageFunded;
+		TextView donationTogo;
 		TextView medicalNeed;
 		ImageView patientPhoto;
 		ProgressBar donationProgress;
@@ -52,90 +55,98 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	private ViewHolder viewHolder;
 
-	private Drawable fullyFundedProgressDrawable=null;
-	private Drawable inProgressDrawable=null;
-	
 	public PatientAdapter(Context context) {
 		// load all patients
 		// if required this is the place to apply where filters on patients list
 		super(context, new ParseQueryAdapter.QueryFactory<Patient>() {
 			public ParseQuery create() {
-				return new ParseQuery("Patient").orderByAscending("isFullyFunded");
+				return new ParseQuery("Patient")
+						.orderByAscending("isFullyFunded");
 			}
 		});
-		fullyFundedProgressDrawable = context.getResources().getDrawable(R.drawable.fully_funded_progressbar);
-		inProgressDrawable = context.getResources().getDrawable(R.drawable.progressbar);
 	}
 
 	@Override
 	public View getItemView(Patient patient, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
-			
-			convertView = View.inflate(getContext(), R.layout.item_patient, null);
-			viewHolder.name = (TextView) convertView
-					.findViewById(R.id.name);
-			viewHolder.age = (TextView) convertView
-					.findViewById(R.id.age);
+
+			convertView = View.inflate(getContext(), R.layout.item_patient,
+					null);
+			viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+			viewHolder.age = (TextView) convertView.findViewById(R.id.age);
 			viewHolder.location = (TextView) convertView
 					.findViewById(R.id.location);
 			viewHolder.percentageFunded = (TextView) convertView
 					.findViewById(R.id.percent_funded);
-			
+
 			viewHolder.donationTogo = (TextView) convertView
 					.findViewById(R.id.donation_togo);
 
 			viewHolder.medicalNeed = (TextView) convertView
 					.findViewById(R.id.medicalNeeds);
-			
 
 			viewHolder.patientPhoto = (ImageView) convertView
 					.findViewById(R.id.progressBarImageView);
-			
-			viewHolder.donationProgress=(ProgressBar) convertView
+
+			viewHolder.donationProgress = (ProgressBar) convertView
 					.findViewById(R.id.progressBarToday);
-			
-			
+
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
-		}		// Add and download the image
-		
-		
-		//patient photo
+		} // Add and download the image
+
+		// patient photo
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
+		imageLoader
+				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
 
 		int donationProgressPecentage = patient.getDonationProgressPecentage();
-		//donation progress
+		Log.d(TAG, "NAME=" + patient.getFullName() + " : progress%="
+				+ donationProgressPecentage);
+		// donation progress
 		viewHolder.donationProgress.setProgress(donationProgressPecentage);
-		
-		//name
+
+		// name
 		viewHolder.name.setText(patient.getFullName());
 
-		//age
-		viewHolder.age.setText(patient.getAge()+" Years Old"); //TODO will be externalized String as template string
-		
-		//location
+		// age
+		viewHolder.age.setText(patient.getAge() + " Years Old"); // TODO will be
+																	// externalized
+																	// String as
+																	// template
+																	// string
+
+		// location
 		viewHolder.location.setText(patient.getCountry());
-		
-		//percentageFunded
-		viewHolder.percentageFunded.setText(donationProgressPecentage+" % Funded"); //TODO  will be externalized String as template string
-				
-		//donationTOGO
-		viewHolder.donationTogo.setText("$ "+patient.getDonationToGo()+" to go");//TODO  will be externalized String as template string
 
-		//medical need
+		// percentageFunded
+		viewHolder.percentageFunded.setText(donationProgressPecentage
+				+ " % Funded"); // TODO will be externalized String as template
+								// string
+
+		// donationTOGO
+		viewHolder.donationTogo.setText("$ " + patient.getDonationToGo()
+				+ " to go");// TODO will be externalized String as template
+							// string
+
+		// medical need
 		viewHolder.medicalNeed.setText(patient.getMedicalNeed());
-		if(patient.isFullyFunded()) {
-			
-			viewHolder.donationProgress.setProgressDrawable(fullyFundedProgressDrawable);
-		}else {
-			viewHolder.donationProgress.setProgressDrawable(inProgressDrawable);
-		}
-		
-		return convertView;
 
+		Drawable progressDrawable = null;
+
+		if (patient.isFullyFunded()) {
+			progressDrawable = getContext().getResources().getDrawable(
+					R.drawable.fully_funded_progressbar);
+
+		} else {
+			progressDrawable = getContext().getResources().getDrawable(
+					R.drawable.progressbar);
+		}
+
+		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
+		return convertView;
 	}
 
 }
