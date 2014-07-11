@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.PatientAdapter;
 
@@ -15,6 +13,7 @@ public class PatientListFragment extends Fragment {
 	
 	private PatientAdapter patientAdapter;
 	private ListView listView;
+	//private PullToRefreshLayout pullToRefreshLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +29,13 @@ public class PatientListFragment extends Fragment {
 				false);
 		
 		patientAdapter = new PatientAdapter(getActivity());
+	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);
 
 		// Initialize ListView and set initial view to patientAdapter
 		listView = (ListView) v.findViewById(R.id.patient_list);
 		listView.setAdapter(patientAdapter);
 		patientAdapter.loadObjects();
-
+		setupIintialViews();
 		return v;
 	}
 
@@ -47,7 +47,13 @@ public class PatientListFragment extends Fragment {
 	}
 
 	private void setupIintialViews() {
-
+		
+//		 ActionBarPullToRefresh.from(getActivity())
+//         // Mark All Children as pullable
+//         .allChildrenArePullable()
+//         // Set a OnRefreshListener
+//         // Finally commit the setup to our PullToRefreshLayout
+//         .setup(pullToRefreshLayout);
 	}
 
 	public void loadUsers() {

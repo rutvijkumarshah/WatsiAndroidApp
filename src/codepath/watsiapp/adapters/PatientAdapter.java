@@ -62,7 +62,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	 * But will increase no of requests app makes.
 	 * 
 	 */
-	private static final int PAGE_SIZE=6; 
+	private static final int PAGE_SIZE=20; 
 
 	// View lookup cache
 	private static class ViewHolder {
