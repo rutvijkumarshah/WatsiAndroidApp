@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.models.Test;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
