@@ -23,7 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import codepath.watsiapp.models.Patient;
 
@@ -41,5 +44,17 @@ public class Util {
 	    shareIntent.setType("text/plain");
 	    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
 	    activity.startActivity(Intent.createChooser(shareIntent, "Share Story"));		
+	}
+	
+	public static Boolean isNetworkAvailable(Context activity) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) activity
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		boolean isNetworkAvailable = true;
+		NetworkInfo activeNetworkInfo = connectivityManager
+				.getActiveNetworkInfo();
+		isNetworkAvailable = (activeNetworkInfo != null && activeNetworkInfo
+				.isConnectedOrConnecting());
+		return isNetworkAvailable;
 	}
 }

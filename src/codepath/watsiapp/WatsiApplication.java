@@ -38,10 +38,7 @@ public class WatsiApplication extends Application {
 		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
 		
-		  //Create global configuration and initialize ImageLoader with this configuration
-//        DisplayImageOptions options = new DisplayImageOptions.Builder().
-//        		cacheInMemory().cacheOnDisc().build();
-        
+		//Create global configuration and initialize ImageLoader with this configuration
         DisplayImageOptions options = new DisplayImageOptions.Builder()
         	.displayer(new RoundedBitmapDisplayer(100))
         	.cacheInMemory()
@@ -72,8 +69,8 @@ public class WatsiApplication extends Application {
 		ParseObject.registerSubclass(Patient.class);
 		// useful for temporarily storing data to local datastore so that it can
 		// be synced later.
-		Parse.enableLocalDatastore(getApplicationContext());
-
+		//Parse.enableLocalDatastore(getApplicationContext());
+		Parse.enableLocalDatastore(this);
 	}
 
 	

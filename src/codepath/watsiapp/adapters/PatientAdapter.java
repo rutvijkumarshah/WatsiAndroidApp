@@ -22,10 +22,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,11 +34,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
@@ -45,6 +48,21 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	private static final String TAG = "PATIENT_ADAPTER";
 	private FragmentActivity activity;
+	/***
+	 * TODOS
+	 * 
+	 * 1. Show Loading
+	 * 2. Pull to Refresh
+	 * 3. Cleanup pinns on pull to refresh or on new load
+	 */
+	/**
+	 * Trade-off here. 
+	 * 
+	 * Keeping lower number improves startup time specially loading images and animation.
+	 * But will increase no of requests app makes.
+	 * 
+	 */
+	private static final int PAGE_SIZE=6; 
 
 	// View lookup cache
 	private static class ViewHolder {
@@ -60,19 +78,25 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		ImageView shareAction;
 		// DonateShareFragment donanteAndShareFragment;
 	}
-
+	
 	private ViewHolder viewHolder;
 
-	public PatientAdapter(Context context) {
+	public PatientAdapter(Context context,ParseQueryAdapter.QueryFactory<Patient> queryFactory) {
+		//Custom Query
+		super(context,queryFactory); 
+		activity = (FragmentActivity) context;
+		this.setObjectsPerPage(PAGE_SIZE);
+	}
+	
+	public PatientAdapter(final Context context) {
+		
 		// load all patients
 		// if required this is the place to apply where filters on patients list
-		super(context, new ParseQueryAdapter.QueryFactory<Patient>() {
+		this(context, new ParseQueryAdapter.QueryFactory<Patient>() {
 			public ParseQuery create() {
-				return new ParseQuery("Patient")
-						.orderByAscending("isFullyFunded");
+				return new ParseHelper(context).getAllPatientsQuery();
 			}
 		});
-		activity = (FragmentActivity) context;
 	}
 
 	@Override
@@ -81,45 +105,23 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 
-			convertView = View.inflate(getContext(), R.layout.item_patient,
-					null);
-			viewHolder.name = (TextView) convertView.findViewById(R.id.name);
-			viewHolder.age = (TextView) convertView.findViewById(R.id.age);
-			viewHolder.location = (TextView) convertView
-					.findViewById(R.id.location);
-			viewHolder.percentageFunded = (TextView) convertView
-					.findViewById(R.id.percent_funded);
-
-			viewHolder.donationTogo = (TextView) convertView
-					.findViewById(R.id.donation_togo);
-
-			viewHolder.medicalNeed = (TextView) convertView
-					.findViewById(R.id.medicalNeeds);
-
-			viewHolder.patientPhoto = (ImageView) convertView
-					.findViewById(R.id.progressBarImageView);
-
-			viewHolder.donationProgress = (ProgressBar) convertView
-					.findViewById(R.id.progressBarToday);
-
-			viewHolder.donateBtn = (Button) convertView
-					.findViewById(R.id.donateBtn);
-			viewHolder.shareAction = (ImageView) convertView
-					.findViewById(R.id.shareIv);
-
-			convertView.setTag(viewHolder);
+			convertView = buildViewHolder();
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
-		} // Add and download the image
+		}
+		setupUI(patient);
+		return convertView;
+	}
 
+	private void setupUI(final Patient patient) {
+		
+		 // Add and download the image
 		// patient photo
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader
 				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
 
 		int donationProgressPecentage = patient.getDonationProgressPecentage();
-		Log.d(TAG, "NAME=" + patient.getFullName() + " : progress%="
-				+ donationProgressPecentage);
 		// donation progress
 		viewHolder.donationProgress.setProgress(donationProgressPecentage);
 
@@ -165,7 +167,6 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 		viewHolder.donateBtn.setTag(patient);
 		viewHolder.shareAction.setTag(patient);
-
 		viewHolder.shareAction.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -182,6 +183,63 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 				Util.startFundTreatmentIntent(activity,(Patient)v.getTag());
 			}
 		});
+		
+		this.addOnQueryLoadListener(new OnQueryLoadListener<Patient>() {
+
+			
+
+			@Override
+			public void onLoaded(List<Patient> patients, Exception exp) {
+				// TODO Auto-generated method stub
+				if(exp == null) {
+					try {
+						Patient.pinAll(patients);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}else {
+					
+				}
+				
+			}
+
+			@Override
+			public void onLoading() {
+				
+				
+			}
+		});
+	}
+
+	private View buildViewHolder() {
+		View convertView;
+		convertView = View.inflate(getContext(), R.layout.item_patient,
+				null);
+		viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+		viewHolder.age = (TextView) convertView.findViewById(R.id.age);
+		viewHolder.location = (TextView) convertView
+				.findViewById(R.id.location);
+		viewHolder.percentageFunded = (TextView) convertView
+				.findViewById(R.id.percent_funded);
+
+		viewHolder.donationTogo = (TextView) convertView
+				.findViewById(R.id.donation_togo);
+
+		viewHolder.medicalNeed = (TextView) convertView
+				.findViewById(R.id.medicalNeeds);
+
+		viewHolder.patientPhoto = (ImageView) convertView
+				.findViewById(R.id.progressBarImageView);
+
+		viewHolder.donationProgress = (ProgressBar) convertView
+				.findViewById(R.id.progressBarToday);
+
+		viewHolder.donateBtn = (Button) convertView
+				.findViewById(R.id.donateBtn);
+		viewHolder.shareAction = (ImageView) convertView
+				.findViewById(R.id.shareIv);
+
+		convertView.setTag(viewHolder);
 		return convertView;
 	}
 
