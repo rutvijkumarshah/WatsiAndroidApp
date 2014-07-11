@@ -14,6 +14,7 @@ public class PatientListFragment extends Fragment {
 	private PatientAdapter patientAdapter;
 	private ListView listView;
 	//private PullToRefreshLayout pullToRefreshLayout;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,9 @@ public class PatientListFragment extends Fragment {
 		
 		patientAdapter = new PatientAdapter(getActivity());
 	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);
-
+	    
+	    //pullToRefreshAttacher = pullToRefreshLayout.createPullToRefreshAttacher(getActivity(), null);
+	    
 		// Initialize ListView and set initial view to patientAdapter
 		listView = (ListView) v.findViewById(R.id.patient_list);
 		listView.setAdapter(patientAdapter);
@@ -48,6 +51,7 @@ public class PatientListFragment extends Fragment {
 
 	private void setupIintialViews() {
 		
+		
 //		 ActionBarPullToRefresh.from(getActivity())
 //         // Mark All Children as pullable
 //         .allChildrenArePullable()
@@ -56,8 +60,6 @@ public class PatientListFragment extends Fragment {
 //         .setup(pullToRefreshLayout);
 	}
 
-	public void loadUsers() {
-	}
 
 	public static PatientListFragment newInstance() {
 		PatientListFragment fragment = new PatientListFragment();

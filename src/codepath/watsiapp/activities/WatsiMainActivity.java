@@ -17,6 +17,7 @@ public class WatsiMainActivity extends FragmentActivity {
 	private ViewPager vpPager;
 	private PatientsPagerAdapter adapterViewPager;
 	private PagerSlidingTabStrip tabs;
+	
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,10 @@ public class WatsiMainActivity extends FragmentActivity {
 		vpPager = (ViewPager) findViewById(R.id.viewPager);
 		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());
 		vpPager.setAdapter(adapterViewPager);
-		
 		setupSlidingTabs(vpPager);
 	}
-
+	
+	
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
         tabs.setViewPager(vpPager);

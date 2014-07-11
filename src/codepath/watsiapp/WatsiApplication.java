@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.models.Test;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,6 +36,7 @@ public class WatsiApplication extends Application {
 
 		// If you would like all objects to be private by default, remove this
 		// line.
+		//These line MUST be commented out if anonymous user needs to save any object in future.
 		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
 		
