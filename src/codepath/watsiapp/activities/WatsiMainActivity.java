@@ -66,6 +66,7 @@ public class WatsiMainActivity extends FragmentActivity {
 				return PatientFeedFragment.newInstance();
 			case 1: 
 				return PatientListFragment.newInstance();
+				
 			default:
 				return null;
 			}

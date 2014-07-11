@@ -80,7 +80,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	}
 	
 	private ViewHolder viewHolder;
-
+	
 	public PatientAdapter(Context context,ParseQueryAdapter.QueryFactory<Patient> queryFactory) {
 		//Custom Query
 		super(context,queryFactory); 
@@ -184,31 +184,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 			}
 		});
 		
-		this.addOnQueryLoadListener(new OnQueryLoadListener<Patient>() {
 
-			
-
-			@Override
-			public void onLoaded(List<Patient> patients, Exception exp) {
-				// TODO Auto-generated method stub
-				if(exp == null) {
-					try {
-						Patient.pinAll(patients);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}else {
-					
-				}
-				
-			}
-
-			@Override
-			public void onLoading() {
-				
-				
-			}
-		});
 	}
 
 	private View buildViewHolder() {
