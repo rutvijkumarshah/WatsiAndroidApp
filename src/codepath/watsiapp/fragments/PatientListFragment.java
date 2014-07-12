@@ -2,24 +2,28 @@ package codepath.watsiapp.fragments;
 
 import java.util.List;
 
-import com.parse.ParseException;
-import com.parse.ParseQueryAdapter.OnQueryLoadListener;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.PatientAdapter;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.EndlessScrollListener;
+
+import com.parse.ParseException;
+import com.parse.ParseQueryAdapter.OnQueryLoadListener;
+
+import eu.erikw.PullToRefreshListView;
+import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class PatientListFragment extends Fragment {
 	
 	private PatientAdapter patientAdapter;
-	private ListView listView;
+	//private ListView listView;
+	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	//private PullToRefreshLayout pullToRefreshLayout;
 	
@@ -44,6 +48,7 @@ public class PatientListFragment extends Fragment {
 			@Override
 			public void onLoaded(List<Patient> patients, Exception exp) {
 				progressBar.setVisibility(View.INVISIBLE);
+				listView.onRefreshComplete();
 				if(exp == null) {
 					try {
 						Patient.pinAll(patients);
@@ -61,12 +66,10 @@ public class PatientListFragment extends Fragment {
 				progressBar.setVisibility(View.VISIBLE);
 			}
 		});
-	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);
-	    
+	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);   
 	    //pullToRefreshAttacher = pullToRefreshLayout.createPullToRefreshAttacher(getActivity(), null);
-	    
 		// Initialize ListView and set initial view to patientAdapter
-		listView = (ListView) v.findViewById(R.id.patient_list);
+		listView = (PullToRefreshListView) v.findViewById(R.id.patient_list);
 		listView.setAdapter(patientAdapter);
 		//patientAdapter.loadObjects();
 		setupIintialViews();
@@ -80,8 +83,26 @@ public class PatientListFragment extends Fragment {
 	}
 
 	private void setupIintialViews() {
-		
 
+		listView.setOnScrollListener(new EndlessScrollListener() {
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				if(totalItemsCount > 0) {
+					/***
+					 * FIX_REQUIRED : throws IndexOutOfBound alternatively.
+					 */
+					//patientAdapter.loadNextPage();
+				}
+			}
+
+		});
+		listView.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				patientAdapter.clear();
+				patientAdapter.loadObjects();
+			}
+		});
 		
 //		 ActionBarPullToRefresh.from(getActivity())
 //         // Mark All Children as pullable

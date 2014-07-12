@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
@@ -40,7 +38,6 @@ import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
@@ -50,9 +47,6 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	private FragmentActivity activity;
 	/***
 	 * TODOS
-	 * 
-	 * 1. Show Loading
-	 * 2. Pull to Refresh
 	 * 3. Cleanup pinns on pull to refresh or on new load
 	 */
 	/**
@@ -62,7 +56,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	 * But will increase no of requests app makes.
 	 * 
 	 */
-	private static final int PAGE_SIZE=20; 
+	public static final int PAGE_SIZE=3; 
 
 	// View lookup cache
 	private static class ViewHolder {

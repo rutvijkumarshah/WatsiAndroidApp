@@ -34,10 +34,9 @@ public class WatsiMainActivity extends FragmentActivity {
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
         tabs.setViewPager(vpPager);
-        tabs.setTextColor(getResources().getColor(android.R.color.holo_red_light));
-
-        tabs.setIndicatorColor(getResources().getColor(android.R.color.holo_red_light));
-        tabs.setDividerColor(getResources().getColor(android.R.color.white));
+        tabs.setTextColor(getResources().getColor(R.color.watsi_blue));
+        tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
+        tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
         tabs.setShouldExpand(true);
         tabs.setAllCaps(false); 
         
