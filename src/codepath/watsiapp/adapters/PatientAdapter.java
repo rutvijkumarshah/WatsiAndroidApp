@@ -34,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
+import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
@@ -70,7 +71,9 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		ProgressBar donationProgress;
 		Button donateBtn;
 		ImageView shareAction;
+		String patientId;
 		// DonateShareFragment donanteAndShareFragment;
+		
 	}
 	
 	private ViewHolder viewHolder;
@@ -178,6 +181,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 			}
 		});
 		
+		viewHolder.patientId=patient.getObjectId();
 
 	}
 
@@ -210,6 +214,17 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 				.findViewById(R.id.shareIv);
 
 		convertView.setTag(viewHolder);
+		convertView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				ViewHolder _viewHolder = (ViewHolder) v.getTag();
+				String patientId=_viewHolder.patientId;
+				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+				
+			}
+		});
 		return convertView;
 	}
 
