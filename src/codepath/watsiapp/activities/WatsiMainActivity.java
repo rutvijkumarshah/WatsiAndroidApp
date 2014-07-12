@@ -2,7 +2,6 @@ package codepath.watsiapp.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,7 +12,7 @@ import codepath.watsiapp.fragments.PatientListFragment;
 import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 
-public class WatsiMainActivity extends FragmentActivity {
+public class WatsiMainActivity extends BaseFragmentActivity {
 	private ViewPager vpPager;
 	private PatientsPagerAdapter adapterViewPager;
 	private PagerSlidingTabStrip tabs;
