@@ -6,6 +6,17 @@
     <string name="lblLocation">Location</string>
     <string name="lblMedicalPartner">Medical Partner</string>
     <string name="title_activity_patient_detail">PatientDetail</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <string name="parse_app_id">tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ</string>
+    <string name="parse_client_key">SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS</string>
+    <string name="facebook_app_id">783088611711767</string>
+    <string name="twitter_consumer_key">J6HoDAdr9LfiPQzlXS3AW5nR4</string>
+    <string name="twitter_consumer_secret">I3GbxsVTqp5qBOhPsZTgnxWonrolSzydTXT1he4bev88icjOhY</string>
 
+    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_title_logged_in">Your are logged in as</string>
+    <string name="profile_logout_button_label">Log out</string>
+    <string name="profile_title_logged_out">You must be logged in to view your profile</string>
+    <string name="profile_login_button_label">Log in</string>
+    
 </resources>
