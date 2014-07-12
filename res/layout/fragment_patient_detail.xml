@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivPhoto"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvFirstName"
+        android:layout_alignBottom="@+id/tvFirstName"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tvFirstName"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLastName"
+        android:layout_alignBottom="@+id/tvLastName"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tvLastName"
+        android:text="(" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvAge"
+        android:layout_alignBottom="@+id/tvAge"
+        android:layout_toRightOf="@+id/tvAge"
+        android:text=")" />
+
+    <TextView
+        android:id="@+id/tvDonationStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pbDonationProgress"
+        android:layout_alignRight="@+id/pbDonationProgress"
+        android:layout_below="@+id/pbDonationProgress"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvNumberOfDonors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvDonationStatus"
+        android:layout_below="@+id/tvDonationStatus"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <ProgressBar
+        android:id="@+id/pbDonationProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvFirstName"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_below="@+id/tvFirstName" />
+
+</RelativeLayout>
