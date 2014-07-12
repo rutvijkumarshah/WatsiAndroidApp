@@ -69,7 +69,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+	    <activity
+            android:name="codepath.watsiapp.activities.PatientDetailActivity"
+            android:label="@string/title_activity_patient_detail" >
+        </activity>
+        
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
