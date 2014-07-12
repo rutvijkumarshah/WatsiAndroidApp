@@ -39,7 +39,7 @@ public class WatsiApplication extends Application {
 
 		configurePush();
 
-		ParseUser.enableAutomaticUser();
+		//ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 
 		// If you would like all objects to be private by default, remove this

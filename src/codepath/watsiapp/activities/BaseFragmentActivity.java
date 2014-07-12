@@ -27,8 +27,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 import codepath.watsiapp.R;
+import codepath.watsiapp.utils.Util;
 
 public class BaseFragmentActivity extends FragmentActivity {
 
@@ -62,7 +62,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		final int menuItemId=item.getItemId();
 		if (menuItemId == R.id.action_profileView) {
-			Toast.makeText(getApplicationContext(), "Voila", Toast.LENGTH_LONG).show();
+			Util.showMyProfileActivity(this);
 		}
 		return super.onOptionsItemSelected(item);
 	}
