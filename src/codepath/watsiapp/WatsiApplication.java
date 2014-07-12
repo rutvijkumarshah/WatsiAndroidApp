@@ -39,6 +39,10 @@ public class WatsiApplication extends Application {
 
 		configurePush();
 
+		/**
+		 * We dont need automatic user for our app.
+		 * It creates problem as well for My profile view as PareLogin consider it valid user and does not force user to login.
+		 */
 		//ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 
