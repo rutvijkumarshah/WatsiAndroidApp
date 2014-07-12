@@ -33,11 +33,8 @@ import codepath.watsiapp.R;
 
 import com.parse.ParseUser;
 
-/**
- * Shows the user profile. This simple activity can only function when there is a valid
- * user, so we must protect it with SampleDispatchActivity in AndroidManifest.xml.
- */
-public class SampleProfileActivity extends Activity {
+
+public class DonarProfileActivity extends Activity {
   private TextView titleTextView;
   private TextView emailTextView;
   private TextView nameTextView;
@@ -46,7 +43,7 @@ public class SampleProfileActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_profile);
+    setContentView(R.layout.activity_donor_profile);
     titleTextView = (TextView) findViewById(R.id.profile_title);
     emailTextView = (TextView) findViewById(R.id.profile_email);
     nameTextView = (TextView) findViewById(R.id.profile_name);
@@ -61,8 +58,8 @@ public class SampleProfileActivity extends Activity {
         // FLAG_ACTIVITY_CLEAR_TASK only works on API 11, so if the user
         // logs out on older devices, we'll just exit.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-          Intent intent = new Intent(SampleProfileActivity.this,
-              SampleDispatchActivity.class);
+          Intent intent = new Intent(DonarProfileActivity.this,
+              ParseDispatchActivity.class);
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
               | Intent.FLAG_ACTIVITY_NEW_TASK);
           startActivity(intent);

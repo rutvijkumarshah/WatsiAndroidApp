@@ -34,12 +34,12 @@
             android:launchMode="singleTop"/>
         
          <activity
-            android:name="codepath.watsiapp.activities.SampleDispatchActivity"
+            android:name="codepath.watsiapp.activities.ParseDispatchActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"/>
                 
         <activity
-            android:name="codepath.watsiapp.activities.SampleProfileActivity"
+            android:name="codepath.watsiapp.activities.DonarProfileActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"/>
         

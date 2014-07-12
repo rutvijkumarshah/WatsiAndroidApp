@@ -29,7 +29,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
-import codepath.watsiapp.activities.SampleDispatchActivity;
+import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.Patient;
 
 public class Util {
@@ -41,7 +41,7 @@ public class Util {
 	}
 	public static void showMyProfileActivity(FragmentActivity activity) {
 		
-		activity.startActivity(new Intent(activity,SampleDispatchActivity.class));
+		activity.startActivity(new Intent(activity,ParseDispatchActivity.class));
 	}
 	public static void startShareIntent(Activity activity,Patient patient) {
 		Intent shareIntent = new Intent();

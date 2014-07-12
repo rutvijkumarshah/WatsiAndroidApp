@@ -23,10 +23,20 @@ package codepath.watsiapp.activities;
 
 import com.parse.ui.ParseLoginDispatchActivity;
 
-public class SampleDispatchActivity extends ParseLoginDispatchActivity {
+/***
+ * 
+ * Dispatching to Donor Profile Activity.
+ * 
+ * It checks for ParseUser in current context, if user is not present it shows Login Activity
+ * 
+ * More details on : https://www.parse.com/docs/android_guide#ui
+ * @author Rutvijkumar Shah
+ *
+ */
+public class ParseDispatchActivity extends ParseLoginDispatchActivity {
 
   @Override
   protected Class<?> getTargetClass() {
-    return SampleProfileActivity.class;
+    return DonarProfileActivity.class;
   }
 }
