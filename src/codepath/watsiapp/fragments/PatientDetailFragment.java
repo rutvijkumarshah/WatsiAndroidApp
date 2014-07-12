@@ -8,7 +8,16 @@ import android.view.ViewGroup;
 import codepath.watsiapp.R;
 
 public class PatientDetailFragment extends Fragment {
+	private String patientId;
     @Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		patientId = getArguments().getString("patient_id", "");
+	}
+
+
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
       // Defines the xml file for the fragment
@@ -16,5 +25,14 @@ public class PatientDetailFragment extends Fragment {
       // Setup handles to view objects here
       // etFoo = (EditText) v.findViewById(R.id.etFoo);
       return view;
+    }
+    
+    
+    public static PatientDetailFragment newInstance(String patientId) {
+    	PatientDetailFragment fragmentObj = new PatientDetailFragment();
+        Bundle args = new Bundle();
+        args.putString("patient_id", patientId);
+        fragmentObj.setArguments(args);
+        return fragmentObj;
     }
 }
