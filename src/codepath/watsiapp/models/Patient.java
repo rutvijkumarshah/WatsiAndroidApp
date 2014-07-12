@@ -84,5 +84,12 @@ public class Patient extends ParseObject {
 	public double getDonationToGo() {
 		return getTargetDonation() - getDonationReceived();
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getFullName() +" "+ getProfileUrl()+" "+getAge()+" "+getCountry()+" "+getDonationProgressPecentage();
+	}
+	
 }
 
