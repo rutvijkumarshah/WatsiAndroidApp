@@ -1,19 +1,27 @@
 package codepath.watsiapp.fragments;
 
+import com.parse.ParseObject;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import codepath.watsiapp.R;
+import codepath.watsiapp.models.Patient;
 
 public class PatientDetailFragment extends Fragment {
 	private String patientId;
+	private Patient patientObj;
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		patientId = getArguments().getString("patient_id", "");
+	    // Get patient object based on id that we have got.
+	    patientObj = ParseObject.createWithoutData(Patient.class, patientId);
+	    Log.d("patient Detail", patientObj.toString());
 	}
 
 
