@@ -13,7 +13,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.PushService;
 
@@ -25,8 +27,15 @@ public class WatsiApplication extends Application {
 		parsePreInit();
 
 		// Add your initialization code here
-		Parse.initialize(this, "tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ",
-				"SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS");
+	    Parse.initialize(this, getString(R.string.parse_app_id),
+	            getString(R.string.parse_client_key));
+	    
+	    ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
+
+	    // Optional - If you don't want to allow Twitter login, you can
+	    // remove this line (and other related ParseTwitterUtils calls)
+	    ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
+	        getString(R.string.twitter_consumer_secret));
 
 		configurePush();
 
