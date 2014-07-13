@@ -3,14 +3,15 @@ package codepath.watsiapp.adapters;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
+import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.FeedItem;
@@ -52,12 +53,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	@Override
-	public int getItemViewType(int position) {  
-		NewsItem it = getItem(position);
-		return it.getItemType().ordinal(); 
-	}
-
-	@Override
 	public View getItemView(final NewsItem newsItem, View convertView,
 			ViewGroup parent) {
 		View view = null;
@@ -79,8 +74,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	private View getCampaignContentItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		/*if (convertView == null) {
-			convertView = View.inflate(getContext(),R.layout.item_campaign_news, parent);
+		if (convertView == null ) {
+			convertView = View.inflate(getContext(),R.layout.item_campaign_news, null);
 		}
 		
 		TextView tvHeading = (TextView) convertView.findViewById(R.id.tvCNHeading);
@@ -88,17 +83,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvCNShortMessage);
 		tvShortMessage.setText(newsItem.getCampaignContent());
-		return convertView;*/
-		
-		if (convertView == null) {
-			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
-		}
-		
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
-		tvUserName.setText("You must helo!!");
-		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
-		tvShortMessage.setText("some short message");
 		return convertView;
 	}
 
@@ -132,7 +116,14 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
 				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
 		tvShortMessage.setText(message);
+		
+		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
+		bt.setText("Donate");
+		
+		setPatientNavigation(convertView, patient);
+		
 		return convertView;
+		
 	}
 
 	private View getFullyFundedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
@@ -165,6 +156,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Give Generic Donation!");
+		setPatientNavigation(convertView, patient);
 		return convertView;
 	}
 
@@ -195,14 +187,20 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Help " + patient.getFirstName() + "!");
+		
+		setPatientNavigation(convertView, patient);
 		return convertView;
 	}
 
-	@Override
-	public void loadNextPage() {
-		// TODO Auto-generated method stub
-		super.loadNextPage();
-		Log.d("HOME_FEED_ADAPTER", "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   GOT Called");
-	}
 
+	private void setPatientNavigation(View v, Patient p) {
+		v.setTag(p.getObjectId());
+		v.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String patientId= (String) v.getTag();
+				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+			}
+		});
+	}
 }
