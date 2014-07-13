@@ -26,7 +26,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 
-public class DonarProfileActivity extends FragmentActivity {
+public class DonorProfileActivity extends FragmentActivity {
 	private TextView donarFullName;
 	private TextView memberSinceDate;
 	private TextView totalDonationsAmount;
