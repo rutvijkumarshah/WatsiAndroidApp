@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
+import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.FeedItem;
@@ -117,6 +119,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Donate");
+		
+		setPatientNavigation(convertView, patient);
+		
 		return convertView;
 		
 	}
@@ -151,6 +156,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Give Generic Donation!");
+		setPatientNavigation(convertView, patient);
 		return convertView;
 	}
 
@@ -181,8 +187,20 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Help " + patient.getFirstName() + "!");
+		
+		setPatientNavigation(convertView, patient);
 		return convertView;
 	}
 
 
+	private void setPatientNavigation(View v, Patient p) {
+		v.setTag(p.getObjectId());
+		v.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String patientId= (String) v.getTag();
+				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+			}
+		});
+	}
 }
