@@ -6,6 +6,7 @@ import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.NewsItem;
+import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -15,7 +16,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.PushService;
 
@@ -27,12 +30,23 @@ public class WatsiApplication extends Application {
 		parsePreInit();
 
 		// Add your initialization code here
-		Parse.initialize(this, "tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ",
-				"SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS");
+	    Parse.initialize(this, getString(R.string.parse_app_id),
+	            getString(R.string.parse_client_key));
+	    
+	    ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
+
+	    // Optional - If you don't want to allow Twitter login, you can
+	    // remove this line (and other related ParseTwitterUtils calls)
+	    ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
+	        getString(R.string.twitter_consumer_secret));
 
 		configurePush();
 
-		ParseUser.enableAutomaticUser();
+		/**
+		 * We dont need automatic user for our app.
+		 * It creates problem as well for My profile view as PareLogin consider it valid user and does not force user to login.
+		 */
+		//ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 
 		// If you would like all objects to be private by default, remove this
@@ -72,6 +86,7 @@ public class WatsiApplication extends Application {
 		ParseObject.registerSubclass(Patient.class);
 		ParseObject.registerSubclass(Donation.class);
 		ParseObject.registerSubclass(NewsItem.class);
+		ParseObject.registerSubclass(MedicalPartner.class);
 		// useful for temporarily storing data to local datastore so that it can
 		// be synced later.
 		//Parse.enableLocalDatastore(getApplicationContext());

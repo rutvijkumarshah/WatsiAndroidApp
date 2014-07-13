@@ -32,7 +32,7 @@ public class PatientDetailActivity extends FragmentActivity {
 			String patientId) {
 		Intent detailsIntent = new Intent(currentActivity,
 				PatientDetailActivity.class);
-		detailsIntent.putExtra("patient_Id", patientId);
+		detailsIntent.putExtra("patient_id", patientId);
 		currentActivity.startActivity(detailsIntent);
 	}
 }

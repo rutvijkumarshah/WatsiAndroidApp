@@ -28,6 +28,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
+import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.Patient;
 
 public class Util {
@@ -36,6 +38,10 @@ public class Util {
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
+	}
+	public static void showMyProfileActivity(FragmentActivity activity) {
+		
+		activity.startActivity(new Intent(activity,ParseDispatchActivity.class));
 	}
 	public static void startShareIntent(Activity activity,Patient patient) {
 		Intent shareIntent = new Intent();

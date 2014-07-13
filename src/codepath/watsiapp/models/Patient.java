@@ -3,8 +3,8 @@ package codepath.watsiapp.models;
 
 import java.util.Date;
 
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 /***
@@ -15,11 +15,10 @@ import com.parse.ParseObject;
  */
 @ParseClassName("Patient")
 public class Patient extends ParseObject {
-
 	private static final String EMPTY_STRING="".intern();
 	
-	public MedicalPartner getMedicalPartner() {
-        return (MedicalPartner) getParseObject("medicalPartner");
+	public void getMedicalPartner(GetCallback<MedicalPartner> callBack) {
+		getParseObject("medicalPartner").fetchIfNeededInBackground(callBack);
 	}
 	public String getFirstName() {
 		String fname=getString("firstName");
