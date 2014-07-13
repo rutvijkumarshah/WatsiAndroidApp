@@ -67,11 +67,11 @@ public class ParseHelper {
 		}
 		return newsItemQuery;
 	}
-	public ParseQuery<Donation> getDonationsByDonorId(String donorId) {
-		    Donor donorPointer = new Donor();
-		    donorPointer.setObjectId(donorId);
-		    return getDonationsByDonor(donorPointer);
-	};
+	public ParseQuery<Donation> getDonationsByDonorId(String donorId) {		
+		Donor donor = ParseObject.createWithoutData(Donor.class, donorId);
+		return getDonationsByDonor(donor);	
+	}
+	
 	public ParseQuery<Donation> getDonationsByDonor(Donor donor) {
 		if(Util.isNetworkAvailable(context)) {
 			ParseQuery<Donation> donationsByDonorId= new ParseQuery("Donation");

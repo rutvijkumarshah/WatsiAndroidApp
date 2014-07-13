@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageArea"
         android:layout_toRightOf="@+id/imageArea"
-        android:text="Balika fasfaskfasf"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
      />
 
@@ -54,7 +54,7 @@
         android:layout_alignBottom="@+id/age"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/age"
-        android:text="Nepal"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/percent_funded"
         android:layout_toRightOf="@+id/percent_funded"
-        android:text="$500 to go"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_alignBottom="@+id/imageArea"
         android:layout_alignLeft="@+id/age"
         android:layout_alignStart="@+id/age"
-        android:text="60% Funded"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -84,7 +84,7 @@
         android:layout_alignStart="@+id/name"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/imageArea"
-        android:text="4 Years"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -94,7 +94,7 @@
         android:layout_below="@+id/imageArea"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
-        android:text="Medical need will go here should be max two lines text with elipses"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <RelativeLayout 

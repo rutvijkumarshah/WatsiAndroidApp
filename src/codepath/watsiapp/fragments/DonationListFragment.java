@@ -33,7 +33,6 @@ import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.DonationAdapter;
 import codepath.watsiapp.models.Donation;
-import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
 import com.parse.ParseException;
@@ -48,11 +47,14 @@ public class DonationListFragment extends Fragment {
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	private String donorId;
+	private static final String DONOR_ID="DONOR_ID";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		donorId = getArguments().getString("donor_id");
+		Bundle bundle=getArguments();
+		String donor__id = bundle.getString(DONOR_ID);
+		this.donorId=donor__id;
 	}
 
 
@@ -123,7 +125,7 @@ public class DonationListFragment extends Fragment {
 	public static DonationListFragment newInstance(String donorId) {
 		DonationListFragment fragment = new DonationListFragment();
 		Bundle args = new Bundle();
-		args.putString("donar_id", donorId);
+		args.putString(DONOR_ID, donorId);
 		fragment.setArguments(args);
 		return fragment;
 	}

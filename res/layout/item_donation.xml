@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:layout_alignTop="@+id/progressBarImageView"
         android:layout_toRightOf="@+id/progressBarImageView"
-        android:text="Rutvij Shah"
+        android:text=""
      />
     <TextView
         android:id="@+id/donationAmount"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     	android:layout_alignBottom="@+id/progressBarImageView"
-        android:text="$30"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge"
      />
 
@@ -43,7 +43,7 @@
         android:layout_alignBottom="@+id/name"
         android:layout_alignEnd="@+id/progressBarImageView"
         android:layout_alignParentRight="true"
-        android:text="Nov 18 2013"
+        android:text=""
         android:layout_marginRight="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
