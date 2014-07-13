@@ -23,10 +23,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp;
 
 import android.content.Context;
+import codepath.watsiapp.models.Donation;
+import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class ParseHelper {
@@ -63,6 +66,26 @@ public class ParseHelper {
 			newsItemQuery.fromLocalDatastore();
 		}
 		return newsItemQuery;
+	}
+	public ParseQuery<Donation> getDonationsByDonorId(String donorId) {
+		    Donor donorPointer = new Donor();
+		    donorPointer.setObjectId(donorId);
+		    return getDonationsByDonor(donorPointer);
 	};
+	public ParseQuery<Donation> getDonationsByDonor(Donor donor) {
+		if(Util.isNetworkAvailable(context)) {
+			ParseQuery<Donation> donationsByDonorId= new ParseQuery("Donation");
+			donationsByDonorId.whereEqualTo("donor", donor);
+			return donationsByDonorId;
+		}
+		return null;
+	};
+	public  ParseQuery<Donor> findDonorByEmail(String emailAddress){
 	
+		ParseQuery<Donor> query= new ParseQuery("Donor");
+		query.whereEqualTo("email", emailAddress);
+		
+		return query;
+
+	}
 }

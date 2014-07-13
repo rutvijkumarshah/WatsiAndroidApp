@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+    <ImageView
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/progressBarImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/profile_img"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/progressBarImageView"
+        android:layout_toRightOf="@+id/progressBarImageView"
+        android:text="Rutvij Shah"
+     />
+    <TextView
+        android:id="@+id/donationAmount"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    	android:layout_alignBottom="@+id/progressBarImageView"
+        android:text="$30"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+     />
+
+    <TextView
+        android:id="@+id/donation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignBottom="@+id/name"
+        android:layout_alignEnd="@+id/progressBarImageView"
+        android:layout_alignParentRight="true"
+        android:text="Nov 18 2013"
+        android:layout_marginRight="8dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

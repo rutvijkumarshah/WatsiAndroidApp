@@ -94,5 +94,9 @@
         android:layout_below="@+id/stats"
         android:layout_alignParentLeft="true"
         android:background="@android:color/darker_gray" />
+    
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/donations">
+        
+    </FrameLayout>
 
 </RelativeLayout>

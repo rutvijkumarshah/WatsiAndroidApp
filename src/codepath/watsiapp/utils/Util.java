@@ -30,7 +30,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import codepath.watsiapp.activities.ParseDispatchActivity;
+import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.Patient;
+
+import com.parse.ParseQuery;
 
 public class Util {
 
@@ -63,4 +66,5 @@ public class Util {
 				.isConnectedOrConnecting());
 		return isNetworkAvailable;
 	}
+	
 }

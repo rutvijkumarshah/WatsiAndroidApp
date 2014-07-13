@@ -40,4 +40,6 @@ public class Donor extends ParseObject {
 		put("email", value);
 	}
 	
+	
+	
 }
