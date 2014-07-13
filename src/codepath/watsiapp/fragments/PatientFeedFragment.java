@@ -1,9 +1,7 @@
 package codepath.watsiapp.fragments;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.parse.ParseException;
-import com.parse.ParseQueryAdapter.OnQueryLoadListener;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.HomeFeedAdapter;
-import codepath.watsiapp.adapters.PatientAdapter;
 import codepath.watsiapp.models.NewsItem;
-import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.EndlessScrollListener;
+
+import com.parse.ParseException;
+import com.parse.ParseQueryAdapter.OnQueryLoadListener;
+
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
@@ -43,18 +42,23 @@ public class PatientFeedFragment extends Fragment {
 		patientFeedAdapter.addOnQueryLoadListener(new OnQueryLoadListener<NewsItem>() {
 
 			@Override
-			public void onLoaded(List<NewsItem> patients, Exception exp) {
+			public void onLoaded(List<NewsItem> newsItems, Exception exp) {
 				progressBar.setVisibility(View.INVISIBLE);
 				listView.onRefreshComplete();
 				if(exp == null) {
 					try {
-						NewsItem.pinAll(patients);
+						ArrayList<NewsItem> list = new ArrayList<NewsItem>();
+						for (NewsItem newsItem : newsItems) {
+							if (newsItem != null) {
+								list.add(newsItem);
+							}
+						}
+						NewsItem.pinAll(list);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 				}else {
-					//TODO:RUTVIJ
-					//SHOW Failure Toast
+					// TODO:  Failure Toast
 				}
 			}
 
@@ -63,37 +67,20 @@ public class PatientFeedFragment extends Fragment {
 				progressBar.setVisibility(View.VISIBLE);
 			}
 		});
-	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);   
-	    //pullToRefreshAttacher = pullToRefreshLayout.createPullToRefreshAttacher(getActivity(), null);
-		// Initialize ListView and set initial view to patientAdapter
+	 
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_feed_list);
 		listView.setAdapter(patientFeedAdapter);
-		//patientAdapter.loadObjects();
 		setupIintialViews();
 		return v;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		setupIintialViews();
 	}
 
 	private void setupIintialViews() {
-		
-		listView.setOnScrollListener(new EndlessScrollListener() {
-			@Override
-			public void onLoadMore(int page, int totalItemsCount) {
-				if(totalItemsCount > 0) {
-					/***
-					 * FIX_REQUIRED : throws IndexOutOfBound alternatively.
-					 */
-					//patientAdapter.loadNextPage();
-				}
-			}
-
-		});
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -102,9 +89,6 @@ public class PatientFeedFragment extends Fragment {
 			}
 		});
 
-	}
-
-	public void loadUsers() {
 	}
 
 	public static PatientFeedFragment newInstance() {
