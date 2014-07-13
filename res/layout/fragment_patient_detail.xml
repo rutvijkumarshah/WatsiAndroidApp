@@ -115,7 +115,7 @@
             android:layout_alignBottom="@+id/tvMedicalPartner"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/tvMedicalPartner"
-            android:text="Work in Progress" />
+            android:text="" />
 
         <TextView
             android:id="@+id/tvDescription"
