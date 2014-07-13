@@ -40,24 +40,6 @@
         android:layout_toRightOf="@+id/profilePic"
         android:text="Member since"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tv_treatmentsfunded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_membersince"
-        android:layout_toRightOf="@+id/profilePic"
-        android:text="Treatments Funded"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tv_no_of_treatmentsfunded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_membersince_dt"
-        android:layout_toRightOf="@+id/tv_treatmentsfunded"
-        android:text="18"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <View
         android:id="@+id/divider_up"
@@ -68,32 +50,49 @@
         android:layout_marginTop="19dp"
         android:background="@android:color/darker_gray" />
 
+    <LinearLayout android:orientation="horizontal"
+        android:id="@+id/stats"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider_up"
+        >
+
+        <TextView
+            android:id="@+id/total_donation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$2893"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" donated for"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_noof_treatments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Treatments"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+    </LinearLayout>
     <View
         android:id="@+id/divder_down"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/stats"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/divider_up"
-        android:layout_marginTop="56dp"
         android:background="@android:color/darker_gray" />
 
-    <TextView
-        android:id="@+id/funded_total_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/divider_up"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    
-    
-        <View
-            android:id="@+id/statsDivider"
-            android:layout_width="1dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray" />
 </RelativeLayout>
