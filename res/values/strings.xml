@@ -17,7 +17,7 @@
     <string name="twitter_consumer_key">J6HoDAdr9LfiPQzlXS3AW5nR4</string>
     <string name="twitter_consumer_secret">I3GbxsVTqp5qBOhPsZTgnxWonrolSzydTXT1he4bev88icjOhY</string>
 
-    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_logo_content_description">Watsi</string>
     <string name="profile_title_logged_in">Your are logged in as</string>
     <string name="profile_logout_button_label">Log out</string>
     <string name="profile_title_logged_out">You must be logged in to view your profile</string>

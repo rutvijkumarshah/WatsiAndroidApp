@@ -57,9 +57,6 @@
                 android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_ENABLED"
                 android:value="true" />
             <meta-data
-                android:name="com.parse.ui.ParseLoginActivity.TWITTER_LOGIN_ENABLED"
-                android:value="true" />
-            <meta-data
         android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_PERMISSIONS"
         android:resource="@array/my_facebook_permissions"/>
         </activity>
