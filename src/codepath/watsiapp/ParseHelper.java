@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp;
 
 import android.content.Context;
+import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
@@ -52,4 +53,16 @@ public class ParseHelper {
 		}
 		return patientQuery;
 	};
+	
+	
+	public  ParseQuery<NewsItem> getAllNewsFeedItem() {
+		ParseQuery<NewsItem> newsItemQuery= new ParseQuery("NewsItem");
+		newsItemQuery.orderByAscending("updatedAt");
+		if(!Util.isNetworkAvailable(context)) {
+			// TODO : check if this is working
+			newsItemQuery.fromLocalDatastore();
+		}
+		return newsItemQuery;
+	};
+	
 }

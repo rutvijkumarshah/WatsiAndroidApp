@@ -1,6 +1,5 @@
 package codepath.watsiapp.models;
 
-import android.view.View;
 
 public interface FeedItem {
 	
@@ -8,14 +7,11 @@ public interface FeedItem {
 	 * Describes the type of feed item
 	 */
 	public enum ItemType {
-		PATIENT,
-		DONOR,
+		CAMPAIGN_CONTENT,
+		DONATION_RAISED,
+		FULLY_FUNDED,
+		ON_BOARDED,
 	}
-	
-	/**
-	 * Method to inflate this item
-	 */
-	public View getInflatedLayoutForType();
 
 	public ItemType getItemType();
 }

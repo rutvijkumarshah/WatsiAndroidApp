@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="3dp"
+    android:background="#ffffff"
+    android:layout_marginTop="3dp"
+    tools:ignore="UnusedAttribute,HardcodedText" >
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="ProfileImage"
+        android:focusable="false"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/ivProfileImage"
+        android:text="@string/lableUserName"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvShortMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_below="@+id/tvUserName"
+        android:layout_marginTop="3dp"
+        android:autoLink="all"
+        android:fontFamily="monotype"
+        android:linksClickable="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btNewsAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ivProfileImage"
+        android:layout_below="@+id/tvShortMessage"
+        android:focusable="false"
+        android:text="@string/lblBtNewsAction" />
+    
+</RelativeLayout>

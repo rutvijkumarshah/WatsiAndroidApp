@@ -110,7 +110,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		return convertView;
 	}
 
-	private void setupUI(final Patient patient) {
+	private void setupUI(final Patient patient) {  
 		
 		 // Add and download the image
 		// patient photo

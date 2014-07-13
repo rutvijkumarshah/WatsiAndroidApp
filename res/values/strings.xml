@@ -7,5 +7,8 @@
     <string name="lblMedicalPartner">Medical Partner</string>
     <string name="title_activity_patient_detail">PatientDetail</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="lableUserName">User!</string>
+    <string name="lblBtNewsAction">Donate !</string>
+    <string name="lblNewsHeading">You can make a difference !</string>
+    
 </resources>
