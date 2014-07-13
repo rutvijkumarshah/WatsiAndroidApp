@@ -18,6 +18,14 @@ public class MedicalPartner extends ParseObject {
 		put("name", value);
 	}
 	
+	public String getDescription() {
+		return getString("description");
+	}
+
+	public void setDescription(String value) {
+		put("description", value);
+	}
+	
 	public String getWebsiteUrl() {
 		return getString("websiteUrl");
 	}
