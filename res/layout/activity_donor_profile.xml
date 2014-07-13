@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/profilePic"
-        android:text="Rutvij Shah"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_alignBottom="@+id/tv_membersince"
         android:layout_marginLeft="14dp"
         android:layout_toRightOf="@+id/tv_membersince"
-        android:text="8 Nov 2012"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -62,7 +62,7 @@
             android:id="@+id/total_donation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$2893"
+            android:text="$ 0"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -74,9 +74,10 @@
 
         <TextView
             android:id="@+id/tv_noof_treatments"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18"
+            android:text="0"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -95,7 +96,11 @@
         android:layout_alignParentLeft="true"
         android:background="@android:color/darker_gray" />
     
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/donations">
+    <FrameLayout
+         android:layout_below="@+id/divder_down"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" 
+         android:id="@+id/donations">
         
     </FrameLayout>
 

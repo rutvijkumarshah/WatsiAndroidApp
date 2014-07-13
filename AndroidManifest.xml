@@ -39,7 +39,7 @@
             android:launchMode="singleTop"/>
                 
         <activity
-            android:name="codepath.watsiapp.activities.DonarProfileActivity"
+            android:name="codepath.watsiapp.activities.DonorProfileActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"/>
         

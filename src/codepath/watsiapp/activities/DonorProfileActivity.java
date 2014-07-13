@@ -1,29 +1,7 @@
-/*
- *  Copyright (c) 2014, Facebook, Inc. All rights reserved.
- *
- *  You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
- *  copy, modify, and distribute this software in source code or binary form for use
- *  in connection with the web services and APIs provided by Facebook.
- *
- *  As with any software that integrates with the Facebook platform, your use of
- *  this software is subject to the Facebook Developer Principles and Policies
- *  [http://developers.facebook.com/policy/]. This copyright notice shall be
- *  included in all copies or substantial portions of the software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- *  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- *  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- *  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- */
-
 package codepath.watsiapp.activities;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import android.os.Bundle;
@@ -36,21 +14,19 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.DonationListFragment;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.Util;
 
 import com.facebook.Request;
 import com.facebook.Response;
-import com.facebook.Session;
 import com.facebook.model.GraphUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 
-public class DonarProfileActivity extends FragmentActivity {
+public class DonorProfileActivity extends FragmentActivity {
 	private TextView donarFullName;
 	private TextView memberSinceDate;
 	private TextView totalDonationsAmount;
@@ -91,6 +67,7 @@ public class DonarProfileActivity extends FragmentActivity {
 			String email = null;
 			if (fullName != null) {
 				donarFullName.setText(fullName);
+				memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
 				donorId = user.getString("donorId");
 				email = user.getString("email");
 
@@ -106,9 +83,12 @@ public class DonarProfileActivity extends FragmentActivity {
 
 				} else {
 					user.getUsername();
+					
+				}
+				if(donorId!=null) {
+					setDonationsFragment(donorId);
 				}
 				
-				setDonationsFragment(donorId);
 				
 			}
 
@@ -130,8 +110,9 @@ public class DonarProfileActivity extends FragmentActivity {
 				totalDonations+=donation.getDonationAmount();
 				treatments.add(donation.getPatient().getObjectId());
 			}
-			totalDonationsAmount.setText(String.valueOf(totalDonations));
+			totalDonationsAmount.setText("$ "+String.valueOf(totalDonations));
 			totalTreatmentsFunded.setText(String.valueOf(treatments.size()));
+			setDonationsFragment(donorId);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

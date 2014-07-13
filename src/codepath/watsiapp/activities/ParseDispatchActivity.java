@@ -37,6 +37,6 @@ public class ParseDispatchActivity extends ParseLoginDispatchActivity {
 
   @Override
   protected Class<?> getTargetClass() {
-    return DonarProfileActivity.class;
+    return DonorProfileActivity.class;
   }
 }

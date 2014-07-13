@@ -22,6 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,14 +33,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import codepath.watsiapp.activities.ParseDispatchActivity;
-import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.Patient;
-
-import com.parse.ParseQuery;
 
 public class Util {
 
-	
+	private static final String DATE_FORMAT = "MMM dd yyyy";	
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
@@ -67,4 +67,11 @@ public class Util {
 		return isNetworkAvailable;
 	}
 	
+	public static String getFormatedDate(Date date) {
+		
+		SimpleDateFormat sf = new SimpleDateFormat(DATE_FORMAT);
+		sf.setLenient(true);
+		return sf.format(date);
+		
+	}
 }

@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import java.util.Date;
+
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -34,6 +36,7 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.GetCallback;
@@ -79,13 +82,13 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		setupUI(Donation);
+		setupUI(Donation,viewHolder);
 		return convertView;
 	}
 
-	private void setupUI(final Donation donation) {
+	private void setupUI(final Donation donation,final ViewHolder vh) {
 
-		final ViewHolder vh = viewHolder;
+		
 		// Add and download the image
 		// Donation photo
 		final ImageLoader imageLoader = ImageLoader.getInstance();
@@ -96,21 +99,23 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 				// TODO Auto-generated method stub
 				if (exp == null) {
 					imageLoader.displayImage(patient.getPhotoUrl(),
-							viewHolder.patientPhoto);
+							vh.patientPhoto);
 
 					// name
-					viewHolder.patientName.setText(patient.getFullName());
+					vh.patientName.setText(patient.getFullName());
 
-					viewHolder.patientId = patient.getObjectId();
+					vh.patientId = patient.getObjectId();
 
 				}
 
 			}
 		});
 
-		viewHolder.donationAmount.setText(String.valueOf(donation
+		vh.donationAmount.setText(String.valueOf("$ "+donation
 				.getDonationAmount()));
-		viewHolder.donationDate.setText(donation.getDonationDate().toString());
+		
+		Date dt=donation.getUpdatedAt();
+		vh.donationDate.setText(Util.getFormatedDate(dt));
 
 	}
 
