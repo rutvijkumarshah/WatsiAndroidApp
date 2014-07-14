@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +15,7 @@ import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.FeedItem;
+import codepath.watsiapp.models.FeedItem.ItemType;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
@@ -28,6 +29,15 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private FragmentActivity activity;
 	public static final int PAGE_SIZE = 4; 
 
+	class InfoHolder{
+		InfoHolder(String patientId, ItemType itemType){
+			this.patientId=patientId;
+			this.itemType=itemType;
+		}
+		String patientId;
+		ItemType itemType;
+	}
+	
 	public HomeFeedAdapter(Context context,ParseQueryAdapter.QueryFactory<NewsItem> queryFactory) {
 		//Custom Query
 		super(context,queryFactory); 
@@ -74,7 +84,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	private View getCampaignContentItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		if (convertView == null ) {
+		ItemType itemType=ItemType.CAMPAIGN_CONTENT;
+		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
 			convertView = View.inflate(getContext(),R.layout.item_campaign_news, null);
 		}
 		
@@ -83,11 +94,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvCNShortMessage);
 		tvShortMessage.setText(newsItem.getCampaignContent());
+		setTag(convertView, null, itemType);
 		return convertView;
 	}
 
 	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		if (convertView == null) {
+		ItemType itemType=ItemType.DONATION_RAISED;
+		if (convertView == null|| !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
 			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
 		}
 		
@@ -120,14 +133,15 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Donate");
 		
-		setPatientNavigation(convertView, patient);
+		setPatientNavigation(convertView, patient,itemType);
 		
 		return convertView;
 		
 	}
 
 	private View getFullyFundedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		if (convertView == null) {
+		ItemType itemType=ItemType.FULLY_FUNDED;
+		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
 			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
 		}
 		
@@ -156,12 +170,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Give Generic Donation!");
-		setPatientNavigation(convertView, patient);
+		setPatientNavigation(convertView, patient,itemType);
 		return convertView;
 	}
 
 	private View getOnBoardedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		if (convertView == null) {
+		ItemType itemType=ItemType.ON_BOARDED;
+		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
 			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
 		}
 		
@@ -188,17 +203,22 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
 		bt.setText("Help " + patient.getFirstName() + "!");
 		
-		setPatientNavigation(convertView, patient);
+		setPatientNavigation(convertView, patient,itemType);
 		return convertView;
 	}
 
 
-	private void setPatientNavigation(View v, Patient p) {
-		v.setTag(p.getObjectId());
+	private void setTag(View v, String patientId,ItemType type) {
+		v.setTag(new InfoHolder(patientId,type));
+	}
+	
+	private void setPatientNavigation(View v, Patient p,ItemType type) {
+		
+		setTag(v, p.getObjectId(), type);
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String patientId= (String) v.getTag();
+				String patientId= ((InfoHolder) v.getTag()).patientId;
 				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
 			}
 		});

@@ -47,8 +47,6 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	private static final String TAG = "PATIENT_ADAPTER";
 	private FragmentActivity activity;
 	/***
-	 * TODOS
-	 * 3. Cleanup pinns on pull to refresh or on new load
 	 */
 	/**
 	 * Trade-off here. 
@@ -57,7 +55,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	 * But will increase no of requests app makes.
 	 * 
 	 */
-	public static final int PAGE_SIZE=3; 
+	public static final int PAGE_SIZE=20; 
 
 	// View lookup cache
 	private static class ViewHolder {
@@ -228,22 +226,5 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		return convertView;
 	}
 
-//	private DonateShareFragment setDonateAndShareFragment(Patient patient) {
-//
-//		DonateShareFragment donateShare = DonateShareFragment
-//				.newInstance(patient);
-//		// Begin the transaction
-//		FragmentTransaction ft = activity.getSupportFragmentManager()
-//				.beginTransaction();
-//
-//		// Replace the container with the new fragment
-//		ft.add(R.id.hostOfShareDonateFragment, donateShare);
-//		// or ft.add(R.id.your_placeholder, new FooFragment());
-//		// Execute the changes specified
-//		ft.commit();
-//
-//		return donateShare;
-//
-//	}
 
 }
