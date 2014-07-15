@@ -94,7 +94,7 @@ public class PatientDetailFragment extends Fragment {
         .bitmapConfig(Bitmap.Config.RGB_565)
     	.build();
 		imageLoader.displayImage(patientObj.getPhotoUrl(), patientPhoto,options);
-		story.setText(patientObj.getStory());
+		story.setText(patientObj.getStory().replace("#$#$", "\n"));
 		return view;
 	}
 
