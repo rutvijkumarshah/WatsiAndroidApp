@@ -1,10 +1,14 @@
 package codepath.watsiapp.fragments;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -83,7 +87,13 @@ public class PatientDetailFragment extends Fragment {
 			}
 		});
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(patientObj.getPhotoUrl(), patientPhoto);
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+    	.cacheInMemory()
+    	.cacheOnDisc()
+    	.imageScaleType(ImageScaleType.EXACTLY)
+        .bitmapConfig(Bitmap.Config.RGB_565)
+    	.build();
+		imageLoader.displayImage(patientObj.getPhotoUrl(), patientPhoto,options);
 		story.setText(patientObj.getStory());
 		return view;
 	}
