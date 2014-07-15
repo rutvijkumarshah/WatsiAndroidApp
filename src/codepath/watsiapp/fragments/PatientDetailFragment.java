@@ -79,11 +79,18 @@ public class PatientDetailFragment extends Fragment {
 		donationToGo.setText("$ " + patientObj.getDonationToGo()+ " to go");
 		medicalNeed.setText(patientObj.getMedicalNeed());
 		donationProgress.setProgress(donationProgressPecentage);
-		//TODO Make Medical Partner work.
+		
 		patientObj.getMedicalPartner(new GetCallback<MedicalPartner>() {
 			@Override
-			public void done(MedicalPartner object, ParseException arg1) {
+			public void done(final MedicalPartner object, ParseException arg1) {
 				medicalPartner.setText(object.getName());
+				medicalPartner.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Util.starShowMedicalPartnerIntent(getActivity(), object);
+					}
+				});
 			}
 		});
 		ImageLoader imageLoader = ImageLoader.getInstance();

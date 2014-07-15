@@ -33,6 +33,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import codepath.watsiapp.activities.ParseDispatchActivity;
+import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
 
 public class Util {
@@ -40,6 +41,11 @@ public class Util {
 	private static final String DATE_FORMAT = "MMM dd yyyy";	
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
+		activity.startActivity(browserIntent);
+	}
+	
+	public static void starShowMedicalPartnerIntent(Activity activity,MedicalPartner medicalPartner) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(medicalPartner.getWebsiteUrl()));
 		activity.startActivity(browserIntent);
 	}
 	public static void showMyProfileActivity(FragmentActivity activity) {
