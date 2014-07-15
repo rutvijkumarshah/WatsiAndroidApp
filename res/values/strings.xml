@@ -8,7 +8,7 @@
     <string name="title_activity_patient_detail">PatientDetail</string>
     <string name="hello_world">Hello world!</string>
     <string name="lableUserName">User!</string>
-    <string name="lblBtNewsAction">Donate !</string>
+    <string name="lblBtNewsAction">Fund Treatment</string>
     <string name="lblNewsHeading">You can make a difference !</string>
     
     <string name="parse_app_id">tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ</string>

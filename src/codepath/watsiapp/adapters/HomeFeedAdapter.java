@@ -2,7 +2,6 @@ package codepath.watsiapp.adapters;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import codepath.watsiapp.models.FeedItem;
 import codepath.watsiapp.models.FeedItem.ItemType;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseException;
@@ -30,11 +30,11 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	public static final int PAGE_SIZE = 4; 
 
 	class InfoHolder{
-		InfoHolder(String patientId, ItemType itemType){
-			this.patientId=patientId;
-			this.itemType=itemType;
+		InfoHolder(Patient patient, ItemType itemType){
+			this.patient = patient;
+			this.itemType = itemType;
 		}
-		String patientId;
+		Patient patient;
 		ItemType itemType;
 	}
 	
@@ -90,7 +90,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		}
 		
 		TextView tvHeading = (TextView) convertView.findViewById(R.id.tvCNHeading);
-		tvHeading.setText("Make a difference !!");
+		tvHeading.setText("Make a difference");
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvCNShortMessage);
 		tvShortMessage.setText(newsItem.getCampaignContent());
@@ -100,7 +100,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ItemType itemType=ItemType.DONATION_RAISED;
-		if (convertView == null|| !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
+		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
 			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
 		}
 		
@@ -112,7 +112,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			donor = dn.getDonor().fetchIfNeeded();
 			patient = dn.getPatient().fetchIfNeeded();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return convertView;
 		}
@@ -131,9 +130,10 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		tvShortMessage.setText(message);
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Donate");
+		bt.setText("Fund Treatment");
 		
 		setPatientNavigation(convertView, patient,itemType);
+		setPatientFundButton(bt, patient);
 		
 		return convertView;
 		
@@ -163,14 +163,16 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		tvUserName.setText(patient.getFirstName() + " is now fully funded!!");
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
-		String message = patient.getFullName() + " will now be able to get his medical" +
-		                 " treatment. Donors like you helped him raise $" +
+		String message = patient.getFullName() + " will now be able to get medical" +
+		                 " treatment. Donors like you helped raise $" +
 		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
 		tvShortMessage.setText(message);
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Give Generic Donation!");
-		setPatientNavigation(convertView, patient,itemType);
+		bt.setText("Fund More Patients");
+		setPatientNavigation(convertView, patient, itemType);
+		setPatientFundButton(bt, patient);
+		
 		return convertView;
 	}
 
@@ -201,26 +203,42 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		tvShortMessage.setText(message);
 		
 		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Help " + patient.getFirstName() + "!");
+		bt.setText("Fund Treatment");
 		
-		setPatientNavigation(convertView, patient,itemType);
+		setPatientNavigation(convertView, patient, itemType);
+		setPatientFundButton(bt, patient);
+		
 		return convertView;
 	}
 
 
-	private void setTag(View v, String patientId,ItemType type) {
-		v.setTag(new InfoHolder(patientId,type));
+	private void setTag(View v, Patient patient,ItemType type) {
+		v.setTag(new InfoHolder(patient,type));
 	}
 	
-	private void setPatientNavigation(View v, Patient p,ItemType type) {
+	private void setPatientNavigation(View v, Patient p, ItemType type) {
 		
-		setTag(v, p.getObjectId(), type);
+		setTag(v, p, type);
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String patientId= ((InfoHolder) v.getTag()).patientId;
+				String patientId= ((InfoHolder) v.getTag()).patient.getObjectId();
 				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
 			}
 		});
 	}
+	
+	private void setPatientFundButton(Button bt, Patient p) {
+		bt.setTag(p);
+		bt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Patient patient = (Patient) v.getTag();
+				Util.startFundTreatmentIntent(activity, patient);
+			}
+		});
+	}
+	
+	
 }
