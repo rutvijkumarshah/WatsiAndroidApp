@@ -91,6 +91,7 @@ public class PatientDetailFragment extends Fragment {
 						Util.starShowMedicalPartnerIntent(getActivity(), object);
 					}
 				});
+				Util.makeTextViewHyperlink(medicalPartner);
 			}
 		});
 		ImageLoader imageLoader = ImageLoader.getInstance();

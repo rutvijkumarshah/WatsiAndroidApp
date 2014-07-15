@@ -132,6 +132,7 @@
         <TextView
             android:id="@+id/tvMedicalPartnerVal"
             android:layout_width="wrap_content"
+            android:textStyle="italic"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvMedicalPartner"
             android:layout_alignBaseline="@+id/tvMedicalPartner"

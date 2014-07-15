@@ -32,6 +32,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.URLSpan;
+import android.widget.TextView;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
@@ -43,6 +47,16 @@ public class Util {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
 	}
+	
+	/**
+	  * Sets a hyperlink style to the textview.
+	  */
+	public static void makeTextViewHyperlink(TextView tv) {
+	  SpannableStringBuilder ssb = new SpannableStringBuilder();
+	  ssb.append(tv.getText());
+	  ssb.setSpan(new URLSpan("#"), 0, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+	  tv.setText(ssb, TextView.BufferType.SPANNABLE);
+	} 
 	
 	public static void starShowMedicalPartnerIntent(Activity activity,MedicalPartner medicalPartner) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(medicalPartner.getWebsiteUrl()));
