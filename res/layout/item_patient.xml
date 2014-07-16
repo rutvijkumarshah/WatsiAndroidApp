@@ -9,7 +9,7 @@
         android:id="@+id/imageArea"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="8dp"
+        android:layout_marginRight="8dp"
         >
     	<ProgressBar
             android:id="@+id/progressBarToday"
@@ -45,58 +45,6 @@
         android:textSize="@dimen/fontsize_large"
         
      />
-
-    
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/age"
-        android:layout_alignBottom="@+id/age"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/age"
-        android:text="Nepal"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:layout_marginLeft="8dp"
-        android:id="@+id/donation_togo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/percent_funded"
-        android:layout_toRightOf="@+id/percent_funded"
-        android:text="$60 to go"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/percent_funded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageArea"
-        android:layout_alignLeft="@+id/age"
-        android:layout_alignStart="@+id/age"
-        android:text="60%"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/name"
-        android:layout_below="@+id/name"
-        android:layout_toRightOf="@+id/imageArea"
-        android:text="8 Years"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/medicalNeeds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageArea"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:text="Need"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <RelativeLayout 
         android:layout_centerHorizontal="true"
@@ -128,7 +76,27 @@
         android:layout_alignBottom="@+id/donateBtn"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_action_share" />
-     >
+     
         
    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/donation_togo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/donateAndShare"
+        android:layout_alignTop="@+id/name"
+        android:text="$60 to go"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/medicalNeeds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageArea"
+        android:layout_alignLeft="@+id/name"
+        android:lines="3"
+        android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>
