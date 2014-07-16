@@ -23,7 +23,7 @@
         android:textStyle="bold"
         android:layout_alignTop="@+id/progressBarImageView"
         android:layout_toRightOf="@+id/progressBarImageView"
-        android:text=""
+        
      />
     <TextView
         android:id="@+id/donationAmount"

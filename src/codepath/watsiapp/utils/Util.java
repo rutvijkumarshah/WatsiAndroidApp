@@ -28,6 +28,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -36,13 +37,17 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
 import android.widget.TextView;
+import codepath.watsiapp.R;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
 
 public class Util {
 
-	private static final String DATE_FORMAT = "MMM dd yyyy";	
+	private static final String DATE_FORMAT = "MMM dd yyyy";
+	private static String PRIMARY_FONT="Roboto-Regular.ttf";
+
+	
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
@@ -94,4 +99,10 @@ public class Util {
 		return sf.format(date);
 		
 	}
+	
+	public static void applyPrimaryFont(Context ctx,TextView textView) {	
+		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
+		textView.setTypeface(typeface);
+	}
 }
+	

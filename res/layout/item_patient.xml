@@ -41,8 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageArea"
         android:layout_toRightOf="@+id/imageArea"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="XYZ ABC"
+        android:textSize="@dimen/fontsize_large"
+        
      />
 
     
@@ -54,7 +55,7 @@
         android:layout_alignBottom="@+id/age"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/age"
-        android:text=""
+        android:text="Nepal"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/percent_funded"
         android:layout_toRightOf="@+id/percent_funded"
-        android:text=""
+        android:text="$60 to go"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -74,7 +75,7 @@
         android:layout_alignBottom="@+id/imageArea"
         android:layout_alignLeft="@+id/age"
         android:layout_alignStart="@+id/age"
-        android:text=""
+        android:text="60%"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -84,7 +85,7 @@
         android:layout_alignStart="@+id/name"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/imageArea"
-        android:text=""
+        android:text="8 Years"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -94,7 +95,7 @@
         android:layout_below="@+id/imageArea"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
-        android:text=""
+        android:text="Need"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <RelativeLayout 

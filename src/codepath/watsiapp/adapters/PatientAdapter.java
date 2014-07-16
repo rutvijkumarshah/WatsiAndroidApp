@@ -122,6 +122,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 		// name
 		viewHolder.name.setText(patient.getFullName());
+		
 
 		// age
 		viewHolder.age.setText(patient.getAge() + " Years Old"); // TODO will be
@@ -211,6 +212,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.shareAction = (ImageView) convertView
 				.findViewById(R.id.shareIv);
 
+		Util.applyPrimaryFont(getContext(), viewHolder.name);
+		
 		convertView.setTag(viewHolder);
 		convertView.setOnClickListener(new OnClickListener() {
 			
