@@ -68,7 +68,7 @@ public class DonorProfileActivity extends FragmentActivity {
 			if (fullName != null) {
 				donarFullName.setText(fullName);
 				getActionBar().setTitle("Donor Profile");
-				memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
+				//
 				donorId = user.getString("donorId");
 				email = user.getString("email");
 
@@ -80,12 +80,12 @@ public class DonorProfileActivity extends FragmentActivity {
 					// assuming will get email in email field
 					setEmail();
 
-				} else if (ParseTwitterUtils.isLinked(user)) {
-
 				} else {
 					user.getUsername();
+					memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
 					
 				}
+				
 				if(donorId!=null) {
 					setDonationsFragment(donorId);
 				}
@@ -97,10 +97,12 @@ public class DonorProfileActivity extends FragmentActivity {
 	}
 
 	private void showDetailsForNonDonor() {
+		memberSinceDate.setText(Util.getFormatedDate(ParseUser.getCurrentUser().getCreatedAt()));
 		totalDonationsAmount.setText("NOT A DONOR");
 	}
 	
 	private void showDetailsForDonor(Donor donor) {
+		memberSinceDate.setText(Util.getFormatedDate(donor.getMemberSince()));
 		donorId=donor.getObjectId();
 		ParseHelper parseHelper = new ParseHelper(getApplicationContext());
 		try {

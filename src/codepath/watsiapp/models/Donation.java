@@ -29,6 +29,10 @@ public class Donation extends ParseObject {
 	}
 
 	public Date getDonationDate() {
-		return getDate("updatedAt");
+		Date donationDt=getDate("donationDate");
+		if(donationDt == null) {
+			donationDt=getDate("updatedAt");
+		}
+		return donationDt;
 	}
 }

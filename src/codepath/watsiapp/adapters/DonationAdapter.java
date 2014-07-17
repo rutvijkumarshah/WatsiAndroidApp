@@ -22,10 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import static codepath.watsiapp.utils.Util.formatAmount;
+import static codepath.watsiapp.utils.Util.getFormatedDate;
 import static codepath.watsiapp.utils.Util.getPixels;
-
-import java.util.Date;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
@@ -39,7 +38,6 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -126,11 +124,8 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 			}
 		});
 
-		vh.donationAmount.setText(String.valueOf("$ "+donation
-				.getDonationAmount()));
-		
-		Date dt=donation.getUpdatedAt();
-		vh.donationDate.setText(Util.getFormatedDate(dt));
+		vh.donationAmount.setText(formatAmount(donation.getDonationAmount()));
+		vh.donationDate.setText(getFormatedDate(donation.getDonationDate()));
 
 	}
 

@@ -3,6 +3,8 @@
  */
 package codepath.watsiapp.models;
 
+import java.util.Date;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
@@ -38,6 +40,10 @@ public class Donor extends ParseObject {
 
 	public void setEmail(String value) {
 		put("email", value);
+	}
+	
+	public Date getMemberSince() {
+		return getDate("memberSince"); 
 	}
 	
 	
