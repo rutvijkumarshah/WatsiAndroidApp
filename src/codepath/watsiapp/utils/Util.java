@@ -42,7 +42,6 @@ import android.support.v4.app.FragmentActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.ParseDispatchActivity;
@@ -145,6 +144,9 @@ public class Util {
 		
 	}
 	
+	public static String formatAmount(double amount) {
+		 return String.valueOf("$"+Math.ceil(amount)).split("\\.")[0];
+	}
 	public static void applyPrimaryFont(Context ctx,TextView textView) {	
 		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
 		textView.setTypeface(typeface);

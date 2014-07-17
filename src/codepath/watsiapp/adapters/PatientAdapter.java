@@ -121,11 +121,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		// name
 		viewHolder.name.setText(patient.getFullName());
 		
-		// donationTOGO
-		viewHolder.donationTogo.setText("$ " + patient.getDonationToGo()
-				+ " to go");// TODO will be externalized String as template
-							// string
-
+	
 		// medical need
 		viewHolder.medicalNeed.setText(patient.getMedicalNeed());
 
@@ -170,18 +166,31 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			}
 		});
+		if(patient.isFullyFunded()) {
+			viewHolder.donateView.setVisibility(View.INVISIBLE);
+			//Fully Funded  Text instead of showing $0 to go
+			viewHolder.donationTogo.setText("Fully Funded");// TODO will be externalized String as template
+											// string
+			
+		}else {
+			viewHolder.donateView.setVisibility(View.VISIBLE);
+			// donationTOGO
+			viewHolder.donationTogo.setText(Util.formatAmount(patient.getDonationToGo())
+					+ " to go");// TODO will be externalized String as template
+								// string
 
-		viewHolder.donateView.setTag(patient);
-		viewHolder.donateView.setOnClickListener(new OnClickListener() {
+			viewHolder.donateView.setTag(patient);
+			viewHolder.donateView.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Util.startFundTreatmentIntent(activity,(Patient)v.getTag());
-			}
-		});
-		
+				@Override
+				public void onClick(View v) {
+					Util.startFundTreatmentIntent(activity,(Patient)v.getTag());
+				}
+			});
+			
+
+		}
 		viewHolder.patientId=patient.getObjectId();
-
 	}
 
 	private View buildViewHolder() {
