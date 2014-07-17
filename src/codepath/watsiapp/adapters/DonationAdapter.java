@@ -22,9 +22,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import static codepath.watsiapp.utils.Util.getPixels;
+
 import java.util.Date;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +41,10 @@ import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -88,9 +94,18 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 
 	private void setupUI(final Donation donation,final ViewHolder vh) {
 
+        final DisplayImageOptions options = new DisplayImageOptions.Builder()
+        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,60)/2)))
+        	.cacheInMemory()
+        	.cacheOnDisc()
+        	.imageScaleType(ImageScaleType.EXACTLY)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+        	.build();
+
 		
 		// Add and download the image
 		// Donation photo
+		
 		final ImageLoader imageLoader = ImageLoader.getInstance();
 		donation.getPatient(new GetCallback<Patient>() {
 
@@ -99,7 +114,7 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 				// TODO Auto-generated method stub
 				if (exp == null) {
 					imageLoader.displayImage(patient.getPhotoUrl(),
-							vh.patientPhoto);
+							vh.patientPhoto,options);
 
 					// name
 					vh.patientName.setText(patient.getFullName());

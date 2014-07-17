@@ -39,7 +39,7 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
-
+import static codepath.watsiapp.utils.Util.*;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -112,19 +112,14 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		return convertView;
 	}
 
-	public float getPixels(int dp) {
-		Resources r = activity.getResources();
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
-		return px;
-	}
+	
 	private void setupUI(final Patient patient) {  
 		
 		 // Add and download the image
 		// patient photo
 		
-		//Create global configuration and initialize ImageLoader with this configuration
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(80)/2)))
+	    DisplayImageOptions options = new DisplayImageOptions.Builder()
+        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
         	.cacheInMemory()
         	.cacheOnDisc()
         	.imageScaleType(ImageScaleType.EXACTLY)
@@ -164,7 +159,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			@Override
 			public void onClick(View v) {
-				Util.startShareIntent(activity,(Patient)v.getTag());
+				startShareIntent(activity,(Patient)v.getTag());
 
 			}
 		});
@@ -173,7 +168,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			@Override
 			public void onClick(View v) {
-				Util.startShareIntentWithTwitter(activity,(Patient)v.getTag());
+				startShareIntentWithTwitter(activity,(Patient)v.getTag());
 
 			}
 		});
@@ -183,7 +178,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			@Override
 			public void onClick(View v) {
-				Util.startShareIntentWithFaceBook(activity,(Patient)v.getTag());
+				startShareIntentWithFaceBook(activity,(Patient)v.getTag());
 
 			}
 		});
@@ -205,7 +200,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 				@Override
 				public void onClick(View v) {
-					Util.startFundTreatmentIntent(activity,(Patient)v.getTag());
+					startFundTreatmentIntent(activity,(Patient)v.getTag());
 				}
 			});
 			
@@ -240,8 +235,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.shareOnTwitter=(ImageView) convertView.findViewById(R.id.share_tw);
 		
 		//Util.applyPrimaryFont(getContext(), viewHolder.name);
-		Util.applyPrimaryFont(getContext(), viewHolder.donationTogo);
-		Util.applyPrimaryFont(getContext(), viewHolder.medicalNeed);
+		applyPrimaryFont(getContext(), viewHolder.donationTogo);
+		applyPrimaryFont(getContext(), viewHolder.medicalNeed);
 		
 		convertView.setTag(viewHolder);
 		convertView.setOnClickListener(new OnClickListener() {

@@ -34,6 +34,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -42,6 +43,7 @@ import android.support.v4.app.FragmentActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
+import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.ParseDispatchActivity;
@@ -142,6 +144,12 @@ public class Util {
 		sf.setLenient(true);
 		return sf.format(date);
 		
+	}
+	
+	public static float getPixels(Activity activity,int dp) {
+		Resources r = activity.getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+		return px;
 	}
 	
 	public static String formatAmount(double amount) {

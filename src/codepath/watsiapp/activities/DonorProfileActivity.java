@@ -67,6 +67,7 @@ public class DonorProfileActivity extends FragmentActivity {
 			String email = null;
 			if (fullName != null) {
 				donarFullName.setText(fullName);
+				getActionBar().setTitle("Donor Profile");
 				memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
 				donorId = user.getString("donorId");
 				email = user.getString("email");
