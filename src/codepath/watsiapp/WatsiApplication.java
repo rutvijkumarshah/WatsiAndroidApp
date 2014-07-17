@@ -1,25 +1,20 @@
 package codepath.watsiapp;
 
 import android.app.Application;
-import android.graphics.Bitmap;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.MedicalPartner;
+import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
-import com.parse.ParseUser;
 import com.parse.PushService;
 
 public class WatsiApplication extends Application {
@@ -54,18 +49,8 @@ public class WatsiApplication extends Application {
 		//These line MUST be commented out if anonymous user needs to save any object in future.
 		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
-		
-		//Create global configuration and initialize ImageLoader with this configuration
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-        	.displayer(new RoundedBitmapDisplayer(100))
-        	.cacheInMemory()
-        	.cacheOnDisc()
-        	.imageScaleType(ImageScaleType.EXACTLY)
-            .bitmapConfig(Bitmap.Config.RGB_565)
-        	.build();
         
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-            .defaultDisplayImageOptions(options)
             .build();
         ImageLoader.getInstance().init(config);
 	}

@@ -23,8 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -37,7 +40,10 @@ import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
@@ -106,13 +112,28 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		return convertView;
 	}
 
+	public float getPixels(int dp) {
+		Resources r = activity.getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+		return px;
+	}
 	private void setupUI(final Patient patient) {  
 		
 		 // Add and download the image
 		// patient photo
+		
+		//Create global configuration and initialize ImageLoader with this configuration
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(80)/2)))
+        	.cacheInMemory()
+        	.cacheOnDisc()
+        	.imageScaleType(ImageScaleType.EXACTLY)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+        	.build();
+
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader
-				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
+				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto,options);
 
 		int donationProgressPecentage = patient.getDonationProgressPecentage();
 		// donation progress

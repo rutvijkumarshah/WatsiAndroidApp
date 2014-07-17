@@ -7,15 +7,16 @@
 
     <RelativeLayout
         android:id="@+id/imageArea"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         >
+        <!-- -progressbar=80dp,image=60dp, radius=100px working fine -->
     	<ProgressBar
             android:id="@+id/progressBarToday"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:progress="40"
             android:layout_centerHorizontal="true" 
             android:layout_centerVertical="true" 
@@ -25,8 +26,8 @@
 
     	<ImageView
     	    android:id="@+id/progressBarImageView"
-    	    android:layout_width="60dp"
-    	    android:layout_height="60dp"
+    	    android:layout_width="80dp"
+    	    android:layout_height="80dp"
     	    android:layout_centerHorizontal="true" 
             android:layout_centerVertical="true"             
     	    android:scaleType="centerCrop" />
