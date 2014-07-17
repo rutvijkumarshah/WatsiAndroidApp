@@ -19,7 +19,6 @@
             android:progress="40"
             android:layout_centerHorizontal="true" 
             android:layout_centerVertical="true" 
-              
             android:indeterminate="false"
             android:max="100"
             android:progressDrawable="@drawable/progressbar" />
@@ -29,10 +28,8 @@
     	    android:layout_width="60dp"
     	    android:layout_height="60dp"
     	    android:layout_centerHorizontal="true" 
-            android:layout_centerVertical="true" 
-            
+            android:layout_centerVertical="true"             
     	    android:scaleType="centerCrop" />
-    
     </RelativeLayout>
 
     <TextView
@@ -43,60 +40,62 @@
         android:layout_toRightOf="@+id/imageArea"
         android:text="XYZ ABC"
         android:textSize="@dimen/fontsize_large"
-        
      />
     
-    <RelativeLayout 
-        android:layout_centerHorizontal="true"
-        android:id="@+id/donateAndShare"
-        android:layout_below="@+id/medicalNeeds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-        
-      <Button
-        android:layout_margin="8dp"
-        android:id="@+id/donateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/watsi_blue"
-        android:padding="6dp"
-        android:layout_marginLeft="-20dp"
-        android:layout_marginRight="5dp"
-        android:text="Fund Treatment"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:layout_marginRight="20dp"
-        android:id="@+id/shareIv"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/donateBtn"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_action_share" />
-     
-        
-   </RelativeLayout>
-
-    <TextView
+        <TextView
         android:id="@+id/donation_togo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/donateAndShare"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/name"
         android:text="$60 to go"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+         />
 
     <TextView
         android:id="@+id/medicalNeeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageArea"
-        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/imageArea"
         android:lines="3"
         android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <LinearLayout      
+        android:id="@+id/donateAndShare"
+        android:layout_below="@+id/medicalNeeds"
+        android:layout_alignStart="@+id/medicalNeeds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+    
+    <ImageView
+        android:id="@+id/fund_treatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fund" />
+        
+    
+    <ImageView
+        android:id="@+id/share_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_facebook" />
+
+    <ImageView
+        android:id="@+id/share_tw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_twitter" />
+
+    
+    <ImageView
+        android:id="@+id/shareIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_share" />
+    
+   </LinearLayout>
+
 
 </RelativeLayout>

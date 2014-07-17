@@ -28,7 +28,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,6 +44,7 @@ import com.parse.ParseQueryAdapter;
 public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	private static final String TAG = "PATIENT_ADAPTER";
+
 	private FragmentActivity activity;
 	/***
 	 */
@@ -60,17 +60,15 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	// View lookup cache
 	private static class ViewHolder {
 		TextView name;
-		TextView age;
-		TextView location;
-		TextView percentageFunded;
 		TextView donationTogo;
 		TextView medicalNeed;
 		ImageView patientPhoto;
 		ProgressBar donationProgress;
-		Button donateBtn;
+		ImageView shareOnTwitter;
+		ImageView shareOnFacebook;
+		ImageView donateView;
 		ImageView shareAction;
 		String patientId;
-		// DonateShareFragment donanteAndShareFragment;
 		
 	}
 	
@@ -123,22 +121,6 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		// name
 		viewHolder.name.setText(patient.getFullName());
 		
-
-		// age
-		viewHolder.age.setText(patient.getAge() + " Years Old"); // TODO will be
-																	// externalized
-																	// String as
-																	// template
-																	// string
-
-		// location
-		viewHolder.location.setText(patient.getCountry());
-
-		// percentageFunded
-		viewHolder.percentageFunded.setText(donationProgressPecentage
-				+ " % Funded"); // TODO will be externalized String as template
-								// string
-
 		// donationTOGO
 		viewHolder.donationTogo.setText("$ " + patient.getDonationToGo()
 				+ " to go");// TODO will be externalized String as template
@@ -159,9 +141,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		}
 
 		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
-		// viewHolder.donanteAndShareFragment=setDonateAndShareFragment(patient);
-
-		viewHolder.donateBtn.setTag(patient);
+		
 		viewHolder.shareAction.setTag(patient);
 		viewHolder.shareAction.setOnClickListener(new OnClickListener() {
 
@@ -171,8 +151,28 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 			}
 		});
+		viewHolder.shareOnTwitter.setTag(patient);
+		viewHolder.shareOnTwitter.setOnClickListener(new OnClickListener() {
 
-		viewHolder.donateBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Util.startShareIntentWithTwitter(activity,(Patient)v.getTag());
+
+			}
+		});
+
+		viewHolder.shareOnFacebook.setTag(patient);
+		viewHolder.shareOnFacebook.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Util.startShareIntentWithFaceBook(activity,(Patient)v.getTag());
+
+			}
+		});
+
+		viewHolder.donateView.setTag(patient);
+		viewHolder.donateView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -189,11 +189,6 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		convertView = View.inflate(getContext(), R.layout.item_patient,
 				null);
 		viewHolder.name = (TextView) convertView.findViewById(R.id.name);
-		viewHolder.age = (TextView) convertView.findViewById(R.id.age);
-		viewHolder.location = (TextView) convertView
-				.findViewById(R.id.location);
-		viewHolder.percentageFunded = (TextView) convertView
-				.findViewById(R.id.percent_funded);
 
 		viewHolder.donationTogo = (TextView) convertView
 				.findViewById(R.id.donation_togo);
@@ -207,11 +202,13 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.donationProgress = (ProgressBar) convertView
 				.findViewById(R.id.progressBarToday);
 
-		viewHolder.donateBtn = (Button) convertView
-				.findViewById(R.id.donateBtn);
 		viewHolder.shareAction = (ImageView) convertView
 				.findViewById(R.id.shareIv);
-
+		
+		viewHolder.shareOnFacebook =(ImageView)convertView.findViewById(R.id.share_fb);
+		viewHolder.donateView=(ImageView)convertView.findViewById(R.id.fund_treatment);
+		viewHolder.shareOnTwitter=(ImageView) convertView.findViewById(R.id.share_tw);
+		
 		Util.applyPrimaryFont(getContext(), viewHolder.name);
 		
 		convertView.setTag(viewHolder);
@@ -228,6 +225,4 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		});
 		return convertView;
 	}
-
-
 }
