@@ -53,8 +53,8 @@ public class Util {
 
 	private static final String DATE_FORMAT = "MMM dd yyyy";
 	private static String PRIMARY_FONT="Roboto-Regular.ttf";
-	private static final String FB_ACTIVITY="";
-	private static final String TWITTER_ACTIVITY="";
+	private static final String FB_ACTIVITY="com.facebook.composer.shareintent.ImplicitShareIntentHandler";
+	private static final String TWITTER_ACTIVITY="com.twitter.android.composer.ComposerActivity";
 	
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
