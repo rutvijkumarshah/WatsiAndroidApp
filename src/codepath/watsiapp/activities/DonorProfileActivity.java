@@ -1,6 +1,7 @@
 package codepath.watsiapp.activities;
 
 import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
-
+import static codepath.watsiapp.utils.Util.*;
 public class DonorProfileActivity extends FragmentActivity {
 	private TextView donarFullName;
 	private TextView memberSinceDate;
@@ -44,7 +45,16 @@ public class DonorProfileActivity extends FragmentActivity {
 		memberSinceDate = (TextView) findViewById(R.id.tv_membersince_dt);
 		totalTreatmentsFunded = (TextView) findViewById(R.id.tv_noof_treatments);
 		totalDonationsAmount = (TextView) findViewById(R.id.total_donation);
+		
 
+		applyPrimaryFont(getApplicationContext(), donarFullName);
+		applyPrimaryFont(getApplicationContext(), memberSinceDate);
+		applyPrimaryFont(getApplicationContext(), totalTreatmentsFunded);
+		applyPrimaryFont(getApplicationContext(), totalDonationsAmount);
+		
+		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.textView1));//Donated for text
+		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.tv_membersince));//Member Since Text
+		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.textView3));//Treatments text
 	}
 
 	@Override
@@ -113,7 +123,7 @@ public class DonorProfileActivity extends FragmentActivity {
 				totalDonations+=donation.getDonationAmount();
 				treatments.add(donation.getPatient().getObjectId());
 			}
-			totalDonationsAmount.setText("$ "+String.valueOf(totalDonations));
+			totalDonationsAmount.setText(Util.formatAmount(totalDonations));
 			totalTreatmentsFunded.setText(String.valueOf(treatments.size()));
 			setDonationsFragment(donorId);
 		} catch (ParseException e) {

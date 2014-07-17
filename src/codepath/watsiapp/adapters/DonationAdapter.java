@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import static codepath.watsiapp.utils.Util.formatAmount;
 import static codepath.watsiapp.utils.Util.getFormatedDate;
 import static codepath.watsiapp.utils.Util.getPixels;
@@ -47,6 +48,8 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+
+import static codepath.watsiapp.utils.Util.*;
 
 public class DonationAdapter extends ParseQueryAdapter<Donation> {
 
@@ -159,6 +162,12 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
 			}
 		});
+		
+		
+		applyPrimaryFont(activity, viewHolder.patientName);
+		applyPrimaryFont(activity, viewHolder.donationAmount);
+		applyPrimaryFont(activity, viewHolder.donationDate);
+	
 		return convertView;
 	}
 

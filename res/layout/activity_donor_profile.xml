@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:layout_margin="8dp" >
 
     <ImageView
@@ -11,6 +12,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
+        android:background="@color/watsi_blue"
+        android:padding="3dp"
         android:src="@drawable/profile_img" />
 
     <TextView
@@ -20,7 +23,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/profilePic"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="@dimen/fontsize_large"
+         />
 
     <TextView
         android:id="@+id/tv_membersince_dt"
@@ -30,7 +34,8 @@
         android:layout_marginLeft="14dp"
         android:layout_toRightOf="@+id/tv_membersince"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textSize="@dimen/fontsize_micro"
+        />
 
     <TextView
         android:id="@+id/tv_membersince"
@@ -39,7 +44,7 @@
         android:layout_below="@+id/fullname"
         android:layout_toRightOf="@+id/profilePic"
         android:text="Member since"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textSize="@dimen/fontsize_small"/>
     
     <View
         android:id="@+id/divider_up"
@@ -62,15 +67,16 @@
             android:id="@+id/total_donation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$ 0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="$0"
+            android:textSize="@dimen/fontsize_medium"
+             />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" donated for"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textSize="@dimen/fontsize_small" />
 
         <TextView
             android:id="@+id/tv_noof_treatments"
@@ -78,7 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="@dimen/fontsize_medium"
+           />
 
         <TextView
             android:id="@+id/textView3"

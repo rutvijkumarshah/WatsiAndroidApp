@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textSize="@dimen/fontsize_small"
         android:layout_alignTop="@+id/progressBarImageView"
         android:layout_toRightOf="@+id/progressBarImageView"
         
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
     	android:layout_alignBottom="@+id/progressBarImageView"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/fontsize_large"
      />
 
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:text=""
         android:layout_marginRight="8dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textSize="@dimen/fontsize_small"
+         />
 
 </RelativeLayout>
