@@ -1,10 +1,6 @@
 package codepath.watsiapp.activities;
 
-import java.util.HashSet;
-
-import java.util.List;
-import java.util.Set;
-
+import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +9,8 @@ import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.DonationListFragment;
-import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
+import codepath.watsiapp.models.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.utils.Util;
 
 import com.facebook.Request;
@@ -24,10 +20,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
-import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
-import static codepath.watsiapp.utils.Util.*;
-public class DonorProfileActivity extends FragmentActivity {
+public class DonorProfileActivity extends FragmentActivity implements OnDonationStatsCalculatedListener {
+	
 	private TextView donarFullName;
 	private TextView memberSinceDate;
 	private TextView totalDonationsAmount;
@@ -114,22 +109,8 @@ public class DonorProfileActivity extends FragmentActivity {
 	private void showDetailsForDonor(Donor donor) {
 		memberSinceDate.setText(Util.getFormatedDate(donor.getMemberSince()));
 		donorId=donor.getObjectId();
-		ParseHelper parseHelper = new ParseHelper(getApplicationContext());
-		try {
-			double totalDonations=0.00;
-			List<Donation> donationList = parseHelper.getDonationsByDonor(donor).find();
-			final Set<String> treatments=new HashSet<String>();
-			for (Donation donation : donationList) {
-				totalDonations+=donation.getDonationAmount();
-				treatments.add(donation.getPatient().getObjectId());
-			}
-			totalDonationsAmount.setText(Util.formatAmount(totalDonations));
-			totalTreatmentsFunded.setText(String.valueOf(treatments.size()));
-			setDonationsFragment(donorId);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setDonationsFragment(donorId);
+		
 	}
 	
 	public void setEmail() {
@@ -173,5 +154,16 @@ public class DonorProfileActivity extends FragmentActivity {
 		ft.replace(R.id.donations,
 				DonationListFragment.newInstance(donorId));
 		ft.commit();
+	}
+
+	@Override
+	public void totalDonationsCalculated(double totalDonationAmount) {
+		totalDonationsAmount.setText(Util.formatAmount(totalDonationAmount));
+	}
+
+	@Override
+	public void totalTreatmentsCalculated(Integer totalTreatments) {
+		totalTreatmentsFunded.setText(String.valueOf(totalTreatments));
+		
 	}
 }

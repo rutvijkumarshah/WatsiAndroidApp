@@ -18,12 +18,15 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-***/
+ ***/
 
 package codepath.watsiapp.fragments;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,9 +36,9 @@ import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.DonationAdapter;
 import codepath.watsiapp.models.Donation;
+import codepath.watsiapp.models.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
-import com.parse.ParseException;
 import com.parse.ParseQueryAdapter.OnQueryLoadListener;
 
 import eu.erikw.PullToRefreshListView;
@@ -47,16 +50,23 @@ public class DonationListFragment extends Fragment {
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	private String donorId;
-	private static final String DONOR_ID="DONOR_ID";
-	
+	private static final String DONOR_ID = "DONOR_ID";
+	private OnDonationStatsCalculatedListener listener;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Bundle bundle=getArguments();
+		Bundle bundle = getArguments();
 		String donor__id = bundle.getString(DONOR_ID);
-		this.donorId=donor__id;
+		this.donorId = donor__id;
 	}
 
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		listener = (OnDonationStatsCalculatedListener) activity;
+		super.onAttach(activity);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,32 +74,40 @@ public class DonationListFragment extends Fragment {
 
 		View v = inflater.inflate(R.layout.fragment_donation_list, container,
 				false);
-		
-		progressBar=(ProgressBar)v.findViewById(R.id.progressBar);
-		donationAdapter = new DonationAdapter(getActivity(),donorId);
-		donationAdapter.addOnQueryLoadListener(new OnQueryLoadListener<Donation>() {
 
-			@Override
-			public void onLoaded(List<Donation> donations, Exception exp) {
-				progressBar.setVisibility(View.INVISIBLE);
-				listView.onRefreshComplete();
-				if(exp == null) {
-					try {
-						Donation.pinAll(donations);
-					} catch (ParseException e) {
-						e.printStackTrace();
+		progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+		donationAdapter = new DonationAdapter(getActivity(), donorId);
+		donationAdapter
+				.addOnQueryLoadListener(new OnQueryLoadListener<Donation>() {
+
+					@Override
+					public void onLoaded(List<Donation> donations, Exception exp) {
+						progressBar.setVisibility(View.INVISIBLE);
+						listView.onRefreshComplete();
+						if (exp == null) {
+							
+							double totalDonations = 0.00;
+							final Set<String> treatments = new HashSet<String>();
+							for (Donation donation : donations) {
+								totalDonations += donation.getDonationAmount();
+								treatments.add(donation.getPatient()
+										.getObjectId());
+							}
+							listener.totalDonationsCalculated(totalDonations);
+							listener.totalTreatmentsCalculated(treatments
+									.size());
+							Donation.pinAllInBackground(donations);	
+						} else {
+							// TODO:RUTVIJ
+							// SHOW Failure Toast
+						}
 					}
-				}else {
-					//TODO:RUTVIJ
-					//SHOW Failure Toast
-				}
-			}
 
-			@Override
-			public void onLoading() {
-				progressBar.setVisibility(View.VISIBLE);
-			}
-		});
+					@Override
+					public void onLoading() {
+						progressBar.setVisibility(View.VISIBLE);
+					}
+				});
 		listView = (PullToRefreshListView) v.findViewById(R.id.donation_list);
 		listView.setAdapter(donationAdapter);
 		setupIintialViews();
@@ -106,7 +124,7 @@ public class DonationListFragment extends Fragment {
 		listView.setOnScrollListener(new EndlessScrollListener() {
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
-				if(totalItemsCount > 0) {
+				if (totalItemsCount > 0) {
 				}
 			}
 
@@ -118,9 +136,8 @@ public class DonationListFragment extends Fragment {
 				donationAdapter.loadObjects();
 			}
 		});
-		
-	}
 
+	}
 
 	public static DonationListFragment newInstance(String donorId) {
 		DonationListFragment fragment = new DonationListFragment();
@@ -129,6 +146,5 @@ public class DonationListFragment extends Fragment {
 		fragment.setArguments(args);
 		return fragment;
 	}
-	
 
 }
