@@ -7,4 +7,5 @@
   <color name="watsi_blue">#00b3d8</color>
   <color name="progress_color">#FFC627</color>
   <color name="progress_color_fully_funded">#14C04D</color>
+  <color name="watsi_red">#FF645C</color>
 </resources>

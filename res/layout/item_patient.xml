@@ -33,33 +33,29 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/donation_togo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageArea"
         android:layout_toRightOf="@+id/imageArea"
         android:text="XYZ ABC"
-        android:textSize="@dimen/fontsize_large"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/watsi_red"
+        android:textSize="@dimen/fontsize_medium"
      />
-    
-        <TextView
-        android:id="@+id/donation_togo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/name"
-        android:text="$60 to go"
-         />
-
+ 
+   
     <TextView
         android:id="@+id/medicalNeeds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/donation_togo"
         android:layout_toRightOf="@+id/imageArea"
         android:lines="3"
+        android:textSize="@dimen/fontsize_small"
         android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+         />
     
     <LinearLayout      
         android:id="@+id/donateAndShare"

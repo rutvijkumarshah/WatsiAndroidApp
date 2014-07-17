@@ -59,7 +59,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 	// View lookup cache
 	private static class ViewHolder {
-		TextView name;
+		//TextView name;
 		TextView donationTogo;
 		TextView medicalNeed;
 		ImageView patientPhoto;
@@ -119,7 +119,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.donationProgress.setProgress(donationProgressPecentage);
 
 		// name
-		viewHolder.name.setText(patient.getFullName());
+		//viewHolder.name.setText(patient.getFullName());
 		
 	
 		// medical need
@@ -197,7 +197,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		View convertView;
 		convertView = View.inflate(getContext(), R.layout.item_patient,
 				null);
-		viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+		//viewHolder.name = (TextView) convertView.findViewById(R.id.name);
 
 		viewHolder.donationTogo = (TextView) convertView
 				.findViewById(R.id.donation_togo);
@@ -218,7 +218,9 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		viewHolder.donateView=(ImageView)convertView.findViewById(R.id.fund_treatment);
 		viewHolder.shareOnTwitter=(ImageView) convertView.findViewById(R.id.share_tw);
 		
-		Util.applyPrimaryFont(getContext(), viewHolder.name);
+		//Util.applyPrimaryFont(getContext(), viewHolder.name);
+		Util.applyPrimaryFont(getContext(), viewHolder.donationTogo);
+		Util.applyPrimaryFont(getContext(), viewHolder.medicalNeed);
 		
 		convertView.setTag(viewHolder);
 		convertView.setOnClickListener(new OnClickListener() {
