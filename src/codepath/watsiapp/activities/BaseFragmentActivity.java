@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.activities;
 
+import com.parse.ParseUser;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -33,6 +35,7 @@ import codepath.watsiapp.utils.Util;
 public class BaseFragmentActivity extends FragmentActivity {
 
 	protected MenuItem myprofile;
+	private MenuItem logout;
 	
 
 	@Override
@@ -43,7 +46,21 @@ public class BaseFragmentActivity extends FragmentActivity {
 		inflater.inflate(R.menu.common_menus, menu);
 		
 		myprofile = menu.findItem(R.id.action_profileView);
+		logout=menu.findItem(R.id.action_logout);
+		checkLogOutVisible();
 		return true;
+	}
+
+
+	protected void checkLogOutVisible() {
+		if(logout!=null) {
+			if(ParseUser.getCurrentUser() ==null) {
+				logout.setVisible(false);
+			}else {
+				logout.setVisible(true);
+			}
+		}
+		
 	}
 	
 
@@ -54,9 +71,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 		
 	}
 
-	protected void composeActionVisibility(boolean isVisible) {
-		myprofile.setVisible(isVisible);
-	}
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -64,8 +79,18 @@ public class BaseFragmentActivity extends FragmentActivity {
 		if (menuItemId == R.id.action_profileView) {
 			Util.showMyProfileActivity(this);
 		}
+		if (menuItemId == R.id.action_logout) {
+			ParseUser.logOut();
+			logout.setVisible(false);
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		checkLogOutVisible();
+	}
 
 }
