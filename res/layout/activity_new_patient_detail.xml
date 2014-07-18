@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+
+    tools:context="${packageName}.${activityClass}" >
+    
+   <TextView
+       android:layout_marginTop="16dp"
+       android:id="@+id/name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_alignParentLeft="true"
+       android:text="Balika"
+       android:textSize="@dimen/fontsize_medium"
+     />
+   
+   <ImageView
+       android:visibility="invisible"
+       android:id="@+id/isFullyFunded"
+       android:layout_alignTop="@+id/name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:src="@drawable/ic_checkmark"
+       android:background="@color/progress_color_fully_funded"
+       android:layout_marginBottom="8dp"
+     />
+   
+    <LinearLayout
+        android:layout_below="@+id/isFullyFunded"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/profileInfo"    
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-10dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+   <ProgressBar
+            android:id="@+id/donationProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:progress="80"
+            android:max="100"
+            android:layout_marginTop="-1dp"
+            android:layout_height="5dp"
+            android:layout_below="@+id/profileInfo"       
+   /> 
+   <LinearLayout      
+        android:id="@+id/donateAndShare"
+        android:layout_below="@+id/profileInfo"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+    
+    <ImageView
+        android:id="@+id/fund_treatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fund" />
+        
+    
+    <ImageView
+        android:id="@+id/share_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_facebook" />
+
+    <ImageView
+        android:id="@+id/share_tw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_twitter" />
+
+    
+    <ImageView
+        android:id="@+id/shareIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_share" />
+    
+   </LinearLayout>
+
+   <TextView
+       android:id="@+id/donationToGo"
+       
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignTop="@+id/donateAndShare"
+       android:layout_toLeftOf="@+id/donateAndShare"
+       android:text="$80 to go"
+       android:textSize="@dimen/fontsize_medium"
+       android:layout_marginRight="40dp"
+     />
+ <View
+        android:id="@+id/divder_down"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/donateAndShare"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/darker_gray" />
+ 
+ <ScrollView 
+     android:layout_below="@+id/divder_down"
+     android:id="@+id/scrollableStoryContainer"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     >
+     <TextView android:id="@+id/patientStory"
+         android:layout_width="match_parent"
+         android:text=""
+         android:layout_height="wrap_content">
+     </TextView>
+ </ScrollView>
+   
+</RelativeLayout>
