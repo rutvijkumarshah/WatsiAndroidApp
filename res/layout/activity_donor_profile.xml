@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
-        android:background="@color/watsi_blue"
+        android:background="@drawable/donor_photo_bg"
         android:padding="3dp"
         android:src="@drawable/profile_img" />
 
@@ -34,7 +34,7 @@
         android:layout_marginLeft="14dp"
         android:layout_toRightOf="@+id/tv_membersince"
         android:text=""
-        android:textSize="@dimen/fontsize_micro"
+        android:textSize="@dimen/fontsize_small"
         />
 
     <TextView
@@ -68,6 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$0"
+            android:textStyle="bold"
+            android:textColor="@color/watsi_red"
             android:textSize="@dimen/fontsize_medium"
              />
 
@@ -84,6 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
+            android:textColor="@color/watsi_blue"
+            android:textStyle="bold"
             android:textSize="@dimen/fontsize_medium"
            />
 
@@ -91,7 +95,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Treatments"
+            android:text=" treatments"
             android:textAppearance="?android:attr/textAppearanceSmall" />
         
     </LinearLayout>
