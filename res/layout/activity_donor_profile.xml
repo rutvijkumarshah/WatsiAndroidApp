@@ -74,7 +74,7 @@
              />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/medicalNeed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" donated for"
@@ -92,7 +92,7 @@
            />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" treatments"

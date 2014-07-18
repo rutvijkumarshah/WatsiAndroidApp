@@ -47,9 +47,9 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		applyPrimaryFont(getApplicationContext(), totalTreatmentsFunded);
 		applyPrimaryFont(getApplicationContext(), totalDonationsAmount);
 		
-		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.textView1));//Donated for text
+		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.medicalNeed));//Donated for text
 		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.tv_membersince));//Member Since Text
-		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.textView3));//Treatments text
+		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.location));//Treatments text
 	}
 
 	@Override

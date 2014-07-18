@@ -32,7 +32,7 @@
    
     <LinearLayout
         android:layout_below="@+id/isFullyFunded"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:id="@+id/profileInfo"    
         android:layout_width="fill_parent"
         android:layout_height="160dp"
@@ -44,6 +44,13 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-10dp"
             android:layout_weight="1" />
+        
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:padding="0dip" />
 
     </LinearLayout>
 
@@ -59,7 +66,7 @@
    /> 
    <LinearLayout      
         android:id="@+id/donateAndShare"
-        android:layout_below="@+id/profileInfo"
+        android:layout_below="@+id/donationProgress"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
@@ -125,5 +132,22 @@
          android:layout_height="wrap_content">
      </TextView>
  </ScrollView>
+
+ <TextView
+     android:id="@+id/medicalPartnerLabel"
+     android:layout_width="wrap_content"
+     android:layout_height="10dp"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentLeft="true"
+     android:layout_below="@+id/scrollableStoryContainer"
+     android:text="Medical Partner:" />
+ 
+ <TextView
+     android:id="@+id/medicalPartnerVal"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_toRightOf="@+id/medicalPartnerLabel"
+     android:layout_alignBaseline="@+id/medicalPartnerLabel"
+     android:text="Possible" />
    
 </RelativeLayout>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import codepath.watsiapp.R;
-import codepath.watsiapp.fragments.PatientDetailFragment;
+import codepath.watsiapp.fragments.NewPatientDetailFragment;
 
 public class PatientDetailActivity extends FragmentActivity {
 	private String patientId;
@@ -20,7 +20,7 @@ public class PatientDetailActivity extends FragmentActivity {
 		// Begin the transaction
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// create object of patientDetailFragment and pass patientId
-		PatientDetailFragment patientDetailFragObj = PatientDetailFragment.newInstance(patientId);
+		NewPatientDetailFragment patientDetailFragObj = NewPatientDetailFragment.newInstance(patientId);
 		// Replace the container with the new fragment
 		ft.replace(R.id.flPatientDetailHolder, patientDetailFragObj);
 		// or ft.add(R.id.your_placeholder, new FooFragment());
