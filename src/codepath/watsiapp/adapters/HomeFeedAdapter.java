@@ -86,13 +86,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private View getCampaignContentItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ItemType itemType=ItemType.CAMPAIGN_CONTENT;
 		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
-			convertView = View.inflate(getContext(),R.layout.item_campaign_news, null);
+			convertView = View.inflate(getContext(),R.layout.item_patient_news, null);
 		}
 		
-		TextView tvHeading = (TextView) convertView.findViewById(R.id.tvCNHeading);
+		TextView tvHeading = (TextView) convertView.findViewById(R.id.donation_togo);
 		tvHeading.setText("Make a difference");
 		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvCNShortMessage);
+		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		tvShortMessage.setText(newsItem.getCampaignContent());
 		setTag(convertView, null, itemType);
 		return convertView;
