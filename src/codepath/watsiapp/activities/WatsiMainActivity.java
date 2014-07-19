@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
@@ -42,13 +41,14 @@ public class WatsiMainActivity extends BaseFragmentActivity {
         tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
         tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
         
-        
-		
 	}
 	
+	public void hidePager() {
+		
+	}
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 		
-		private static final String LABLES[]= {"Watsi News","Help"};
+		private static final String LABLES[]= {"Patients","News Feed"};
 		
 
 		public PatientsPagerAdapter(FragmentManager fragmentManager) {
@@ -63,11 +63,13 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			switch (position) {
-			case 0: 		
-				return PatientFeedFragment.newInstance();
-			case 1: 
+			case 0:
 				return PatientListFragment.newInstance();
-				
+				//return PatientFeedFragment.newInstance();
+			case 1: 
+				//return PatientListFragment.newInstance();
+				return PatientFeedFragment.newInstance();
+
 			default:
 				return null;
 			}

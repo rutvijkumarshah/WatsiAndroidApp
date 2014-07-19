@@ -13,6 +13,7 @@ import codepath.watsiapp.adapters.PatientAdapter;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.parse.ParseException;
 import com.parse.ParseQueryAdapter.OnQueryLoadListener;
 
@@ -70,8 +71,16 @@ public class PatientListFragment extends Fragment {
 	    //pullToRefreshAttacher = pullToRefreshLayout.createPullToRefreshAttacher(getActivity(), null);
 		// Initialize ListView and set initial view to patientAdapter
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_list);
-		listView.setAdapter(patientAdapter);
+		//listView.setAdapter(patientAdapter);
 		//patientAdapter.loadObjects();
+		
+		
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientAdapter);
+		swingBottomInAnimationAdapter.setInitialDelayMillis(0);
+		swingBottomInAnimationAdapter.setAbsListView(listView);
+		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
+		listView.setAdapter(swingBottomInAnimationAdapter);
+
 		setupIintialViews();
 		return v;
 	}
