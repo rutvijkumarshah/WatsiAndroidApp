@@ -26,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+
+
+import codepath.watsiapp.R;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -60,6 +63,8 @@ public class Util {
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
+		//overridePendingTransition(R.anim.right_in, R.anim.left_out);
+		//activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
 	
 	/**

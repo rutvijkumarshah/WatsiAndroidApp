@@ -9,6 +9,7 @@ import codepath.watsiapp.fragments.NewPatientDetailFragment;
 
 public class PatientDetailActivity extends BaseFragmentActivity {
 	private String patientId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,7 +20,8 @@ public class PatientDetailActivity extends BaseFragmentActivity {
 		// Begin the transaction
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// create object of patientDetailFragment and pass patientId
-		NewPatientDetailFragment patientDetailFragObj = NewPatientDetailFragment.newInstance(patientId);
+		NewPatientDetailFragment patientDetailFragObj = NewPatientDetailFragment
+				.newInstance(patientId);
 		// Replace the container with the new fragment
 		ft.replace(R.id.flPatientDetailHolder, patientDetailFragObj);
 		// or ft.add(R.id.your_placeholder, new FooFragment());
@@ -33,5 +35,13 @@ public class PatientDetailActivity extends BaseFragmentActivity {
 				PatientDetailActivity.class);
 		detailsIntent.putExtra("patient_id", patientId);
 		currentActivity.startActivity(detailsIntent);
+		currentActivity.overridePendingTransition(R.anim.slide_in_right,
+				R.anim.slide_out_left);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 	}
 }

@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
+import codepath.watsiapp.utils.Util;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -78,9 +79,13 @@ public class PatientSummaryFragment extends Fragment {
 		
 		
 		medicalNeedTv.setText(medicalNeed);
+		Util.applyPrimaryFont(getActivity(), medicalNeedTv);
 		ageTv.setText(age);
+		Util.applyPrimaryFont(getActivity(), ageTv);
 		locationTv.setText(location);
+		Util.applyPrimaryFont(getActivity(), locationTv);
 		percentageFundedTv.setText(fundedProgress);
+		Util.applyPrimaryFont(getActivity(), percentageFundedTv);
 		
 		return v;
 
