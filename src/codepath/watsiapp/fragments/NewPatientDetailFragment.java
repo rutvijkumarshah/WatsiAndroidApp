@@ -193,11 +193,11 @@ public class NewPatientDetailFragment extends Fragment {
 			} else {
 				String ageStr = null;
 				int age = patientObj.getAge();
-				if (age < 0) {
-					ageStr = "baby";
+				if (age == 0) {
+					ageStr = "a cute little baby";
 				}
-				if (age == 1) {
-					ageStr = age + " year old";
+				else if (age == 1) {
+					ageStr ="a year old";
 				} else {
 					ageStr = age + " years old";
 				}

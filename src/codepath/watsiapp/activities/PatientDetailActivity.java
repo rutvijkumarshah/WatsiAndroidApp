@@ -3,12 +3,11 @@ package codepath.watsiapp.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.NewPatientDetailFragment;
 
-public class PatientDetailActivity extends FragmentActivity {
+public class PatientDetailActivity extends BaseFragmentActivity {
 	private String patientId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
