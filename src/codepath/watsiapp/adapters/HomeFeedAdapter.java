@@ -121,19 +121,22 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		imageLoader
 				.displayImage(patient.getPhotoUrl(), ivProfileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
-		tvUserName.setText(patient.getFirstName() + " was helped by " + donor.getFirstName());
+		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
+		tvUserName.setText(patient.getFirstName() + " was helped !");
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
 				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
 		tvShortMessage.setText(message);
 		
-		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Fund Treatment");
+//		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
+//		bt.setText("Fund Treatment");
+		
+		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
+		
 		
 		setPatientNavigation(convertView, patient,itemType);
-		setPatientFundButton(bt, patient);
+		setPatientFundButton(donateView, patient);
 		
 		return convertView;
 		
@@ -159,7 +162,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		imageLoader
 				.displayImage(patient.getPhotoUrl(), ivProfileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
+		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
 		tvUserName.setText(patient.getFirstName() + " is now fully funded!!");
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
@@ -168,10 +171,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
 		tvShortMessage.setText(message);
 		
-		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Fund More Patients");
+		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
 		setPatientNavigation(convertView, patient, itemType);
-		setPatientFundButton(bt, patient);
+		setPatientFundButton(donateView, patient);
 		
 		return convertView;
 	}
@@ -195,18 +197,16 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		imageLoader
 				.displayImage(patient.getPhotoUrl(), ivProfileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
+		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
 		tvUserName.setText(patient.getFirstName() + " is looking for help!");
 		
 		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		String message = patient.getMedicalNeed()  + ". You can help!"; 
 		tvShortMessage.setText(message);
 		
-		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-		bt.setText("Fund Treatment");
-		
+		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
 		setPatientNavigation(convertView, patient, itemType);
-		setPatientFundButton(bt, patient);
+		setPatientFundButton(donateView, patient);
 		
 		return convertView;
 	}
@@ -228,9 +228,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		});
 	}
 	
-	private void setPatientFundButton(Button bt, Patient p) {
-		bt.setTag(p);
-		bt.setOnClickListener(new OnClickListener() {
+	private void setPatientFundButton(ImageView imageView, Patient p) {
+		imageView.setTag(p);
+		imageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
