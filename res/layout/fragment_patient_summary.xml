@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:text="Shin needs surgery to remove painful bladder stones."
         android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/fontsize_medium"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -26,8 +26,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="15dp"
-        android:text="40 Years"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:textSize="@dimen/fontsize_medium"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -38,8 +38,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="14dp"
-        android:text="Nepal"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:textSize="@dimen/fontsize_medium"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -50,8 +50,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="60% funded"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:textSize="@dimen/fontsize_medium"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>
