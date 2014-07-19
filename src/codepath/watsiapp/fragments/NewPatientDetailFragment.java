@@ -4,6 +4,7 @@ import static codepath.watsiapp.utils.Util.startFundTreatmentIntent;
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,14 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver.OnScrollChangedListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.OnSwipeTouchListener;
 import codepath.watsiapp.utils.Util;
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -47,6 +57,12 @@ public class NewPatientDetailFragment extends Fragment {
 	private ImageView shareOnFacebook;
 	private ImageView donateView;
 	private ImageView shareAction;
+	private ScrollView scrollView;
+	private boolean isStoryFullScreen;
+	private LinearLayout profileInfo;
+	private LinearLayout donateAndShare;
+	private View divder_down;
+	private LayoutParams savedScrollViewParams;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +86,10 @@ public class NewPatientDetailFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_new_patient_detail,
 				container, false);
 
+		profileInfo=(LinearLayout) view.findViewById(R.id.profileInfo);
+		donateAndShare=(LinearLayout) view.findViewById(R.id.donateAndShare);
+		divder_down=(View) view.findViewById(R.id.divder_down);
+		
 		fullyFundedCheckMark = (ImageView) view
 				.findViewById(R.id.isFullyFunded);
 		// Assign views to local variables
@@ -103,6 +123,50 @@ public class NewPatientDetailFragment extends Fragment {
 		shareOnTwitter=(ImageView) view.findViewById(R.id.share_tw);
 		
 		story.setText(patientObj.getStory().replace("#$#$", ""));
+		scrollView=(ScrollView) view.findViewById(R.id.scrollableStoryContainer);
+		isStoryFullScreen=false;
+		scrollView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+			  @Override
+			  public void onSwipeDown() {
+			    collapseScrollView();
+			  }
+			  
+			
+
+			@Override
+			  public void onSwipeLeft() {
+			    
+			  }
+			  
+			  @Override
+			  public void onSwipeUp() {
+			    makeScrollViewFullScreen();
+			  }
+			  
+			  @Override
+			  public void onSwipeRight() {
+			    
+			  }
+			});
+		
+//		scrollView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
+//
+//		    @Override
+//		    public void onScrollChanged() {
+//		    	if(!isStoryFullScreen) {
+//		    		makeScrollViewFullScreen();
+//		    	
+//		    		//make it fullscreen
+//		    	}else {
+//		    		//move back to org position;
+//		    	}
+//
+//		    }
+//
+//			
+//		});
+		
+		
 		patientObj.getMedicalPartner(new GetCallback<MedicalPartner>() {
 			@Override
 			public void done(final MedicalPartner object, ParseException arg1) {
@@ -170,6 +234,58 @@ public class NewPatientDetailFragment extends Fragment {
 		return view;
 	}
 
+	  private void collapseScrollView() {
+		  if(patientObj.isFullyFunded()) {
+		  fullyFundedCheckMark.setVisibility(View.VISIBLE);
+		  }else {
+			  fullyFundedCheckMark.setVisibility(View.INVISIBLE);
+		  }
+			profileInfo.setVisibility(View.VISIBLE);
+			donateAndShare.setVisibility(View.VISIBLE);
+			donationToGo.setVisibility(View.VISIBLE);
+			divder_down.setVisibility(View.VISIBLE);
+			scrollView.setLayoutParams(savedScrollViewParams);
+			savedScrollViewParams=null;
+		}
+	  
+	private void makeScrollViewFullScreen() {
+
+		animate(scrollView)
+		.setDuration(500).setStartDelay(100)
+		.scaleX(1.0f)
+		.scaleY(1.0f)
+		
+				.setListener(new AnimatorListenerAdapter() {
+					@Override
+					public void onAnimationStart(Animator animation) {
+						// Toast.makeText(getActivity(), "Started...",
+						// Toast.LENGTH_SHORT).show();
+					};
+
+					@Override
+					public void onAnimationEnd(Animator animation) {
+						// TODO Auto-generated method stub
+						super.onAnimationEnd(animation);						
+						hideOtherThanStory();
+					}
+				}).start();;
+
+	}
+	
+	private void hideOtherThanStory() {
+		fullyFundedCheckMark.setVisibility(View.GONE);
+		profileInfo.setVisibility(View.GONE);
+		donateAndShare.setVisibility(View.GONE);
+		donationToGo.setVisibility(View.GONE);
+		divder_down.setVisibility(View.GONE);
+		savedScrollViewParams = scrollView.getLayoutParams();
+		scrollView
+		.setLayoutParams(new RelativeLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+
+		
+	}
 	public static NewPatientDetailFragment newInstance(String patientId) {
 		NewPatientDetailFragment fragmentObj = new NewPatientDetailFragment();
 		Bundle args = new Bundle();
