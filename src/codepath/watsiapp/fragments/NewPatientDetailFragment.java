@@ -89,6 +89,7 @@ public class NewPatientDetailFragment extends Fragment {
 //				.findViewById(R.id.donationProgress);
 		medicalPartner = (TextView) view.findViewById(R.id.medicalPartnerVal);
 		story = (TextView) view.findViewById(R.id.patientStory);
+		Util.applyPrimaryFont(getActivity(), story);
 		// Set views to with values
 		getActivity().getActionBar().setTitle(patientObj.getFullName());
 		
@@ -150,8 +151,10 @@ public class NewPatientDetailFragment extends Fragment {
 			fullyFundedCheckMark.setVisibility(View.VISIBLE);
 			donateView.setVisibility(View.INVISIBLE);
 		}else {
+			Util.applyPrimaryFont(getActivity(), donationToGo);
 			donationToGo
-					.setText("$ " + patientObj.getDonationToGo() + " to go");
+					.setText(Util.formatAmount(patientObj.getDonationToGo())
+							+ " to go");
 			donateView.setVisibility(View.VISIBLE);
 			
 			donateView.setTag(patientObj);
