@@ -1,10 +1,13 @@
 package codepath.watsiapp.adapters;
 
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
+import static codepath.watsiapp.utils.Util.getPixels;
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +27,10 @@ import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -164,37 +170,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		return convertView;
 	}
 
-	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		ViewHolder viewHolder = (ViewHolder)convertView.getTag();
-		Patient patient;
-		Donor donor;
-		Donation dn;
-		try {
-			dn = newsItem.getDonation().fetchIfNeeded();
-			donor = dn.getDonor().fetchIfNeeded();
-			patient = dn.getPatient().fetchIfNeeded();
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return convertView;
-		}
-		
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader
-				.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
-
-		viewHolder.shortDescription.setText(patient.getFirstName() + " was helped !");
-		
-		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
-				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
-		viewHolder.message.setText(message);
-		viewHolder.patient = patient;
-		setPatientNavigation(convertView, patient,viewHolder.itemType);
-		setPatientFundButton(viewHolder.donateView, patient);
-		setShareListeners(viewHolder);
-		convertView.setTag(viewHolder);
-		return convertView;
-		
-	}
 
 	private void setShareListeners(ViewHolder viewHolder) {
 		viewHolder.shareAction.setTag(viewHolder.patient);
@@ -228,6 +203,34 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		
 	}
 
+	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
+		ViewHolder viewHolder = (ViewHolder)convertView.getTag();
+		Patient patient;
+		Donor donor;
+		Donation dn;
+		try {
+			dn = newsItem.getDonation().fetchIfNeeded();
+			donor = dn.getDonor().fetchIfNeeded();
+			patient = dn.getPatient().fetchIfNeeded();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return convertView;
+		}
+		
+		String shortDescription = patient.getFirstName() + " was helped !";
+		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
+				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
+		
+		viewHolder.patient = patient;
+		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
+		setPatientNavigation(convertView, patient,viewHolder.itemType);
+		setPatientFundButton(viewHolder.donateView, patient);
+		setShareListeners(viewHolder);
+		convertView.setTag(viewHolder);
+		return convertView;
+		
+	}
+
 	private View getFullyFundedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ItemType itemType=ItemType.FULLY_FUNDED;
 		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
@@ -240,16 +243,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			return convertView;
 		}
 		
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
-
-		viewHolder.shortDescription.setText(patient.getFirstName() + " is now fully funded!!");
-		
+		String shortDescription = patient.getFirstName() + " is now fully funded!!";
 		String message = patient.getFullName() + " will now be able to get medical" +
 		                 " treatment. Donors like you helped raise $" +
 		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
-		viewHolder.message.setText(message);
+		
 		viewHolder.patient = patient;
+		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
 		setPatientNavigation(convertView, patient, itemType);
 		setPatientFundButton(viewHolder.donateView, patient);
 		setShareListeners(viewHolder);
@@ -267,15 +267,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			e.printStackTrace();
 			return convertView;
 		}
-		
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
 
-		viewHolder.shortDescription.setText(patient.getFirstName() + " is looking for help!");
-		
+		String shortDescription = patient.getFirstName() + " is looking for help!";
 		String message = patient.getMedicalNeed()  + ". You can help!"; 
-		viewHolder.message.setText(message);
+
+		
 		viewHolder.patient = patient;
+		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
 		setPatientNavigation(convertView, patient, viewHolder.itemType);
 		setPatientFundButton(viewHolder.donateView, patient);
 		setShareListeners(viewHolder);
@@ -283,6 +281,40 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		return convertView;
 	}
 
+	private void setupUI(ViewHolder viewHolder, String photoUrl, String shortDescription, String message){
+		 DisplayImageOptions options = new DisplayImageOptions.Builder()
+     	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
+     	.cacheInMemory()
+     	.cacheOnDisc()
+     	.imageScaleType(ImageScaleType.EXACTLY)
+         .bitmapConfig(Bitmap.Config.RGB_565)
+     	.build();
+
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.displayImage(photoUrl, viewHolder.profileImage,options);
+		
+		viewHolder.shortDescription.setText(shortDescription);
+		viewHolder.message.setText(message);
+		
+		int donationProgressPecentage = viewHolder.patient.getDonationProgressPecentage();
+		// donation progress
+		viewHolder.donationProgress.setProgress(donationProgressPecentage);
+		
+		Drawable progressDrawable = null;
+
+		if (viewHolder.patient.isFullyFunded()) {
+			progressDrawable = getContext().getResources().getDrawable(
+					R.drawable.fully_funded_progressbar);
+
+		} else {
+			progressDrawable = getContext().getResources().getDrawable(
+					R.drawable.progressbar);
+		}
+
+		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
+
+	}
+	
 	
 	private void setPatientNavigation(View v, Patient p, ItemType type) {
 	
