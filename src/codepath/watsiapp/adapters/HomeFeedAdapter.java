@@ -88,6 +88,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			convertView = buildViewHolder(newsItem.getItemType());
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
+			viewHolder.profileImage.setImageResource(R.drawable.default_feed_icon);
+			viewHolder.patient = null;
+			viewHolder.itemType = newsItem.getItemType();
 		}
 
 		switch(newsItem.getItemType()) {
@@ -132,22 +135,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 				.findViewById(R.id.fund_treatment_feed);
 		viewHolder.shareOnTwitter = (ImageView) convertView
 				.findViewById(R.id.share_tw);
+		
 		viewHolder.itemType = itemType;
 
 		applyPrimaryFont(getContext(), viewHolder.message);
 		applyPrimaryFont(getContext(), viewHolder.shortDescription);
 		convertView.setTag(viewHolder);
-
-		
-//		convertView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				ViewHolder _viewHolder = (ViewHolder) v.getTag();
-//				String patientId = _viewHolder.patient.getObjectId();
-//				PatientDetailActivity.getPatientDetailsIntent(activity,patientId);
-//			}
-//		});
 		
 		return convertView;
 	}
@@ -222,10 +215,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
 		
 		viewHolder.patient = patient;
-		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		setPatientNavigation(convertView, patient,viewHolder.itemType);
-		setPatientFundButton(viewHolder.donateView, patient);
-		setShareListeners(viewHolder);
+		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
+		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 		
@@ -249,10 +240,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
 		
 		viewHolder.patient = patient;
-		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		setPatientNavigation(convertView, patient, itemType);
-		setPatientFundButton(viewHolder.donateView, patient);
-		setShareListeners(viewHolder);
+		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
+		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 	}
@@ -273,15 +262,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 		
 		viewHolder.patient = patient;
-		setupUI(viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		setPatientNavigation(convertView, patient, viewHolder.itemType);
-		setPatientFundButton(viewHolder.donateView, patient);
-		setShareListeners(viewHolder);
+		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
+		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 	}
 
-	private void setupUI(ViewHolder viewHolder, String photoUrl, String shortDescription, String message){
+	private void setupUI(View convertView, ViewHolder viewHolder, String photoUrl, String shortDescription, String message){
 		 DisplayImageOptions options = new DisplayImageOptions.Builder()
      	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
      	.cacheInMemory()
@@ -312,7 +299,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		}
 
 		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
-
+		setPatientNavigation(convertView, viewHolder.patient, viewHolder.itemType);
+		setPatientFundButton(viewHolder.donateView, viewHolder.patient);
+		setShareListeners(viewHolder);
 	}
 	
 	
@@ -338,8 +327,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			}
 		});
 	}
-	
-	
+		
 //	private void setGeneralPatientFundButton(ImageView imageView) {
 //
 //		imageView.setOnClickListener(new OnClickListener() {
