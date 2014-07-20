@@ -159,7 +159,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		// in case of campaign share and donate not visible.
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.INVISIBLE);
 		convertView.setTag(viewHolder);
-		convertView.setClickable(false);
+		convertView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Util.startUniversalFundTreatmentIntent(activity);
+			}
+		});
 		return convertView;
 	}
 
@@ -306,7 +311,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	
 	
 	private void setPatientNavigation(View v, Patient p, ItemType type) {
-		v.setClickable(true);
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -327,16 +331,5 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			}
 		});
 	}
-		
-//	private void setGeneralPatientFundButton(ImageView imageView) {
-//
-//		imageView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				Util.startGeneralFundTreatmentIntent(activity);
-//			}
-//		});
-//	}
 	
 }

@@ -59,12 +59,18 @@ public class Util {
 	private static String PRIMARY_FONT="Roboto-Regular.ttf";
 	private static final String FB_ACTIVITY="com.facebook.composer.shareintent.ImplicitShareIntentHandler";
 	private static final String TWITTER_ACTIVITY="com.twitter.android.composer.ComposerActivity";
+	private static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
 	
 	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
 		activity.startActivity(browserIntent);
 		//overridePendingTransition(R.anim.right_in, R.anim.left_out);
 		//activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+	}
+	
+	public static void startUniversalFundTreatmentIntent(Activity activity) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UNIVERSAL_FUND_URL));
+		activity.startActivity(browserIntent);
 	}
 	
 	/**
