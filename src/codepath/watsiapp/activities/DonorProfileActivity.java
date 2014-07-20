@@ -9,6 +9,7 @@ import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.DonationListFragment;
+import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.utils.Util;
@@ -29,6 +30,8 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 	private TextView totalTreatmentsFunded;
 	private ImageView profilePicture;
 	private String donorId;
+	private TextView donatedForText;
+	private TextView treatmetnsText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,8 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		memberSinceDate = (TextView) findViewById(R.id.tv_membersince_dt);
 		totalTreatmentsFunded = (TextView) findViewById(R.id.tv_noof_treatments);
 		totalDonationsAmount = (TextView) findViewById(R.id.total_donation);
-		
+		donatedForText=(TextView)findViewById(R.id.medicalNeed);
+		treatmetnsText=(TextView)findViewById(R.id.location);
 
 		applyPrimaryFont(getApplicationContext(), donarFullName);
 		applyPrimaryFont(getApplicationContext(), memberSinceDate);
@@ -88,7 +92,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 				} else {
 					user.getUsername();
 					memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
-					
+					showDetailsForNonDonor();
 				}
 				
 				if(donorId!=null) {
@@ -103,7 +107,11 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 
 	private void showDetailsForNonDonor() {
 		memberSinceDate.setText(Util.getFormatedDate(ParseUser.getCurrentUser().getCreatedAt()));
-		totalDonationsAmount.setText("NOT A DONOR");
+		totalDonationsAmount.setText("");
+		donatedForText.setText("");
+		treatmetnsText.setText("");
+		totalTreatmentsFunded.setText("Make a difference");
+		setNewsFragment();
 	}
 	
 	private void showDetailsForDonor(Donor donor) {
@@ -153,6 +161,16 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		// Replace the container with the new fragment
 		ft.replace(R.id.donations,
 				DonationListFragment.newInstance(donorId));
+		ft.commit();
+	}
+
+	private void setNewsFragment() {
+
+		// Begin the transaction
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		// Replace the container with the new fragment
+		ft.replace(R.id.donations,
+				PatientFeedFragment.newInstance());
 		ft.commit();
 	}
 
