@@ -4,9 +4,10 @@
         android:id="@+id/facebook_login"
         style="@style/ParseLoginUI.Button.ThirdPartyLogin"
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
-        android:background="@drawable/com_parse_ui_facebook_login_button_background_selector"
-        android:drawableLeft="@drawable/com_parse_ui_facebook_login_logo"
+        android:background="#eeeeee"
+        android:drawableLeft="@drawable/ic_facebook"
         android:text="@string/com_parse_ui_facebook_login_button_label"
+        android:textColor="@color/watsi_blue"
         android:visibility="gone" />
 
     <Button
