@@ -27,4 +27,5 @@
           <item>public_profile</item>
         <item>email</item>
     </string-array>
+    <string name="makeDifference">Make a difference !</string>
 </resources>

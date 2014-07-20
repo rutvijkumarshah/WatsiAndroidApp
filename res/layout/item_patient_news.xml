@@ -31,11 +31,11 @@
     	    android:layout_centerHorizontal="true" 
             android:layout_centerVertical="true"             
     	    android:scaleType="centerCrop"
-    	    android:src="@drawable/ic_launcher" />
+    	    android:src="@drawable/default_feed_icon" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/donation_togo"
+        android:id="@+id/tvShortDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageArea"
@@ -49,10 +49,10 @@
  
    
     <TextView
-        android:id="@+id/tvShortMessage"
+        android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/donation_togo"
+        android:layout_below="@+id/tvShortDescription"
         android:layout_toRightOf="@+id/imageArea"
         android:lines="3"
         android:textSize="@dimen/fontsize_small"
@@ -61,8 +61,8 @@
     
     <LinearLayout      
         android:id="@+id/donateAndShare"
-        android:layout_below="@+id/tvShortMessage"
-        android:layout_alignStart="@+id/tvShortMessage"
+        android:layout_below="@+id/tvMessage"
+        android:layout_alignStart="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 

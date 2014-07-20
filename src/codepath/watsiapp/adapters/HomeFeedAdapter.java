@@ -1,5 +1,9 @@
 package codepath.watsiapp.adapters;
 
+import static codepath.watsiapp.utils.Util.applyPrimaryFont;
+import static codepath.watsiapp.utils.Util.startShareIntent;
+import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
+import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -7,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
@@ -29,14 +34,21 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private FragmentActivity activity;
 	public static final int PAGE_SIZE = 4; 
 
-	class InfoHolder{
-		InfoHolder(Patient patient, ItemType itemType){
-			this.patient = patient;
-			this.itemType = itemType;
-		}
-		Patient patient;
-		ItemType itemType;
+	// View lookup cache
+	private static class ViewHolder {
+		//TextView name;
+		TextView shortDescription;
+		TextView message;
+		ImageView profileImage;
+		ProgressBar donationProgress;
+		ImageView shareOnTwitter;
+		ImageView shareOnFacebook;
+		ImageView donateView;
+		ImageView shareAction;
+		Patient patient;	
+		ItemType itemType; 
 	}
+	private ViewHolder viewHolder;
 	
 	public HomeFeedAdapter(Context context,ParseQueryAdapter.QueryFactory<NewsItem> queryFactory) {
 		//Custom Query
@@ -63,47 +75,97 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	@Override
-	public View getItemView(final NewsItem newsItem, View convertView,
-			ViewGroup parent) {
-		View view = null;
+	public View getItemView(final NewsItem newsItem, View convertView,ViewGroup parent) {
+		
+		if (convertView == null) {
+			viewHolder = new ViewHolder();
+			convertView = buildViewHolder(newsItem.getItemType());
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
+
 		switch(newsItem.getItemType()) {
 		case CAMPAIGN_CONTENT : 
-			view = getCampaignContentItemView(newsItem, convertView, parent);
+			convertView = getCampaignContentItemView(newsItem, convertView, parent);
 			break;
 		case ON_BOARDED:
-			view = getOnBoardedItemView(newsItem, convertView, parent);
+			convertView = getOnBoardedItemView(newsItem, convertView, parent);
 			break;
 		case FULLY_FUNDED:
-			view = getFullyFundedItemView(newsItem, convertView, parent);
+			convertView = getFullyFundedItemView(newsItem, convertView, parent);
 			break;
 		case DONATION_RAISED:
-			view = getDonationRaisedItemView(newsItem, convertView, parent);
+			convertView = getDonationRaisedItemView(newsItem, convertView, parent);
 			break; 
 		}
-		return view;
+		return convertView;	
+	}
+
+	private View buildViewHolder(ItemType itemType) {
+		View convertView;
+		convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
+
+		viewHolder.shortDescription = (TextView) convertView
+				.findViewById(R.id.tvShortDescription);
+
+		viewHolder.message = (TextView) convertView
+				.findViewById(R.id.tvMessage);
+
+		viewHolder.profileImage = (ImageView) convertView
+				.findViewById(R.id.ivProfileImage);
+
+		viewHolder.donationProgress = (ProgressBar) convertView
+				.findViewById(R.id.progressBarToday);
+
+		viewHolder.shareAction = (ImageView) convertView
+				.findViewById(R.id.shareIv);
+
+		viewHolder.shareOnFacebook = (ImageView) convertView
+				.findViewById(R.id.share_fb);
+		viewHolder.donateView = (ImageView) convertView
+				.findViewById(R.id.fund_treatment_feed);
+		viewHolder.shareOnTwitter = (ImageView) convertView
+				.findViewById(R.id.share_tw);
+		viewHolder.itemType = itemType;
+
+		applyPrimaryFont(getContext(), viewHolder.message);
+		applyPrimaryFont(getContext(), viewHolder.shortDescription);
+		convertView.setTag(viewHolder);
+
+		
+//		convertView.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				ViewHolder _viewHolder = (ViewHolder) v.getTag();
+//				String patientId = _viewHolder.patient.getObjectId();
+//				PatientDetailActivity.getPatientDetailsIntent(activity,patientId);
+//			}
+//		});
+		
+		return convertView;
 	}
 
 	private View getCampaignContentItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		ItemType itemType=ItemType.CAMPAIGN_CONTENT;
-		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
-			convertView = View.inflate(getContext(),R.layout.item_patient_news, null);
-		}
+		ViewHolder viewHolder =(ViewHolder) convertView.getTag();
+		viewHolder.shortDescription.setText(R.string.makeDifference);
+		viewHolder.message.setText(newsItem.getCampaignContent());
 		
-		TextView tvHeading = (TextView) convertView.findViewById(R.id.donation_togo);
-		tvHeading.setText("Make a difference");
+		// In case of campaign event we need not show progress bar.
+		viewHolder.donationProgress.setVisibility(View.INVISIBLE);
+
+		// setting click on donate button to go to generic donation.
+//		setGeneralPatientFundButton(viewHolder.donateView);
+
+		// in case of campaign share and donate not visible.
+		convertView.findViewById(R.id.donateAndShare).setVisibility(View.INVISIBLE);
+		convertView.setTag(viewHolder);
 		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
-		tvShortMessage.setText(newsItem.getCampaignContent());
-		setTag(convertView, null, itemType);
 		return convertView;
 	}
 
 	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		ItemType itemType=ItemType.DONATION_RAISED;
-		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
-			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
-		}
-		
+		ViewHolder viewHolder = (ViewHolder)convertView.getTag();
 		Patient patient;
 		Donor donor;
 		Donation dn;
@@ -116,38 +178,59 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			return convertView;
 		}
 		
-		ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader
-				.displayImage(patient.getPhotoUrl(), ivProfileImage);
+				.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
-		tvUserName.setText(patient.getFirstName() + " was helped !");
+		viewHolder.shortDescription.setText(patient.getFirstName() + " was helped !");
 		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
 				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
-		tvShortMessage.setText(message);
-		
-//		Button bt = (Button) convertView.findViewById(R.id.btNewsAction);
-//		bt.setText("Fund Treatment");
-		
-		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
-		
-		
-		setPatientNavigation(convertView, patient,itemType);
-		setPatientFundButton(donateView, patient);
-		
+		viewHolder.message.setText(message);
+		viewHolder.patient = patient;
+		setPatientNavigation(convertView, patient,viewHolder.itemType);
+		setPatientFundButton(viewHolder.donateView, patient);
+		setShareListeners(viewHolder);
+		convertView.setTag(viewHolder);
 		return convertView;
+		
+	}
+
+	private void setShareListeners(ViewHolder viewHolder) {
+		viewHolder.shareAction.setTag(viewHolder.patient);
+		viewHolder.shareAction.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startShareIntent(activity,(Patient)v.getTag());
+
+			}
+		});
+		viewHolder.shareOnTwitter.setTag(viewHolder.patient);
+		viewHolder.shareOnTwitter.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startShareIntentWithTwitter(activity,(Patient)v.getTag());
+
+			}
+		});
+
+		viewHolder.shareOnFacebook.setTag(viewHolder.patient);
+		viewHolder.shareOnFacebook.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startShareIntentWithFaceBook(activity,(Patient)v.getTag());
+
+			}
+		});
 		
 	}
 
 	private View getFullyFundedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ItemType itemType=ItemType.FULLY_FUNDED;
-		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
-			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
-		}
-		
+		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		Patient patient;
 		try {
 			patient = newsItem.getPatient().fetchIfNeeded();
@@ -157,33 +240,25 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			return convertView;
 		}
 		
-		ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader
-				.displayImage(patient.getPhotoUrl(), ivProfileImage);
+		imageLoader.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
-		tvUserName.setText(patient.getFirstName() + " is now fully funded!!");
+		viewHolder.shortDescription.setText(patient.getFirstName() + " is now fully funded!!");
 		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		String message = patient.getFullName() + " will now be able to get medical" +
 		                 " treatment. Donors like you helped raise $" +
 		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
-		tvShortMessage.setText(message);
-		
-		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
+		viewHolder.message.setText(message);
+		viewHolder.patient = patient;
 		setPatientNavigation(convertView, patient, itemType);
-		setPatientFundButton(donateView, patient);
-		
+		setPatientFundButton(viewHolder.donateView, patient);
+		setShareListeners(viewHolder);
+		convertView.setTag(viewHolder);
 		return convertView;
 	}
 
 	private View getOnBoardedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
-		ItemType itemType=ItemType.ON_BOARDED;
-		if (convertView == null || !((InfoHolder)convertView.getTag()).itemType.equals(newsItem.getItemType())) {
-			convertView = View.inflate(getContext(), R.layout.item_patient_news, null);
-		}
-		
+		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		Patient patient;
 		try {
 			patient = newsItem.getPatient().fetchIfNeeded();
@@ -192,37 +267,29 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			e.printStackTrace();
 			return convertView;
 		}
-		ImageView ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImage);
+		
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader
-				.displayImage(patient.getPhotoUrl(), ivProfileImage);
+		imageLoader.displayImage(patient.getPhotoUrl(), viewHolder.profileImage);
 
-		TextView tvUserName = (TextView) convertView.findViewById(R.id.donation_togo);
-		tvUserName.setText(patient.getFirstName() + " is looking for help!");
+		viewHolder.shortDescription.setText(patient.getFirstName() + " is looking for help!");
 		
-		TextView tvShortMessage = (TextView) convertView.findViewById(R.id.tvShortMessage);
 		String message = patient.getMedicalNeed()  + ". You can help!"; 
-		tvShortMessage.setText(message);
-		
-		ImageView donateView=(ImageView)convertView.findViewById(R.id.fund_treatment_feed);
-		setPatientNavigation(convertView, patient, itemType);
-		setPatientFundButton(donateView, patient);
-		
+		viewHolder.message.setText(message);
+		viewHolder.patient = patient;
+		setPatientNavigation(convertView, patient, viewHolder.itemType);
+		setPatientFundButton(viewHolder.donateView, patient);
+		setShareListeners(viewHolder);
+		convertView.setTag(viewHolder);
 		return convertView;
 	}
 
-
-	private void setTag(View v, Patient patient,ItemType type) {
-		v.setTag(new InfoHolder(patient,type));
-	}
 	
 	private void setPatientNavigation(View v, Patient p, ItemType type) {
-		
-		setTag(v, p, type);
+	
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String patientId= ((InfoHolder) v.getTag()).patient.getObjectId();
+				String patientId= ((ViewHolder) v.getTag()).patient.getObjectId();
 				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
 			}
 		});
@@ -240,5 +307,16 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		});
 	}
 	
+	
+//	private void setGeneralPatientFundButton(ImageView imageView) {
+//
+//		imageView.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				Util.startGeneralFundTreatmentIntent(activity);
+//			}
+//		});
+//	}
 	
 }
