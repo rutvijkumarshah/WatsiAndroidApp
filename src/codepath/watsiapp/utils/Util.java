@@ -77,6 +77,11 @@ public class Util {
 	  tv.setText(ssb, TextView.BufferType.SPANNABLE);
 	} 
 	
+	public static void starShowMedicalPartnerIntent(Activity activity,String url) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		activity.startActivity(browserIntent);
+	}
+	
 	public static void starShowMedicalPartnerIntent(Activity activity,MedicalPartner medicalPartner) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(medicalPartner.getWebsiteUrl()));
 		activity.startActivity(browserIntent);
