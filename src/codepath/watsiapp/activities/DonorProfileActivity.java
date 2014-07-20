@@ -170,7 +170,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
 		ft.replace(R.id.donations,
-				PatientFeedFragment.newInstance());
+				PatientFeedFragment.newInstance(null));
 		ft.commit();
 	}
 

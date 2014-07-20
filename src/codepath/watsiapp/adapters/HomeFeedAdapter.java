@@ -38,7 +38,7 @@ import com.parse.ParseQueryAdapter;
 public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 	private FragmentActivity activity;
-	public static final int PAGE_SIZE = 4; 
+	public static final int PAGE_SIZE = 6; 
 
 	// View lookup cache
 	private static class ViewHolder {

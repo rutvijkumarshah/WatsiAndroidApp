@@ -12,9 +12,11 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
+import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.HomeFeedAdapter;
 import codepath.watsiapp.models.NewsItem;
 
+import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.parse.ParseException;
 import com.parse.ParseQueryAdapter.OnQueryLoadListener;
 
@@ -26,7 +28,12 @@ public class PatientFeedFragment extends Fragment {
 	private HomeFeedAdapter patientFeedAdapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
+	private PagerListener pagerListener;
 
+	public void setPagerListener(PagerListener pagerListener) {
+		this.pagerListener = pagerListener;
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,16 +75,21 @@ public class PatientFeedFragment extends Fragment {
 			public void onLoading() {
 				progressBar.setVisibility(View.VISIBLE);
 			}
-		});
+		});  
 
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_feed_list);
-		listView.setAdapter(patientFeedAdapter);
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientFeedAdapter);
+		swingBottomInAnimationAdapter.setInitialDelayMillis(0);
+		swingBottomInAnimationAdapter.setAbsListView(listView);
+		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
+		listView.setAdapter(swingBottomInAnimationAdapter);
+
 		listView.setOnScrollListener(new OnScrollListener() 
 		{
 			int mLastFirstVisibleItem = 0;
 
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {   }           
+			public void onScrollStateChanged(AbsListView view, int scrollState) {   }
 
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) 
@@ -88,21 +100,25 @@ public class PatientFeedFragment extends Fragment {
 
 					if (currentFirstVisibleItem > mLastFirstVisibleItem) 
 					{
-						getActivity().getActionBar().hide();
+						if (pagerListener != null) {
+							pagerListener.hidePager();
+						}
 					} 
 					else if (currentFirstVisibleItem < mLastFirstVisibleItem) 
 					{
-						getActivity().getActionBar().show();
+						if (pagerListener != null) {
+							pagerListener.showPager();
+						}
 					}
 
 					mLastFirstVisibleItem = currentFirstVisibleItem;
-				}               
+				}
 			}
 		});
 		setupIintialViews();
 		return v;
 	}
-
+ 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -120,8 +136,9 @@ public class PatientFeedFragment extends Fragment {
 
 	}
 
-	public static PatientFeedFragment newInstance() {
+	public static PatientFeedFragment newInstance(PagerListener pagerListener) {
 		PatientFeedFragment fragment = new PatientFeedFragment();
+		fragment.setPagerListener(pagerListener);
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;

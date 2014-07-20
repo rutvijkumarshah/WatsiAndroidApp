@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.WindowManager;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
@@ -12,19 +14,19 @@ import codepath.watsiapp.fragments.PatientListFragment;
 import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 
-public class WatsiMainActivity extends BaseFragmentActivity {
+public class WatsiMainActivity extends BaseFragmentActivity implements PagerListener {
 	private ViewPager vpPager;
 	private PatientsPagerAdapter adapterViewPager;
 	private PagerSlidingTabStrip tabs;
 	
-
+	
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		ParseAnalytics.trackAppOpened(getIntent());
 		vpPager = (ViewPager) findViewById(R.id.viewPager);
-		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());
+		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager(), this);
 		vpPager.setAdapter(adapterViewPager);
 		setupSlidingTabs(vpPager);
 	}
@@ -41,18 +43,24 @@ public class WatsiMainActivity extends BaseFragmentActivity {
         tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
         tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
         
-	}
+	}  
 	
 	public void hidePager() {
-		
+		tabs.setVisibility(View.GONE);
 	}
+	
+	public void showPager() {
+		tabs.setVisibility(View.VISIBLE);
+	}
+	
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 		
 		private static final String LABLES[]= {"Patients","News Feed"};
-		
+		private PagerListener pagerListener;
 
-		public PatientsPagerAdapter(FragmentManager fragmentManager) {
+		public PatientsPagerAdapter(FragmentManager fragmentManager, PagerListener pagerListener) {
 			super(fragmentManager);
+			this.pagerListener = pagerListener;
 		}
 
 		@Override
@@ -64,11 +72,11 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return PatientListFragment.newInstance();
+				return PatientListFragment.newInstance(pagerListener);
 				//return PatientFeedFragment.newInstance();
 			case 1: 
 				//return PatientListFragment.newInstance();
-				return PatientFeedFragment.newInstance();
+				return PatientFeedFragment.newInstance(pagerListener);
 
 			default:
 				return null;

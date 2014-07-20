@@ -2,26 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-       
-       <eu.erikw.PullToRefreshListView
-        android:layout_marginTop="8dp"    
-        android:layout_marginLeft="8dp"
-    	android:layout_marginRight="8dp"   
+
+    <eu.erikw.PullToRefreshListView
         android:id="@+id/patient_feed_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-       
-      <ProgressBar
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
+
+    <ProgressBar
         android:id="@+id/pf_progressBar"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>
