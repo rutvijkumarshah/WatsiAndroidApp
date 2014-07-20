@@ -59,10 +59,23 @@ public class Util {
 	private static String PRIMARY_FONT="Roboto-Regular.ttf";
 	private static final String FB_ACTIVITY="com.facebook.composer.shareintent.ImplicitShareIntentHandler";
 	private static final String TWITTER_ACTIVITY="com.twitter.android.composer.ComposerActivity";
-	private static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
+	public static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
+
+	private static class UniversalFeedItem implements ShareableItem {
+		public UniversalFeedItem() {}
+		
+		@Override
+		public String getShareableUrl() {
+			return UNIVERSAL_FUND_URL;
+		}	
+	}
 	
-	public static void startFundTreatmentIntent(Activity activity,Patient patient) {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getProfileUrl()));
+	public static ShareableItem getUniversalShareableItem() {
+		return new UniversalFeedItem();
+	}
+	
+	public static void startFundTreatmentIntent(Activity activity, ShareableItem patient) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getShareableUrl()));
 		activity.startActivity(browserIntent);
 		//overridePendingTransition(R.anim.right_in, R.anim.left_out);
 		//activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
@@ -71,6 +84,10 @@ public class Util {
 	public static void startUniversalFundTreatmentIntent(Activity activity) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UNIVERSAL_FUND_URL));
 		activity.startActivity(browserIntent);
+	}
+	
+	public interface ShareableItem {
+		public String getShareableUrl();
 	}
 	
 	/**
@@ -91,20 +108,20 @@ public class Util {
 		
 		activity.startActivity(new Intent(activity,ParseDispatchActivity.class));
 	}
-	public static void startShareIntent(Activity activity,Patient patient) {
+	public static void startShareIntent(Activity activity,ShareableItem patient) {
 		Intent shareIntent = new Intent();
 	    shareIntent.setAction(Intent.ACTION_SEND);
-	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getProfileUrl());
+	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
 	    shareIntent.setType("text/plain");
 	    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
 	    activity.startActivity(Intent.createChooser(shareIntent, "Share Story"));		
 	}
 
-	private static void startShareIntentWithExplicitSocialActivity(Activity ctx,Patient patient,String socialActivityName,String displayName) {
+	private static void startShareIntentWithExplicitSocialActivity(Activity ctx,ShareableItem patient,String socialActivityName,String displayName) {
 		Intent shareIntent = new Intent();
 	    shareIntent.setAction(Intent.ACTION_SEND);
 	    shareIntent.setType("text/plain");
-	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getProfileUrl());
+	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
 		   
 	    try{
 	        final PackageManager pm = ctx.getPackageManager();
@@ -129,11 +146,11 @@ public class Util {
 	    }
 
 	}
-	public static void startShareIntentWithTwitter(Activity ctx,Patient patient) {
+	public static void startShareIntentWithTwitter(Activity ctx,ShareableItem patient) {
 		startShareIntentWithExplicitSocialActivity(ctx, patient, TWITTER_ACTIVITY, "Twitter");
 	}
 	
-	public static void startShareIntentWithFaceBook(Activity ctx,Patient patient) {
+	public static void startShareIntentWithFaceBook(Activity ctx,ShareableItem patient) {
 		startShareIntentWithExplicitSocialActivity(ctx, patient, FB_ACTIVITY, "Facebook");
 	}
 	
