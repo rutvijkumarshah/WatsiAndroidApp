@@ -215,7 +215,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		}
 
 		String shortDescription = patient.getFirstName() + " was helped !";
-		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
+		String donorNameToUse = donor.getFirstName();
+		if (dn.getIsAnonymous()) {
+			// remove the donor name and call him 'A generous donor'
+			donorNameToUse = "A generous donor";
+		}
+		String message = donorNameToUse + " helped " + patient.getFullName() + 
 				" by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
 
 		viewHolder.patient = patient;
