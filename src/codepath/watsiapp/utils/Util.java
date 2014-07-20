@@ -81,11 +81,6 @@ public class Util {
 		//activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
 	
-	public static void startUniversalFundTreatmentIntent(Activity activity) {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UNIVERSAL_FUND_URL));
-		activity.startActivity(browserIntent);
-	}
-	
 	public interface ShareableItem {
 		public String getShareableUrl();
 	}
