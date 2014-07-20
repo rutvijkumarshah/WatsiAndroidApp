@@ -26,9 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.astuetz.PagerSlidingTabStrip;
 
-
-import codepath.watsiapp.R;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -47,11 +46,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
-import codepath.watsiapp.models.Patient;
 
 public class Util {
 
@@ -174,18 +175,27 @@ public class Util {
 		
 	}
 	
-	public static float getPixels(Activity activity,int dp) {
+	public static float getPixels(Activity activity,float dp) {
 		Resources r = activity.getResources();
 		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
 		return px;
 	}
 	
+	public static float getPixelsFont(Activity activity,float sp) {
+		Resources r = activity.getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, r.getDisplayMetrics());
+		return px;
+	}
 	public static String formatAmount(double amount) {
 		 return String.valueOf("$"+Math.ceil(amount)).split("\\.")[0];
 	}
 	public static void applyPrimaryFont(Context ctx,TextView textView) {	
 		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
 		textView.setTypeface(typeface);
+	}
+	public static void applyPrimaryFont(Context ctx,PagerSlidingTabStrip view) {	
+		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
+		view.setTypeface(typeface, Typeface.BOLD);
 	}
 }
 	

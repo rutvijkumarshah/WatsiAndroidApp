@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.WindowManager;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
+import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
@@ -35,13 +35,15 @@ public class WatsiMainActivity extends BaseFragmentActivity implements PagerList
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
 		tabs.setShouldExpand(true);
-        tabs.setActivated(false);
+        //tabs.setActivated(false);
         tabs.setAllCaps(false); 
-        
+        float dimension = getResources().getDimensionPixelSize(R.dimen.fontsize_small);
+        tabs.setTextSize((int)dimension);
+        Util.applyPrimaryFont(getApplicationContext(), tabs);
         tabs.setViewPager(vpPager);
-        tabs.setTextColor(getResources().getColor(R.color.watsi_blue));
+        //tabs.setTextColor(getResources().getColor(R.color.watsi_blue));
         tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
-        tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
+        //tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
         
 	}  
 	
@@ -55,7 +57,7 @@ public class WatsiMainActivity extends BaseFragmentActivity implements PagerList
 	
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 		
-		private static final String LABLES[]= {"Patients","News Feed"};
+		private static final String LABLES[]= {"Patients","News"};
 		private PagerListener pagerListener;
 
 		public PatientsPagerAdapter(FragmentManager fragmentManager, PagerListener pagerListener) {

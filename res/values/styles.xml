@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -20,14 +20,23 @@
     <style name="watsiTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/watsiActionBar</item>
     </style>
+
     <style name="watsiActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/watsi_blue</item>
         <item name="android:titleTextStyle">@style/watsiActionBar.TitleTextStyle</item>
-    	<item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
     </style>
+
     <style name="watsiActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-    	<item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:icon">@drawable/ic_launcher</item>
-  	</style>
-  	
+    </style>
+
+    <style name="ptr_text">
+
+        <!-- Change the text style and color -->
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/watsi_blue</item>
+    </style>
+
 </resources>
