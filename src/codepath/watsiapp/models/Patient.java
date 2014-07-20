@@ -3,6 +3,8 @@ package codepath.watsiapp.models;
 
 import java.util.Date;
 
+import codepath.watsiapp.utils.Util.ShareableItem;
+
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -14,7 +16,7 @@ import com.parse.ParseObject;
  *
  */
 @ParseClassName("Patient")
-public class Patient extends ParseObject {
+public class Patient extends ParseObject implements ShareableItem {
 	private static final String EMPTY_STRING="".intern();
 	
 	public void getMedicalPartner(GetCallback<MedicalPartner> callBack) {
@@ -88,6 +90,10 @@ public class Patient extends ParseObject {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return getFullName() +" "+ getProfileUrl()+" "+getAge()+" "+getCountry()+" "+getDonationProgressPecentage();
+	}
+	@Override
+	public String getShareableUrl() {
+		return getProfileUrl();
 	}
 	
 }

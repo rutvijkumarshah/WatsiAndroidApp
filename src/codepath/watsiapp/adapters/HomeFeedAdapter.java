@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import codepath.watsiapp.models.FeedItem.ItemType;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
+import codepath.watsiapp.utils.Util.ShareableItem;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -40,6 +40,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private FragmentActivity activity;
 	public static final int PAGE_SIZE = 6; 
 
+
+
+
 	// View lookup cache
 	private static class ViewHolder {
 		//TextView name;
@@ -53,9 +56,10 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		ImageView shareAction;
 		Patient patient;	
 		ItemType itemType; 
+		ShareableItem shareableItem;
 	}
 	private ViewHolder viewHolder;
-	
+
 	public HomeFeedAdapter(Context context,ParseQueryAdapter.QueryFactory<NewsItem> queryFactory) {
 		//Custom Query
 		super(context,queryFactory); 
@@ -82,7 +86,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 	@Override
 	public View getItemView(final NewsItem newsItem, View convertView,ViewGroup parent) {
-		
+
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			convertView = buildViewHolder(newsItem.getItemType());
@@ -135,13 +139,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 				.findViewById(R.id.fund_treatment_feed);
 		viewHolder.shareOnTwitter = (ImageView) convertView
 				.findViewById(R.id.share_tw);
-		
+
 		viewHolder.itemType = itemType;
 
 		applyPrimaryFont(getContext(), viewHolder.message);
 		applyPrimaryFont(getContext(), viewHolder.shortDescription);
 		convertView.setTag(viewHolder);
-		
+
 		return convertView;
 	}
 
@@ -149,52 +153,52 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		ViewHolder viewHolder =(ViewHolder) convertView.getTag();
 		viewHolder.shortDescription.setText(R.string.makeDifference);
 		viewHolder.message.setText(newsItem.getCampaignContent());
-		
-		// In case of campaign event we need not show progress bar.
+		viewHolder.shareableItem = Util.getUniversalShareableItem();
+
+		// no donation progress bar
 		viewHolder.donationProgress.setVisibility(View.INVISIBLE);
 
-		// setting click on donate button to go to generic donation.
-//		setGeneralPatientFundButton(viewHolder.donateView);
-
-		// in case of campaign share and donate not visible.
-		convertView.findViewById(R.id.donateAndShare).setVisibility(View.INVISIBLE);
+		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
-		
+		setShareListeners(viewHolder);
+		setPatientFundButton(viewHolder.donateView, viewHolder.shareableItem);
+
 		return convertView;
 	}
 
 
 	private void setShareListeners(ViewHolder viewHolder) {
-		viewHolder.shareAction.setTag(viewHolder.patient);
+		viewHolder.shareAction.setTag(viewHolder.shareableItem);
 		viewHolder.shareAction.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				startShareIntent(activity,(Patient)v.getTag());
+				startShareIntent(activity, (ShareableItem)v.getTag());
 
 			}
 		});
-		viewHolder.shareOnTwitter.setTag(viewHolder.patient);
+		viewHolder.shareOnTwitter.setTag(viewHolder.shareableItem);
 		viewHolder.shareOnTwitter.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				startShareIntentWithTwitter(activity,(Patient)v.getTag());
+				startShareIntentWithTwitter(activity,(ShareableItem)v.getTag());
 
 			}
 		});
 
-		viewHolder.shareOnFacebook.setTag(viewHolder.patient);
+		viewHolder.shareOnFacebook.setTag(viewHolder.shareableItem);
 		viewHolder.shareOnFacebook.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				startShareIntentWithFaceBook(activity,(Patient)v.getTag());
+				startShareIntentWithFaceBook(activity,(ShareableItem)v.getTag());
 
 			}
 		});
-		
+
 	}
+
 
 	private View getDonationRaisedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder = (ViewHolder)convertView.getTag();
@@ -209,17 +213,23 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			e.printStackTrace();
 			return convertView;
 		}
-		
+
 		String shortDescription = patient.getFirstName() + " was helped !";
-		String message = donor.getFirstName() + " helped " + patient.getFullName() + 
-				         " by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
-		
+		String donorNameToUse = donor.getFirstName();
+		if (dn.getIsAnonymous()) {
+			// remove the donor name and call him 'A generous donor'
+			donorNameToUse = "A generous donor";
+		}
+		String message = donorNameToUse + " helped " + patient.getFullName() + 
+				" by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
+
 		viewHolder.patient = patient;
+		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
-		
+
 	}
 
 	private View getFullyFundedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
@@ -233,13 +243,14 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			e.printStackTrace();
 			return convertView;
 		}
-		
+
 		String shortDescription = patient.getFirstName() + " is now fully funded!!";
 		String message = patient.getFullName() + " will now be able to get medical" +
-		                 " treatment. Donors like you helped raise $" +
-		                 patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
-		
+				" treatment. Donors like you helped raise $" +
+				patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
+
 		viewHolder.patient = patient;
+		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
@@ -260,8 +271,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		String shortDescription = patient.getFirstName() + " is looking for help!";
 		String message = patient.getMedicalNeed()  + ". You can help!"; 
 
-		
+
 		viewHolder.patient = patient;
+		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
@@ -269,24 +281,24 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	private void setupUI(View convertView, ViewHolder viewHolder, String photoUrl, String shortDescription, String message){
-		 DisplayImageOptions options = new DisplayImageOptions.Builder()
-     	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
-     	.cacheInMemory()
-     	.cacheOnDisc()
-     	.imageScaleType(ImageScaleType.EXACTLY)
-         .bitmapConfig(Bitmap.Config.RGB_565)
-     	.build();
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+		.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
+		.cacheInMemory()
+		.cacheOnDisc()
+		.imageScaleType(ImageScaleType.EXACTLY)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.build();
 
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(photoUrl, viewHolder.profileImage,options);
-		
+
 		viewHolder.shortDescription.setText(shortDescription);
 		viewHolder.message.setText(message);
-		
+
 		int donationProgressPecentage = viewHolder.patient.getDonationProgressPecentage();
 		// donation progress
 		viewHolder.donationProgress.setProgress(donationProgressPecentage);
-		
+
 		Drawable progressDrawable = null;
 
 		if (viewHolder.patient.isFullyFunded()) {
@@ -303,10 +315,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		setPatientFundButton(viewHolder.donateView, viewHolder.patient);
 		setShareListeners(viewHolder);
 	}
-	
-	
+
 	private void setPatientNavigation(View v, Patient p, ItemType type) {
-	
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -315,28 +325,17 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			}
 		});
 	}
-	
-	private void setPatientFundButton(ImageView imageView, Patient p) {
+
+	private void setPatientFundButton(ImageView imageView, ShareableItem p) {
 		imageView.setTag(p);
 		imageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Patient patient = (Patient) v.getTag();
+				ShareableItem patient = (ShareableItem) v.getTag();
 				Util.startFundTreatmentIntent(activity, patient);
 			}
 		});
 	}
-		
-//	private void setGeneralPatientFundButton(ImageView imageView) {
-//
-//		imageView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				Util.startGeneralFundTreatmentIntent(activity);
-//			}
-//		});
-//	}
-	
+
 }
