@@ -17,4 +17,17 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="watsiTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/watsiActionBar</item>
+    </style>
+    <style name="watsiActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/watsi_blue</item>
+        <item name="android:titleTextStyle">@style/watsiActionBar.TitleTextStyle</item>
+    	<item name="android:actionMenuTextColor">@android:color/white</item>
+    </style>
+    <style name="watsiActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    	<item name="android:textColor">@android:color/white</item>
+        <item name="android:icon">@drawable/ic_launcher</item>
+  	</style>
+  	
 </resources>

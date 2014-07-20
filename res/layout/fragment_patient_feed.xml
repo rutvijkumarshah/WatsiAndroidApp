@@ -14,6 +14,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:scrollbarSize="4dp"
+    	android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp" />
 

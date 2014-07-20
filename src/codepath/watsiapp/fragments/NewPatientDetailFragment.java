@@ -15,14 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver.OnScrollChangedListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
@@ -41,11 +38,7 @@ public class NewPatientDetailFragment extends Fragment {
 
 	private String patientId;
 	private Patient patientObj;
-
-	//private TextView name;
 	private TextView donationToGo;
-	private ProgressBar donationProgress;
-	private TextView medicalPartner;
 	private TextView story;
 	private ImageView fullyFundedCheckMark;
 
@@ -58,21 +51,29 @@ public class NewPatientDetailFragment extends Fragment {
 	private ImageView donateView;
 	private ImageView shareAction;
 	private ScrollView scrollView;
-	private boolean isStoryFullScreen;
 	private LinearLayout profileInfo;
 	private LinearLayout donateAndShare;
 	private View divder_down;
 	private LayoutParams savedScrollViewParams;
+//	private String medicalPartnerName;
+//	private String medicalPartnerUrl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		patientId = getArguments().getString("patient_id", "");
 		// Get patient object based on id that we have got.
 		patientObj = ParseObject.createWithoutData(Patient.class, patientId);
 		try {
 			patientObj = patientObj.fetchIfNeeded();
+//			patientObj.getMedicalPartner(new GetCallback<MedicalPartner>() {
+//				@Override
+//				public void done(final MedicalPartner object, ParseException arg1) {
+//					medicalPartnerName=object.getName();
+//					medicalPartnerUrl=object.getWebsiteUrl();
+//				}
+//			});
+//
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -92,30 +93,14 @@ public class NewPatientDetailFragment extends Fragment {
 		
 		fullyFundedCheckMark = (ImageView) view
 				.findViewById(R.id.isFullyFunded);
-		// Assign views to local variables
-		mAdapter = new TestFragmentAdapter(getActivity()
-				.getSupportFragmentManager());
-
-		mPager = (ViewPager) view.findViewById(R.id.pager);
-		mPager.setAdapter(mAdapter);
-
-		mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
-		mIndicator.setViewPager(mPager);
 
 	
-		//name = (TextView) view.findViewById(R.id.name);
 		donationToGo = (TextView) view.findViewById(R.id.donationToGo);
-//		donationProgress = (ProgressBar) view
-//				.findViewById(R.id.donationProgress);
-		medicalPartner = (TextView) view.findViewById(R.id.medicalPartnerVal);
 		story = (TextView) view.findViewById(R.id.patientStory);
 		Util.applyPrimaryFont(getActivity(), story);
+
 		// Set views to with values
 		getActivity().getActionBar().setTitle(patientObj.getFullName());
-		
-		int donationProgressPecentage = patientObj
-				.getDonationProgressPecentage();
-		//donationProgress.setProgress(donationProgressPecentage);
 		
 		shareAction = (ImageView) view.findViewById(R.id.shareIv);
 		shareOnFacebook =(ImageView)view.findViewById(R.id.share_fb);
@@ -124,7 +109,6 @@ public class NewPatientDetailFragment extends Fragment {
 		
 		story.setText(patientObj.getStory().replace("#$#$", ""));
 		scrollView=(ScrollView) view.findViewById(R.id.scrollableStoryContainer);
-		isStoryFullScreen=false;
 		scrollView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
 			  @Override
 			  public void onSwipeDown() {
@@ -149,39 +133,6 @@ public class NewPatientDetailFragment extends Fragment {
 			  }
 			});
 		
-//		scrollView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
-//
-//		    @Override
-//		    public void onScrollChanged() {
-//		    	if(!isStoryFullScreen) {
-//		    		makeScrollViewFullScreen();
-//		    	
-//		    		//make it fullscreen
-//		    	}else {
-//		    		//move back to org position;
-//		    	}
-//
-//		    }
-//
-//			
-//		});
-		
-		
-		patientObj.getMedicalPartner(new GetCallback<MedicalPartner>() {
-			@Override
-			public void done(final MedicalPartner object, ParseException arg1) {
-				medicalPartner.setText(object.getName());
-				medicalPartner.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Util.starShowMedicalPartnerIntent(getActivity(), object);
-					}
-				});
-				Util.makeTextViewHyperlink(medicalPartner);
-			}
-		});
-
 		shareAction.setTag(patientObj);
 		shareAction.setOnClickListener(new OnClickListener() {
 
@@ -231,6 +182,17 @@ public class NewPatientDetailFragment extends Fragment {
 			});
 			
 		}
+		
+		// Assign views to local variables
+		mAdapter = new TestFragmentAdapter(getActivity()
+				.getSupportFragmentManager());
+
+		mPager = (ViewPager) view.findViewById(R.id.pager);
+		mPager.setAdapter(mAdapter);
+
+		mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicator);
+		mIndicator.setViewPager(mPager);
+
 		return view;
 	}
 
@@ -320,7 +282,9 @@ public class NewPatientDetailFragment extends Fragment {
 				return PatientSummaryFragment.newInstance(
 						patientObj.getMedicalNeed(), ageStr,
 						patientObj.getCountry(),
-						patientObj.getDonationProgressPecentage() + "% funded");
+						patientObj.getDonationProgressPecentage() + "% funded",
+						patientId
+						);
 			}
 		}
 
