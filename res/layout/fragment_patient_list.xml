@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:divider="@android:color/transparent"
     	android:dividerHeight="8dp"
+    	android:scrollbarSize="4dp"
+    	android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
