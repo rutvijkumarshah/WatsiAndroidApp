@@ -15,7 +15,7 @@ public class SplashScreenActivity extends Activity {
 	 * 
 	 * Ideally should be 2-3 sec.
 	 */
-    private static int SPLASH_TIME_OUT = 5000; 
+    private static int SPLASH_TIME_OUT = 2500; 
  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
