@@ -60,6 +60,7 @@
     
     <LinearLayout      
         android:id="@+id/donateAndShare"
+        android:layout_toRightOf="@+id/imageArea"
         android:layout_below="@+id/medicalNeeds"
         android:layout_alignStart="@+id/medicalNeeds"
         android:layout_width="wrap_content"

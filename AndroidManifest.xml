@@ -23,33 +23,28 @@
     <uses-permission android:name="codepath.watsiapp.permission.C2D_MESSAGE" />
 
     <application
-        android:name="WatsiApplication"
+        android:name="codepath.watsiapp.WatsiApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/watsiTheme" >
-        
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop"/>
-        
-         <activity
+            android:launchMode="singleTop" />
+        <activity
             android:name="codepath.watsiapp.activities.ParseDispatchActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop"/>
-                
+            android:launchMode="singleTop" />
         <activity
             android:name="codepath.watsiapp.activities.DonorProfileActivity"
-            
             android:label="@string/app_name"
-            android:launchMode="singleTop"/>
-        
+            android:launchMode="singleTop" />
         <activity
             android:name="com.parse.ui.ParseLoginActivity"
             android:configChanges="orientation"
-    		android:screenOrientation="portrait"
             android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_ENABLED"
                 android:value="true" />
@@ -60,25 +55,24 @@
                 android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_ENABLED"
                 android:value="true" />
             <meta-data
-        android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_PERMISSIONS"
-        android:resource="@array/my_facebook_permissions"/>
+                android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_PERMISSIONS"
+                android:resource="@array/my_facebook_permissions" />
         </activity>
-        
         <activity
             android:name="codepath.watsiapp.activities.WatsiMainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
+<!--             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
-	    <activity
+        <activity
             android:name="codepath.watsiapp.activities.PatientDetailActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_patient_detail" >
+            android:label="@string/title_activity_patient_detail"
+            android:screenOrientation="portrait" >
         </activity>
-        
+
         <service android:name="com.parse.PushService" />
 
         <receiver android:name="com.parse.ParseBroadcastReceiver" >
@@ -97,9 +91,22 @@
                 <category android:name="codepath.watsiapp" />
             </intent-filter>
         </receiver>
-         <meta-data
+
+        <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="codepath.watsiapp.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" 
+            android:label="@string/title_activity_splash_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

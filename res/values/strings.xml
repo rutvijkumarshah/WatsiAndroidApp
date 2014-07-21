@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, ParseStarterProjectActivity!</string>
-    <string name="app_name">watsi</string>
+    <string name="app_name">Watsi</string>
     <string name="lblLocation">Location</string>
     <string name="lblMedicalPartner">Medical Partner</string>
     <string name="title_activity_patient_detail">PatientDetail</string>
@@ -10,13 +10,11 @@
     <string name="lableUserName">User!</string>
     <string name="lblBtNewsAction">Fund Treatment</string>
     <string name="lblNewsHeading">You can make a difference !</string>
-    
     <string name="parse_app_id">tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ</string>
     <string name="parse_client_key">SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS</string>
     <string name="facebook_app_id">783088611711767</string>
     <string name="twitter_consumer_key">J6HoDAdr9LfiPQzlXS3AW5nR4</string>
     <string name="twitter_consumer_secret">I3GbxsVTqp5qBOhPsZTgnxWonrolSzydTXT1he4bev88icjOhY</string>
-
     <string name="profile_logo_content_description">Watsi</string>
     <string name="profile_title_logged_in">Your are logged in as</string>
     <string name="profile_logout_button_label">Log out</string>
@@ -24,8 +22,11 @@
     <string name="profile_login_button_label">Log in</string>
 
     <string-array name="my_facebook_permissions">
-          <item>public_profile</item>
+        <item>public_profile</item>
         <item>email</item>
     </string-array>
+
     <string name="makeDifference">Make a difference !</string>
+    <string name="title_activity_splash_screen">Watsi</string>
+
 </resources>
