@@ -111,6 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/divder_down"
         android:layout_marginBottom="16dp"
+        android:scrollbarSize="4dp"
         android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" >
 
         <TextView
