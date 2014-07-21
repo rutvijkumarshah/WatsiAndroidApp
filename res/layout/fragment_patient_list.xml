@@ -17,7 +17,7 @@
     	style="@style/ptr_text"
         android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
         android:divider="@android:color/transparent"
-    	android:dividerHeight="8dp"
+    	android:dividerHeight="4dp"
          /> 
        
       <ProgressBar
