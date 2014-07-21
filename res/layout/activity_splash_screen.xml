@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen_bg"
+    android:background="@drawable/splashscreen_try_2" 
     tools:context="${packageName}.${activityClass}" >
-
+ 	<!-- check if the image is copyright protected. -->
     <!-- Splash Screen TAG line goes here change position as per image -->
     <TextView
         android:layout_centerInParent="true"
