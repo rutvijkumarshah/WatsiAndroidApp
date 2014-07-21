@@ -7,13 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.PatientAdapter;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.EndlessScrollListener;
 
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.parse.ParseException;
@@ -100,37 +99,51 @@ public class PatientListFragment extends Fragment {
 
 	private void setupIintialViews() {
 
-		listView.setOnScrollListener(new OnScrollListener() {
-			int mLastFirstVisibleItem = 0;
-
+		listView.setOnScrollListener(new EndlessScrollListener() {
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {   }
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) 
-			{   
-				if (view.getId() == listView.getId()) 
-				{
-					final int currentFirstVisibleItem = listView.getFirstVisiblePosition();
-
-					if (currentFirstVisibleItem > mLastFirstVisibleItem) 
-					{
-						if (pagerListener != null) {
-							pagerListener.hidePager();
-						}
-					} 
-					else if (currentFirstVisibleItem < mLastFirstVisibleItem) 
-					{
-						if (pagerListener != null) {
-							pagerListener.showPager();
-						}
-					}
-
-					mLastFirstVisibleItem = currentFirstVisibleItem;
+			public void onLoadMore(int page, int totalItemsCount) {
+				if(totalItemsCount > 0) {
+					/***
+					 * FIX_REQUIRED : throws IndexOutOfBound alternatively.
+					 */
+					//patientAdapter.loadNextPage();
 				}
 			}
 
 		});
+		
+//
+//		listView.setOnScrollListener(new OnScrollListener() {
+//			int mLastFirstVisibleItem = 0;
+//
+//			@Override
+//			public void onScrollStateChanged(AbsListView view, int scrollState) {   }
+//
+//			@Override
+//			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) 
+//			{   
+//				if (view.getId() == listView.getId()) 
+//				{
+//					final int currentFirstVisibleItem = listView.getFirstVisiblePosition();
+//
+//					if (currentFirstVisibleItem > mLastFirstVisibleItem) 
+//					{
+//						if (pagerListener != null) {
+//							pagerListener.hidePager();
+//						}
+//					} 
+//					else if (currentFirstVisibleItem < mLastFirstVisibleItem) 
+//					{
+//						if (pagerListener != null) {
+//							pagerListener.showPager();
+//						}
+//					}
+//
+//					mLastFirstVisibleItem = currentFirstVisibleItem;
+//				}
+//			}
+//
+//		});
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
