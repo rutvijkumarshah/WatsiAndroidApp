@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-	<item>
-		<shape android:shape="rectangle"
-			android:dither="true">
-
-			<corners android:radius="8dp"/>
-
-			<solid android:color="#ccc" />
-
-		</shape>
-	</item>
 
 	<item android:bottom="8dp">
 		<shape android:shape="rectangle"
 			android:dither="true">
-
 			<corners android:radius="8dp" />
-
+			<stroke  android:width="2px" android:color="@color/border_grey" />
 			<solid android:color="@android:color/white" />
 
-			<padding android:bottom="16dp"
-				android:left="16dp"
-				android:right="16dp"
-				android:top="16dp" />
+			<padding android:bottom="20dp"
+				android:left="20dp"
+				android:right="20dp"
+				android:top="20dp" />
 		</shape>
 	</item>
 </layer-list>
