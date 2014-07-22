@@ -110,7 +110,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 	}
 
 	private void showDetailsForNonDonor() {
-		String uri = "android:src=@drawable/profile_img";
+		String uri = "@drawable/profile_img";
 		int imageResource = getResources().getIdentifier(uri, null, getPackageName());		
 		Drawable res = getResources().getDrawable(imageResource);
 		profilePicture.setImageDrawable(res);
