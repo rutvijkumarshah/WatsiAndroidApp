@@ -2,15 +2,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashscreen_try_2" 
+    android:background="@color/watsi_blue"
     tools:context="${packageName}.${activityClass}" >
  	<!-- check if the image is copyright protected. -->
     <!-- Splash Screen TAG line goes here change position as per image -->
+
     <TextView
-        android:layout_centerInParent="true"
-        android:textColor="@android:color/white"
+        android:id="@+id/tagLine"
+        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_below="@+id/watsiName"
+        android:layout_alignStart="@+id/logo"
+        android:textSize="@dimen/fontsize_medium"
+        android:text="Fund healthcare for people around the world."
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/watsiName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="Watsi"
+        android:layout_toRightOf="@+id/logo"
+        android:layout_alignBottom="@+id/logo"
+        android:textSize="36sp"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

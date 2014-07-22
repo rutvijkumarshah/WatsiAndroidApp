@@ -84,6 +84,7 @@ public class PatientFeedFragment extends Fragment {
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
 		listView.setAdapter(swingBottomInAnimationAdapter);
 
+		/****
 		listView.setOnScrollListener(new OnScrollListener() 
 		{
 			int mLastFirstVisibleItem = 0;
@@ -114,7 +115,7 @@ public class PatientFeedFragment extends Fragment {
 					mLastFirstVisibleItem = currentFirstVisibleItem;
 				}
 			}
-		});
+		});*****/
 		setupIintialViews();
 		return v;
 	}
