@@ -1,131 +1,119 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    tools:context="${packageName}.${activityClass}" >
+    android:scrollbarSize="4dp"
+    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" >
 
-    <LinearLayout
-        android:id="@+id/profileInfo"
-        android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_card"
-        android:orientation="vertical" >
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1" />
-
-        <!--
-        <ProgressBar
-        android:id="@+id/donationProgress"
-        style="?android:attr/progressBarStyleHorizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_below="@+id/profileInfo"
-        android:max="100"
-        android:progress="80" />
-        -->
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="0dp" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/isFullyFunded"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
-        android:background="@color/progress_color_fully_funded"
-        android:src="@drawable/ic_checkmark"
-        android:visibility="invisible" />
-<RelativeLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/profileInfo"
-    android:background="@drawable/bg_card_top_no_padding"
-    >
-    <LinearLayout
-        android:id="@+id/donateAndShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
-
-        <ImageView
-            android:id="@+id/fund_treatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fund" />
-
-        <ImageView
-            android:id="@+id/share_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_facebook" />
-
-        <ImageView
-            android:id="@+id/share_tw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_twitter" />
-
-        <ImageView
-            android:id="@+id/shareIv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_share" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/donationToGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/donateAndShare"
-        android:layout_marginRight="40dp"
-        android:layout_toLeftOf="@+id/donateAndShare"
-        android:paddingTop="7dp"
-        android:text=""
-        android:textColor="@color/watsi_red"
-        android:textSize="@dimen/fontsize_medium" />
-
-    <View
-        android:id="@+id/divder_down"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/donateAndShare"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/darker_gray" />
-
-    <ScrollView
-        android:id="@+id/scrollableStoryContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/divder_down"
+        android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
-        android:scrollbarSize="4dp"
-        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" >
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        tools:context="${packageName}.${activityClass}" >
 
-        <TextView
-            android:id="@+id/patientStory"
+        <LinearLayout
+            android:id="@+id/profileInfo"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card"
+            android:orientation="vertical" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1" />
+
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="0dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/isFullyFunded"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:background="@color/progress_color_fully_funded"
+            android:src="@drawable/ic_checkmark"
+            android:visibility="invisible" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="@dimen/fontsize_medium" >
-        </TextView>
+            android:layout_below="@+id/profileInfo"
+            android:background="@drawable/bg_card_top_no_padding" >
 
-    </ScrollView>
-</RelativeLayout>
-</RelativeLayout>
+            <LinearLayout
+                android:id="@+id/donateAndShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" >
+
+                <ImageView
+                    android:id="@+id/fund_treatment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_fund" />
+
+                <ImageView
+                    android:id="@+id/share_fb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_facebook" />
+
+                <ImageView
+                    android:id="@+id/share_tw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_twitter" />
+
+                <ImageView
+                    android:id="@+id/shareIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_share" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/donationToGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/donateAndShare"
+                android:layout_marginRight="40dp"
+                android:layout_toLeftOf="@+id/donateAndShare"
+                android:paddingTop="7dp"
+                android:text=""
+                android:textColor="@color/watsi_red"
+                android:textSize="@dimen/fontsize_medium" />
+
+            <View
+                android:id="@+id/divder_down"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/donateAndShare"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/patientStory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divder_down"
+                android:text=""
+                android:textSize="@dimen/fontsize_medium" >
+            </TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

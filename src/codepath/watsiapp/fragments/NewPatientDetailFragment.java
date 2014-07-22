@@ -108,7 +108,7 @@ public class NewPatientDetailFragment extends Fragment {
 		shareOnTwitter=(ImageView) view.findViewById(R.id.share_tw);
 		
 		story.setText(patientObj.getStory().replace("#$#$", ""));
-		scrollView=(ScrollView) view.findViewById(R.id.scrollableStoryContainer);
+		//scrollView=(ScrollView) view.findViewById(R.id.scrollableStoryContainer);
 //		scrollView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
 //			  @Override
 //			  public void onSwipeDown() {
