@@ -221,7 +221,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			donorNameToUse = "A generous donor";
 		}
 		String message = donorNameToUse + " helped " + patient.getFullName() + 
-				" by donating $" + dn.getDonationAmount() + ". Now its your turn!"; 
+				" by donating " + Util.formatAmount(dn.getDonationAmount()) + ". Now its your turn!"; 
 
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
@@ -246,8 +246,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 		String shortDescription = patient.getFirstName() + " is now fully funded!!";
 		String message = patient.getFullName() + " will now be able to get medical" +
-				" treatment. Donors like you helped raise $" +
-				patient.getDonationReceived() +". Big Thank You to all the donors !!"; 
+				" treatment. Donors like you helped raise " +
+				Util.formatAmount(patient.getDonationReceived()) +". Big Thank You to all the donors !!"; 
 
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
