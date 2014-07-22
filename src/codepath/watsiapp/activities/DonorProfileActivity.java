@@ -1,9 +1,11 @@
 package codepath.watsiapp.activities;
 
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
@@ -54,6 +56,8 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.medicalNeed));//Donated for text
 		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.tv_membersince));//Member Since Text
 		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.location));//Treatments text
+		
+		profilePicture.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -76,7 +80,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 			String email = null;
 			if (fullName != null) {
 				donarFullName.setText(fullName);
-				getActionBar().setTitle("Donor Profile");
+				getActionBar().setTitle("Profile");
 				//
 				donorId = user.getString("donorId");
 				email = user.getString("email");
@@ -106,6 +110,12 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 	}
 
 	private void showDetailsForNonDonor() {
+		String uri = "android:src=@drawable/profile_img";
+		int imageResource = getResources().getIdentifier(uri, null, getPackageName());		
+		Drawable res = getResources().getDrawable(imageResource);
+		profilePicture.setImageDrawable(res);
+		
+		profilePicture.setVisibility(View.VISIBLE);
 		memberSinceDate.setText(Util.getFormatedDate(ParseUser.getCurrentUser().getCreatedAt()));
 		totalDonationsAmount.setText("");
 		donatedForText.setText("");
@@ -115,6 +125,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 	}
 	
 	private void showDetailsForDonor(Donor donor) {
+		profilePicture.setVisibility(View.VISIBLE);
 		memberSinceDate.setText(Util.getFormatedDate(donor.getMemberSince()));
 		donorId=donor.getObjectId();
 		setDonationsFragment(donorId);

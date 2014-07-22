@@ -7,7 +7,9 @@
        <eu.erikw.PullToRefreshListView
         android:layout_marginTop="8dp"    
         android:layout_marginLeft="8dp"
-    	android:layout_marginRight="8dp"   
+    	android:layout_marginRight="8dp"
+    	android:scrollbarSize="4dp"
+    	android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"   
         android:id="@+id/donation_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

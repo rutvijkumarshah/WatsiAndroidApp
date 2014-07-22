@@ -7,14 +7,16 @@
 
     <ImageView
         android:id="@+id/profilePic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
         android:background="@drawable/donor_photo_bg"
         android:padding="3dp"
-        android:src="@drawable/profile_img" />
+        android:visibility="invisible"
+        
+       />
 
     <TextView
         android:id="@+id/fullname"
