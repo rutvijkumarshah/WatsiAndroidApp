@@ -118,17 +118,18 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		 // Add and download the image
 		// patient photo
 		
-	    DisplayImageOptions options = new DisplayImageOptions.Builder()
-        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
-        	.cacheInMemory()
-        	.cacheOnDisc()
-        	.imageScaleType(ImageScaleType.EXACTLY)
-            .bitmapConfig(Bitmap.Config.RGB_565)
-        	.build();
+//	    DisplayImageOptions options = new DisplayImageOptions.Builder()
+//        	.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
+//        	.cacheInMemory()
+//        	.cacheOnDisc()
+//        	.imageScaleType(ImageScaleType.EXACTLY)
+//            .bitmapConfig(Bitmap.Config.RGB_565)
+//        	.build();
 
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader
-				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto,options);
+				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
+		//.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto,options);
 
 		int donationProgressPecentage = patient.getDonationProgressPecentage();
 		// donation progress

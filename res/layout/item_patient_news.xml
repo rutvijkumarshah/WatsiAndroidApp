@@ -24,6 +24,8 @@
             android:max="100"
             android:progressDrawable="@drawable/progressbar" />
 
+    	<!--
+    	 
     	<ImageView
     	    android:id="@+id/ivProfileImage"
     	    android:layout_width="80dp"
@@ -32,6 +34,20 @@
             android:layout_centerVertical="true"             
     	    android:scaleType="centerCrop"
     	    android:src="@drawable/default_feed_icon" />
+    	
+    	 -->
+    	 
+    	<de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivProfileImage"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" 
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:border_color="#FF000000"
+            android:src="@drawable/default_feed_icon"
+            app:border_width="0dp" />
+        
     </RelativeLayout>
 
     <TextView

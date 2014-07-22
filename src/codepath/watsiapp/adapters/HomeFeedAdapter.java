@@ -281,16 +281,16 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 
 	private void setupUI(View convertView, ViewHolder viewHolder, String photoUrl, String shortDescription, String message){
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
-		.cacheInMemory()
-		.cacheOnDisc()
-		.imageScaleType(ImageScaleType.EXACTLY)
-		.bitmapConfig(Bitmap.Config.RGB_565)
-		.build();
+//		DisplayImageOptions options = new DisplayImageOptions.Builder()
+//		.displayer(new RoundedBitmapDisplayer((int) (getPixels(activity,80)/2)))
+//		.cacheInMemory()
+//		.cacheOnDisc()
+//		.imageScaleType(ImageScaleType.EXACTLY)
+//		.bitmapConfig(Bitmap.Config.RGB_565)
+//		.build();
 
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(photoUrl, viewHolder.profileImage,options);
+		imageLoader.displayImage(photoUrl, viewHolder.profileImage);
 
 		viewHolder.shortDescription.setText(shortDescription);
 		viewHolder.message.setText(message);
