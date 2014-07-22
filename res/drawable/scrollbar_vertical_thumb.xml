@@ -3,8 +3,8 @@
 
     <gradient
         android:angle="0"
-        android:endColor="@color/watsi_blue"
-        android:startColor="@color/watsi_blue" />
+        android:endColor="#4400b3d8"
+        android:startColor="#4400b3d8" />
     <corners android:radius="1dp" />
 
 </shape>
