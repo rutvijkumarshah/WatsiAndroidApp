@@ -19,7 +19,7 @@
             android:id="@+id/pager"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-10dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1" />
 
         <!--
@@ -51,13 +51,17 @@
         android:background="@color/progress_color_fully_funded"
         android:src="@drawable/ic_checkmark"
         android:visibility="invisible" />
-
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/profileInfo"
+    android:background="@drawable/bg_card_top_no_padding"
+    >
     <LinearLayout
         android:id="@+id/donateAndShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/profileInfo" >
+        android:layout_alignParentRight="true">
 
         <ImageView
             android:id="@+id/fund_treatment"
@@ -123,5 +127,5 @@
         </TextView>
 
     </ScrollView>
-
+</RelativeLayout>
 </RelativeLayout>
