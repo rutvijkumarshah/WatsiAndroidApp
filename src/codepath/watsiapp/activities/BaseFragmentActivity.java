@@ -18,12 +18,14 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-***/
+ ***/
 
 package codepath.watsiapp.activities;
 
 import com.parse.ParseUser;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -36,7 +38,6 @@ public class BaseFragmentActivity extends FragmentActivity {
 
 	protected MenuItem myprofile;
 	private MenuItem logout;
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,53 +45,65 @@ public class BaseFragmentActivity extends FragmentActivity {
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.common_menus, menu);
-		
+
 		myprofile = menu.findItem(R.id.action_profileView);
-		logout=menu.findItem(R.id.action_logout);
+		logout = menu.findItem(R.id.action_logout);
 		checkLogOutVisible();
 		return true;
 	}
 
-
 	protected void checkLogOutVisible() {
-		if(logout!=null) {
-			if(ParseUser.getCurrentUser() ==null) {
+		if (logout != null) {
+			if (ParseUser.getCurrentUser() == null) {
 				logout.setVisible(false);
-			}else {
+			} else {
 				logout.setVisible(true);
 			}
 		}
-		
+
 	}
-	
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		
+
 	}
 
-	
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		final int menuItemId=item.getItemId();
+		final int menuItemId = item.getItemId();
 		if (menuItemId == R.id.action_profileView) {
 			Util.showMyProfileActivity(this);
 		}
 		if (menuItemId == R.id.action_logout) {
-			ParseUser.logOut();
+			logout();
 			logout.setVisible(false);
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		checkLogOutVisible();
+	}
+
+	private void logout() {
+		ParseUser.logOut();
+
+		// FLAG_ACTIVITY_CLEAR_TASK only works on API 11, so if the user
+		// logs out on older devices, we'll just exit.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			Intent intent = new Intent(BaseFragmentActivity.this,
+					WatsiMainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		} else {
+			finish();
+		}
 	}
 
 }

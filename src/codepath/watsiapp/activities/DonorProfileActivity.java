@@ -78,14 +78,11 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 		if (user != null) {
 			String fullName = user.getString("name");
 			String email = null;
-			if (fullName != null) {
-				donarFullName.setText(fullName);
+			//if (fullName != null) {
 				getActionBar().setTitle("Profile");
 				//
 				donorId = user.getString("donorId");
 				email = user.getString("email");
-
-				donarFullName.setText(fullName);
 
 				if (ParseFacebookUtils.isLinked(user)) {
 					// /find email of parseUser from FB
@@ -94,7 +91,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 					setEmail();
 
 				} else {
-					user.getUsername();
+					donarFullName.setText(fullName);
 					memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
 					showDetailsForNonDonor();
 				}
@@ -104,7 +101,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 				}
 				
 				
-			}
+			//}
 
 		}
 	}
@@ -125,6 +122,7 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 	}
 	
 	private void showDetailsForDonor(Donor donor) {
+		
 		profilePicture.setVisibility(View.VISIBLE);
 		memberSinceDate.setText(Util.getFormatedDate(donor.getMemberSince()));
 		donorId=donor.getObjectId();
@@ -145,6 +143,8 @@ public class DonorProfileActivity extends FragmentActivity implements OnDonation
 						String email=user.asMap().get("email").toString();
 						//store facebook image url
 						//store donorId
+						
+						donarFullName.setText(user.getName());
 						ParseHelper parseHelper = new ParseHelper(getApplicationContext());
 						ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
 						try {
