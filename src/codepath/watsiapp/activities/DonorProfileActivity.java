@@ -3,7 +3,6 @@ package codepath.watsiapp.activities;
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +23,7 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-public class DonorProfileActivity extends FragmentActivity implements OnDonationStatsCalculatedListener {
+public class DonorProfileActivity extends BaseFragmentActivity implements OnDonationStatsCalculatedListener {
 	
 	private TextView donarFullName;
 	private TextView memberSinceDate;
