@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    
+    android:background="@drawable/bg_card_top_no_padding"
     android:layout_margin="8dp" >
 
     <ImageView
@@ -12,10 +13,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
-        android:background="@drawable/donor_photo_bg"
         android:padding="3dp"
         android:visibility="invisible"
-        
        />
 
     <TextView
