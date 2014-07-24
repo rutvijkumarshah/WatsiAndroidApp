@@ -2,53 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/summary_bg" >
+    android:background="@drawable/summary_bg"
+    android:padding="15dp" >
 
     <TextView
-        android:id="@+id/medicalNeed"
+        android:id="@+id/personBio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
+        android:text="Shin needs surgery to remove painful bladder stones."
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/fontsize_medium" />
+    
+    <TextView
+        android:id="@+id/medicalNeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/personBio"
         android:text="Shin needs surgery to remove painful bladder stones."
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/fontsize_medium" />
 
     <TextView
-        android:id="@+id/patientAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/medicalNeed"
-        android:layout_below="@+id/medicalNeed"
-        android:layout_marginTop="16dp"
-        android:text="28 years"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/fontsize_small" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/patientAge"
-        android:layout_alignBottom="@+id/patientAge"
-        android:layout_alignParentRight="true"
-        android:layout_alignRight="@+id/medicalNeed"
-        android:layout_marginRight="14dp"
-        android:text="Nepal"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/fontsize_small" />
-
-    <TextView
         android:id="@+id/percentageFunded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/name"
-        android:layout_below="@+id/location"
-        android:layout_marginTop="8dp"
+        android:layout_below="@+id/medicalNeed"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:text="7% funded"
         android:textColor="@android:color/white"
         android:textSize="@dimen/fontsize_medium" />
@@ -59,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/percentageFunded"
         android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:textColor="@android:color/white"
         android:text="Possible"
         android:textSize="@dimen/fontsize_small" />
