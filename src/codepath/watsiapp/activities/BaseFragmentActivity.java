@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.utils.Util;
 
@@ -119,7 +120,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 	        if (confirm != null) {
 	            try {
 	                Log.i("paymentExample", confirm.toJSONObject().toString(4));
-
+	                Toast.makeText(this, "Thanks for your generous donation.", Toast.LENGTH_LONG).show();
 	                // TODO: send 'confirm' to your server for verification.
 	                // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
 	                // for more details.
