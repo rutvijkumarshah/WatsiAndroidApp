@@ -22,17 +22,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.activities;
 
-import com.parse.ParseUser;
+import org.json.JSONException;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import codepath.watsiapp.R;
 import codepath.watsiapp.utils.Util;
+
+import com.parse.ParseUser;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 public class BaseFragmentActivity extends FragmentActivity {
 
@@ -104,6 +110,31 @@ public class BaseFragmentActivity extends FragmentActivity {
 		} else {
 			finish();
 		}
+	}
+	
+	@Override
+	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+	    if (resultCode == Activity.RESULT_OK) {
+	        PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+	        if (confirm != null) {
+	            try {
+	                Log.i("paymentExample", confirm.toJSONObject().toString(4));
+
+	                // TODO: send 'confirm' to your server for verification.
+	                // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+	                // for more details.
+
+	            } catch (JSONException e) {
+	                Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+	            }
+	        }
+	    }
+	    else if (resultCode == Activity.RESULT_CANCELED) {
+	        Log.i("paymentExample", "The user canceled.");
+	    }
+	    else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+	        Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+	    }
 	}
 
 }

@@ -1,10 +1,13 @@
 package codepath.watsiapp.fragments;
 
-import static codepath.watsiapp.utils.Util.startFundTreatmentIntent;
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+
+import java.math.BigDecimal;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,14 +24,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
-import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.OnSwipeTouchListener;
 import codepath.watsiapp.utils.Util;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -177,7 +177,9 @@ public class NewPatientDetailFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-					startFundTreatmentIntent(getActivity(),(Patient)v.getTag());
+					//startFundTreatmentIntent(getActivity(),(Patient)v.getTag());
+					Intent intent=Util.getFundTreatmentIntent(getActivity(), patientObj, new BigDecimal("1.00"));
+					startActivityForResult(intent, 0);
 				}
 			});
 			

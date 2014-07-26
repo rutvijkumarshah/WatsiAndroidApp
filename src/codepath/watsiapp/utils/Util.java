@@ -18,15 +18,14 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-***/
+ ***/
 
 package codepath.watsiapp.utils;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import com.astuetz.PagerSlidingTabStrip;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -46,115 +45,144 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.URLSpan;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
+import codepath.watsiapp.models.Patient;
+
+import com.astuetz.PagerSlidingTabStrip;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
 public class Util {
 
 	private static final String DATE_FORMAT = "MMM dd yyyy";
-	private static String PRIMARY_FONT="Roboto-Regular.ttf";
-	private static final String FB_ACTIVITY="com.facebook.composer.shareintent.ImplicitShareIntentHandler";
-	private static final String TWITTER_ACTIVITY="com.twitter.android.composer.ComposerActivity";
+	private static String PRIMARY_FONT = "Roboto-Regular.ttf";
+	private static final String FB_ACTIVITY = "com.facebook.composer.shareintent.ImplicitShareIntentHandler";
+	private static final String TWITTER_ACTIVITY = "com.twitter.android.composer.ComposerActivity";
 	public static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
 
 	private static class UniversalFeedItem implements ShareableItem {
-		public UniversalFeedItem() {}
-		
+		public UniversalFeedItem() {
+		}
+
 		@Override
 		public String getShareableUrl() {
 			return UNIVERSAL_FUND_URL;
-		}	
+		}
 	}
-	
+
 	public static ShareableItem getUniversalShareableItem() {
 		return new UniversalFeedItem();
 	}
-	
-	public static void startFundTreatmentIntent(Activity activity, ShareableItem patient) {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient.getShareableUrl()));
+
+	public static void startFundTreatmentIntent(Activity activity,
+			ShareableItem patient) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(patient
+				.getShareableUrl()));
 		activity.startActivity(browserIntent);
-		//overridePendingTransition(R.anim.right_in, R.anim.left_out);
-		//activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+		// overridePendingTransition(R.anim.right_in, R.anim.left_out);
+		// activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
-	
+
+	public static Intent getFundTreatmentIntent(Activity activity,Patient patient,BigDecimal amount) {
+		PayPalPayment payment = new PayPalPayment(amount,
+				"USD", patient.getFullName(), PayPalPayment.PAYMENT_INTENT_SALE);
+		Intent intent = new Intent(activity, PaymentActivity.class);
+		intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+		return intent;
+	}
+
 	public interface ShareableItem {
 		public String getShareableUrl();
 	}
-	
+
 	/**
-	  * Sets a hyperlink style to the textview.
-	  */
+	 * Sets a hyperlink style to the textview.
+	 */
 	public static void makeTextViewHyperlink(TextView tv) {
-	  SpannableStringBuilder ssb = new SpannableStringBuilder();
-	  ssb.append(tv.getText());
-	  ssb.setSpan(new URLSpan("#"), 0, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-	  tv.setText(ssb, TextView.BufferType.SPANNABLE);
-	} 
-	
-	public static void starShowMedicalPartnerIntent(Activity activity,String url) {
+		SpannableStringBuilder ssb = new SpannableStringBuilder();
+		ssb.append(tv.getText());
+		ssb.setSpan(new URLSpan("#"), 0, ssb.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv.setText(ssb, TextView.BufferType.SPANNABLE);
+	}
+
+	public static void starShowMedicalPartnerIntent(Activity activity,
+			String url) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 		activity.startActivity(browserIntent);
 	}
-	
-	public static void starShowMedicalPartnerIntent(Activity activity,MedicalPartner medicalPartner) {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(medicalPartner.getWebsiteUrl()));
+
+	public static void starShowMedicalPartnerIntent(Activity activity,
+			MedicalPartner medicalPartner) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+				Uri.parse(medicalPartner.getWebsiteUrl()));
 		activity.startActivity(browserIntent);
 	}
+
 	public static void showMyProfileActivity(FragmentActivity activity) {
-		
-		activity.startActivity(new Intent(activity,ParseDispatchActivity.class));
-	}
-	public static void startShareIntent(Activity activity,ShareableItem patient) {
-		Intent shareIntent = new Intent();
-	    shareIntent.setAction(Intent.ACTION_SEND);
-	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
-	    shareIntent.setType("text/plain");
-	    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
-	    activity.startActivity(Intent.createChooser(shareIntent, "Share Story"));		
+
+		activity.startActivity(new Intent(activity, ParseDispatchActivity.class));
 	}
 
-	private static void startShareIntentWithExplicitSocialActivity(Activity ctx,ShareableItem patient,String socialActivityName,String displayName) {
+	public static void startShareIntent(Activity activity, ShareableItem patient) {
 		Intent shareIntent = new Intent();
-	    shareIntent.setAction(Intent.ACTION_SEND);
-	    shareIntent.setType("text/plain");
-	    shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
-		   
-	    try{
-	        final PackageManager pm = ctx.getPackageManager();
-	        final List activityList = pm.queryIntentActivities(shareIntent, 0);
-	            int len =  activityList.size();
-	        for (int i = 0; i < len; i++) {
-	            final ResolveInfo app = (ResolveInfo) activityList.get(i);
-	            if (socialActivityName.equals(app.activityInfo.name)) {
-	                final ActivityInfo activity=app.activityInfo;
-	                final ComponentName name=new ComponentName(activity.applicationInfo.packageName, activity.name);
-	                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-	        	    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
-	        	    shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-	                shareIntent.setComponent(name);
-	                ctx.startActivity(shareIntent);
-	                break;
-	            }
-	        }
-	    }
-	    catch(final ActivityNotFoundException e) {
-	        Toast.makeText(ctx, "Could not find "+displayName+" app", Toast.LENGTH_SHORT).show();
-	    }
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
+		activity.startActivity(Intent.createChooser(shareIntent, "Share Story"));
+	}
+
+	private static void startShareIntentWithExplicitSocialActivity(
+			Activity ctx, ShareableItem patient, String socialActivityName,
+			String displayName) {
+		Intent shareIntent = new Intent();
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_TEXT, patient.getShareableUrl());
+
+		try {
+			final PackageManager pm = ctx.getPackageManager();
+			final List activityList = pm.queryIntentActivities(shareIntent, 0);
+			int len = activityList.size();
+			for (int i = 0; i < len; i++) {
+				final ResolveInfo app = (ResolveInfo) activityList.get(i);
+				if (socialActivityName.equals(app.activityInfo.name)) {
+					final ActivityInfo activity = app.activityInfo;
+					final ComponentName name = new ComponentName(
+							activity.applicationInfo.packageName, activity.name);
+					shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+							| Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+					shareIntent
+							.putExtra(Intent.EXTRA_SUBJECT, "Fund Treatment");
+					shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+					shareIntent.setComponent(name);
+					ctx.startActivity(shareIntent);
+					break;
+				}
+			}
+		} catch (final ActivityNotFoundException e) {
+			Toast.makeText(ctx, "Could not find " + displayName + " app",
+					Toast.LENGTH_SHORT).show();
+		}
 
 	}
-	public static void startShareIntentWithTwitter(Activity ctx,ShareableItem patient) {
-		startShareIntentWithExplicitSocialActivity(ctx, patient, TWITTER_ACTIVITY, "Twitter");
+
+	public static void startShareIntentWithTwitter(Activity ctx,
+			ShareableItem patient) {
+		startShareIntentWithExplicitSocialActivity(ctx, patient,
+				TWITTER_ACTIVITY, "Twitter");
 	}
-	
-	public static void startShareIntentWithFaceBook(Activity ctx,ShareableItem patient) {
-		startShareIntentWithExplicitSocialActivity(ctx, patient, FB_ACTIVITY, "Facebook");
+
+	public static void startShareIntentWithFaceBook(Activity ctx,
+			ShareableItem patient) {
+		startShareIntentWithExplicitSocialActivity(ctx, patient, FB_ACTIVITY,
+				"Facebook");
 	}
-	
+
 	public static Boolean isNetworkAvailable(Context activity) {
 		ConnectivityManager connectivityManager = (ConnectivityManager) activity
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -166,36 +194,42 @@ public class Util {
 				.isConnectedOrConnecting());
 		return isNetworkAvailable;
 	}
-	
+
 	public static String getFormatedDate(Date date) {
-		
+
 		SimpleDateFormat sf = new SimpleDateFormat(DATE_FORMAT);
 		sf.setLenient(true);
 		return sf.format(date);
-		
+
 	}
-	
-	public static float getPixels(Activity activity,float dp) {
+
+	public static float getPixels(Activity activity, float dp) {
 		Resources r = activity.getResources();
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				r.getDisplayMetrics());
 		return px;
 	}
-	
-	public static float getPixelsFont(Activity activity,float sp) {
+
+	public static float getPixelsFont(Activity activity, float sp) {
 		Resources r = activity.getResources();
-		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, r.getDisplayMetrics());
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,
+				r.getDisplayMetrics());
 		return px;
 	}
+
 	public static String formatAmount(double amount) {
-		 return String.valueOf("$"+Math.ceil(amount)).split("\\.")[0];
+		return String.valueOf("$" + Math.ceil(amount)).split("\\.")[0];
 	}
-	public static void applyPrimaryFont(Context ctx,TextView textView) {	
-		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
+
+	public static void applyPrimaryFont(Context ctx, TextView textView) {
+		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), "fonts/"
+				+ PRIMARY_FONT);
 		textView.setTypeface(typeface);
 	}
-	public static void applyPrimaryFont(Context ctx,PagerSlidingTabStrip view) {	
-		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(),"fonts/"+PRIMARY_FONT);
+
+	public static void applyPrimaryFont(Context ctx, PagerSlidingTabStrip view) {
+		Typeface typeface = Typeface.createFromAsset(ctx.getAssets(), "fonts/"
+				+ PRIMARY_FONT);
 		view.setTypeface(typeface, Typeface.BOLD);
 	}
 }
-	
