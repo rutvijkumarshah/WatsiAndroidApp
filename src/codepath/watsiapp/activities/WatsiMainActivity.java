@@ -38,9 +38,9 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 		setupSlidingTabs(vpPager);
 	}
 	
-	public void showDonateDialog(){
+	public void showDonateDialog(String dialogHeader){
 	  	FragmentManager fm = getSupportFragmentManager();
-	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance("Payment");
+	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader);
 	  	paymenttDialog.show(fm, "fragment_payment_amount");
 	}
 

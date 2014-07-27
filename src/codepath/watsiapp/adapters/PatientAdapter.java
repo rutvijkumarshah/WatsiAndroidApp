@@ -204,7 +204,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 				@Override
 				public void onClick(View v) {
 //					startFundTreatmentIntent(activity,(Patient)v.getTag());
-					((WatsiMainActivity) activity).showDonateDialog();
+					((WatsiMainActivity) activity).showDonateDialog("Donate for "+patient.getFullName());
 				}
 			});
 			
