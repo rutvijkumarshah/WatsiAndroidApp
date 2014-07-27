@@ -22,10 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.activities;
 
+
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -38,6 +41,8 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseUser;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
@@ -45,6 +50,28 @@ public class BaseFragmentActivity extends FragmentActivity {
 
 	protected MenuItem myprofile;
 	private MenuItem logout;
+	private SharedPreferences prefs;
+
+	private static final String PACKAGE="codepath.watsiapp";
+	public static final String USER_FULL_NAME="PREF_USER_FULL_NAME";
+	public static final String USER_EMAIL="PREF_USER_EMAIL_NAME";
+	
+	private static PayPalConfiguration payPalConfig;
+
+	static {
+		setupPayPalConfig();
+	}
+
+	private static void setupPayPalConfig() {
+		try {
+			payPalConfig = new PayPalConfiguration()
+					.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+					.clientId(
+							"AQlMcRBDK-q2VKSt4Bkg2wbNJYT-MQIAL2gmPoXapLGotF4JQ94mgVpvYzQA");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,6 +101,12 @@ public class BaseFragmentActivity extends FragmentActivity {
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
+		prefs = this.getSharedPreferences(
+			      PACKAGE, Context.MODE_PRIVATE);
+		Intent intent = new Intent(this, PayPalService.class);
+		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
+		startService(intent);
+
 
 	}
 
@@ -138,4 +171,22 @@ public class BaseFragmentActivity extends FragmentActivity {
 	    }
 	}
 
+	
+	
+	
+	public String getUserFullName() {
+		return prefs.getString(USER_FULL_NAME,"");
+	}
+	
+	public String getUserEmail() {
+		return prefs.getString(USER_EMAIL,"");
+	}
+	
+	public void setUserFullName(String fullName) {
+		prefs.edit().putString(USER_FULL_NAME, fullName);
+		
+	}
+	public void setUserEmailAddress(String email) {
+		prefs.edit().putString(USER_EMAIL, email);
+	}
 }
