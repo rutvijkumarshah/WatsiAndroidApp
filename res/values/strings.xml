@@ -28,5 +28,9 @@
 
     <string name="makeDifference">Make a difference !</string>
     <string name="title_activity_splash_screen">Watsi</string>
+    <string name="hintName">Enter Full Name</string>
+    <string name="hintEmail">Enter your email address</string>
+    <string name="hintAmount">Enter Amount</string>
+    <string name="btnDonate">Donate</string>
 
 </resources>

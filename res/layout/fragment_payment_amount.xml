@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter Full Name"
+        android:hint="@string/hintName"
         android:inputType="textPersonName" >
 
         <requestFocus />
@@ -27,23 +27,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter your email address"
+        android:hint="@string/hintEmail"
         android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/btnDonate"
+        style="@style/ParseLoginUI.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAmountToDonate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@color/watsi_blue"
-        style="@style/ParseLoginUI.Button"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="Donate" />
+        android:paddingTop="10dp"
+        android:text="@string/btnDonate" />
 
     <EditText
         android:id="@+id/tvAmountToDonate"
@@ -52,8 +52,8 @@
         android:layout_below="@+id/tvEmail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:hint="Enter Amount"
         android:ems="10"
+        android:hint="@string/hintAmount"
         android:inputType="number" />
 
 </RelativeLayout>
