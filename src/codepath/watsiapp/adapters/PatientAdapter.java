@@ -1,10 +1,10 @@
 /***
 
 The MIT License (MIT)
-Copyright © 2014 Rutvijkumar Shah
+Copyright ï¿½ 2014 Rutvijkumar Shah
  
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
-associated documentation files (the “Software”), to deal in the Software without restriction,
+associated documentation files (the ï¿½Softwareï¿½), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish, distribute,
 sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
@@ -12,7 +12,7 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial
 portions of the Software.
  
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+THE SOFTWARE IS PROVIDED ï¿½AS ISï¿½, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
 NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
@@ -37,9 +37,11 @@ import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
+import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 import static codepath.watsiapp.utils.Util.*;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -83,7 +85,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 	public PatientAdapter(Context context,ParseQueryAdapter.QueryFactory<Patient> queryFactory) {
 		//Custom Query
 		super(context,queryFactory); 
-		activity = (FragmentActivity) context;
+		activity = (WatsiMainActivity) context;
 		this.setObjectsPerPage(PAGE_SIZE);
 	}
 	
@@ -201,7 +203,8 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
 				@Override
 				public void onClick(View v) {
-					startFundTreatmentIntent(activity,(Patient)v.getTag());
+//					startFundTreatmentIntent(activity,(Patient)v.getTag());
+					((WatsiMainActivity) activity).showDonateDialog();
 				}
 			});
 			

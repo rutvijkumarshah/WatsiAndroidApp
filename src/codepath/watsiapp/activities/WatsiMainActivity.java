@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
+import codepath.watsiapp.fragments.PaymentAmountFragment;
 import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -34,6 +36,12 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 				getSupportFragmentManager(), this);
 		vpPager.setAdapter(adapterViewPager);
 		setupSlidingTabs(vpPager);
+	}
+	
+	public void showDonateDialog(){
+	  	FragmentManager fm = getSupportFragmentManager();
+	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance("Payment");
+	  	paymenttDialog.show(fm, "fragment_payment_amount");
 	}
 
 	private void setupSlidingTabs(ViewPager vpPager2) {
