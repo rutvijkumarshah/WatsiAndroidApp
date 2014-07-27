@@ -1,0 +1,71 @@
+//if using through web, paste this in message and selec json, select channel as NewsFeed
+{
+    "channels": [
+          "NewsFeed"
+    ],
+    "data": {
+       "action": "codepath.watsiapp.NEWSFEED",
+       "notif_type": "donation_raised",
+       "donationId": "z2vjQXKNc4"   
+    }
+   
+}
+
+// REST - when patient gets donation
+curl -X POST \
+  -H "X-Parse-Application-Id: tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ" \
+  -H "X-Parse-REST-API-Key: J2aUON2KwGuqAm6nH47qfB3IIABpZtzcd6OTdCte" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "channels": [
+          "NewsFeed"
+    ],
+    "data": {
+       "action": "codepath.watsiapp.NEWSFEED",
+       "notif_type": "donation_raised",
+       "donationId": "z2vjQXKNc4"   
+    }
+   
+}' \
+  https://api.parse.com/1/push
+
+
+// REST - when patient is fully funded
+curl -X POST \
+  -H "X-Parse-Application-Id: tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ" \
+  -H "X-Parse-REST-API-Key: J2aUON2KwGuqAm6nH47qfB3IIABpZtzcd6OTdCte" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "channels": [
+          "NewsFeed"
+    ],
+    "data": {
+       "action": "codepath.watsiapp.NEWSFEED",
+       "notif_type": "fully_funded",
+       "patientId": "dQ2pI0c68n"   
+    }
+   
+}' \
+  https://api.parse.com/1/push
+
+
+// REST - when patient got on boarded
+curl -X POST \
+  -H "X-Parse-Application-Id: tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ" \
+  -H "X-Parse-REST-API-Key: J2aUON2KwGuqAm6nH47qfB3IIABpZtzcd6OTdCte" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "channels": [
+          "NewsFeed"
+    ],
+    "data": {
+       "action": "codepath.watsiapp.NEWSFEED",
+       "notif_type": "on_boarded",
+       "patientId": "TBGAPhNBk9"   
+    }
+   
+}' \
+  https://api.parse.com/1/push
+
+
+
