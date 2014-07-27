@@ -57,10 +57,9 @@ public class WatsiApplication extends Application {
 
 	private void configurePush() {
 		// Specify an Activity to handle all pushes by default.
-		PushService.setDefaultPushCallback(this, WatsiMainActivity.class);
-
+		PushService.subscribe(this, "NewsFeed", WatsiMainActivity.class);  
 	}
-
+  
 	/**
 	 * Parse has many configurations that can be turned on or off before
 	 * initialization. All of them can go inside this function.

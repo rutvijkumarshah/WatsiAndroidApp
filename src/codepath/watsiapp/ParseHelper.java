@@ -89,4 +89,10 @@ public class ParseHelper {
 		return query;
 
 	}
+	public ParseQuery<Donation> findDonationById(String donationId) {
+		ParseQuery<Donation> query= new ParseQuery("Donation");
+		query.whereEqualTo("objectId", donationId);
+		
+		return query;
+	}
 }
