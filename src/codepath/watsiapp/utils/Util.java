@@ -48,6 +48,7 @@ import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.BaseFragmentActivity;
+import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
@@ -87,13 +88,12 @@ public class Util {
 		// activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
 
-	public static Intent getFundTreatmentIntent(BaseFragmentActivity activity,Patient patient,BigDecimal amount,String userfullName,String email) {
+	public static Intent getFundTreatmentIntent(Activity activity,DonationInfoStorage donationInfo,Patient patient) {
 		
-		//Setting User info before invoking PayPal activity
-		activity.setUserFullName(userfullName);
-		activity.setUserEmailAddress(email);
+		float amount=donationInfo.getDonationAmount();
+		BigDecimal donation=BigDecimal.valueOf(amount);
 		
-		PayPalPayment payment = new PayPalPayment(amount,
+		PayPalPayment payment = new PayPalPayment(donation,
 				"USD", patient.getFullName(), PayPalPayment.PAYMENT_INTENT_SALE);
 		Intent intent = new Intent(activity, PaymentActivity.class);
 		intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);

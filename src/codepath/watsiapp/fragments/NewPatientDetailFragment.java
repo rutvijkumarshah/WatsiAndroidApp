@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.BaseFragmentActivity;
+import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 
@@ -180,7 +181,13 @@ public class NewPatientDetailFragment extends Fragment {
 				public void onClick(View v) {
 					//startFundTreatmentIntent(getActivity(),(Patient)v.getTag());
 					// This will be passed from Donation UI
-					Intent intent=Util.getFundTreatmentIntent((BaseFragmentActivity)getActivity(), patientObj, new BigDecimal("1.00"),"Rutvij Shah","rutvij.shah@yahoo.com");
+					DonationInfoStorage donationInfo=(DonationInfoStorage) getActivity();
+					donationInfo.setDonationAmount(5.0f);
+					donationInfo.setPatientId(patientObj.getObjectId());
+					donationInfo.setUserEmailAddress("rutvij.shah@yahoo.com");
+					donationInfo.setUserFullName("Rutvij Shah");
+					
+					Intent intent=Util.getFundTreatmentIntent(getActivity(), donationInfo,patientObj);
 					startActivityForResult(intent, 0);
 				}
 			});

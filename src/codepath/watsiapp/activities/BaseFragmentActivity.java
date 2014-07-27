@@ -26,9 +26,7 @@ package codepath.watsiapp.activities;
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -38,23 +36,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 import codepath.watsiapp.R;
+import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
-public class BaseFragmentActivity extends FragmentActivity {
+public class BaseFragmentActivity extends FragmentActivity implements DonationInfoStorage {
 
 	protected MenuItem myprofile;
 	private MenuItem logout;
-	private SharedPreferences prefs;
-
-	private static final String PACKAGE="codepath.watsiapp";
-	public static final String USER_FULL_NAME="PREF_USER_FULL_NAME";
-	public static final String USER_EMAIL="PREF_USER_EMAIL_NAME";
+	private PrefsHelper prefs;
 	
 	private static PayPalConfiguration payPalConfig;
 
@@ -101,8 +98,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		prefs = this.getSharedPreferences(
-			      PACKAGE, Context.MODE_PRIVATE);
+		prefs=new PrefsHelper(this);
 		Intent intent = new Intent(this, PayPalService.class);
 		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
 		startService(intent);
@@ -152,11 +148,16 @@ public class BaseFragmentActivity extends FragmentActivity {
 	        PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
 	        if (confirm != null) {
 	            try {
-	                Log.i("paymentExample", confirm.toJSONObject().toString(4));
 	                Toast.makeText(this, "Thanks for your generous donation.", Toast.LENGTH_LONG).show();
-	                // TODO: send 'confirm' to your server for verification.
-	                // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
-	                // for more details.
+	                
+	                ParseObject confirmation = new ParseObject("PaymentConfirmatons");
+	                confirmation.put("donorName", getUserFullName());
+	                confirmation.put("donorEmail", getUserEmail());
+	                confirmation.put("patient", Patient.createWithoutData(Patient.class, getPatientId()));
+	                confirmation.put("amount", getDonationAmount());
+	                confirmation.put("confirmation", confirm.toJSONObject().toString(4));
+	                confirmation.saveInBackground();
+	                
 
 	            } catch (JSONException e) {
 	                Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
@@ -171,22 +172,51 @@ public class BaseFragmentActivity extends FragmentActivity {
 	    }
 	}
 
-	
-	
-	
+	@Override
+	public float getDonationAmount() {
+		return prefs.getDonationAmount();
+	}
+
+	@Override
+	public String getPatientId() {
+		return prefs.getPatientId();
+	}
+
+	@Override
 	public String getUserFullName() {
-		return prefs.getString(USER_FULL_NAME,"");
+		return prefs.getUserFullName();
 	}
-	
+
+	@Override
 	public String getUserEmail() {
-		return prefs.getString(USER_EMAIL,"");
+		return prefs.getUserEmail();
 	}
-	
+
+	@Override
 	public void setUserFullName(String fullName) {
-		prefs.edit().putString(USER_FULL_NAME, fullName);
+		prefs.setUserFullName(fullName);
 		
 	}
+
+	@Override
 	public void setUserEmailAddress(String email) {
-		prefs.edit().putString(USER_EMAIL, email);
+		prefs.setUserEmailAddress(email);
 	}
+
+	@Override
+	public void setDonationAmount(float value) {
+		prefs.setDonationAmount(value);
+		
+	}
+
+	@Override
+	public void setPatientId(String value) {
+		prefs.setPatientId(value);
+		
+	}
+
+	
+	
+	
+
 }
