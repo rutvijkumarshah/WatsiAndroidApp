@@ -22,30 +22,11 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 	private ViewPager vpPager;
 	private PatientsPagerAdapter adapterViewPager;
 	private PagerSlidingTabStrip tabs;
-	private static PayPalConfiguration payPalConfig;
-
-	static {
-		setupPayPalConfig();
-	}
-
-	private static void setupPayPalConfig() {
-		try {
-			payPalConfig = new PayPalConfiguration()
-					.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-					.clientId(
-							"AQlMcRBDK-q2VKSt4Bkg2wbNJYT-MQIAL2gmPoXapLGotF4JQ94mgVpvYzQA");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		Intent intent = new Intent(this, PayPalService.class);
-		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
-		startService(intent);
 
 		ParseAnalytics.trackAppOpened(getIntent());
 		vpPager = (ViewPager) findViewById(R.id.viewPager);

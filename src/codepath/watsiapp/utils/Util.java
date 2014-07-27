@@ -47,6 +47,7 @@ import android.text.style.URLSpan;
 import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
+import codepath.watsiapp.activities.BaseFragmentActivity;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.Patient;
@@ -86,7 +87,12 @@ public class Util {
 		// activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
 
-	public static Intent getFundTreatmentIntent(Activity activity,Patient patient,BigDecimal amount) {
+	public static Intent getFundTreatmentIntent(BaseFragmentActivity activity,Patient patient,BigDecimal amount,String userfullName,String email) {
+		
+		//Setting User info before invoking PayPal activity
+		activity.setUserFullName(userfullName);
+		activity.setUserEmailAddress(email);
+		
 		PayPalPayment payment = new PayPalPayment(amount,
 				"USD", patient.getFullName(), PayPalPayment.PAYMENT_INTENT_SALE);
 		Intent intent = new Intent(activity, PaymentActivity.class);
@@ -232,4 +238,6 @@ public class Util {
 				+ PRIMARY_FONT);
 		view.setTypeface(typeface, Typeface.BOLD);
 	}
+	
+	
 }
