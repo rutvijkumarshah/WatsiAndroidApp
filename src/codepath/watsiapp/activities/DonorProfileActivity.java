@@ -23,16 +23,19 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-public class DonorProfileActivity extends BaseFragmentActivity implements OnDonationStatsCalculatedListener {
-	
+
+public class DonorProfileActivity extends BaseFragmentActivity implements
+		OnDonationStatsCalculatedListener {
+
 	private TextView donarFullName;
 	private TextView memberSinceDate;
 	private TextView totalDonationsAmount;
 	private TextView totalTreatmentsFunded;
 	private ImageView profilePicture;
-	private String donorId;
+	// private String donorId;
 	private TextView donatedForText;
 	private TextView treatmetnsText;
+	private Donor donor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +47,22 @@ public class DonorProfileActivity extends BaseFragmentActivity implements OnDona
 		memberSinceDate = (TextView) findViewById(R.id.tv_membersince_dt);
 		totalTreatmentsFunded = (TextView) findViewById(R.id.tv_noof_treatments);
 		totalDonationsAmount = (TextView) findViewById(R.id.total_donation);
-		donatedForText=(TextView)findViewById(R.id.medicalNeed);
-		treatmetnsText=(TextView)findViewById(R.id.location);
+		donatedForText = (TextView) findViewById(R.id.medicalNeed);
+		treatmetnsText = (TextView) findViewById(R.id.location);
 
 		applyPrimaryFont(getApplicationContext(), donarFullName);
 		applyPrimaryFont(getApplicationContext(), memberSinceDate);
 		applyPrimaryFont(getApplicationContext(), totalTreatmentsFunded);
 		applyPrimaryFont(getApplicationContext(), totalDonationsAmount);
-		
-		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.medicalNeed));//Donated for text
-		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.tv_membersince));//Member Since Text
-		applyPrimaryFont(getApplicationContext(), (TextView)findViewById(R.id.location));//Treatments text
-		
+
+		applyPrimaryFont(getApplicationContext(),
+				(TextView) findViewById(R.id.medicalNeed));// Donated for text
+		applyPrimaryFont(getApplicationContext(),
+				(TextView) findViewById(R.id.tv_membersince));// Member Since
+																// Text
+		applyPrimaryFont(getApplicationContext(),
+				(TextView) findViewById(R.id.location));// Treatments text
+
 		profilePicture.setVisibility(View.INVISIBLE);
 	}
 
@@ -75,60 +82,73 @@ public class DonorProfileActivity extends BaseFragmentActivity implements OnDona
 	 */
 	private void showProfile(ParseUser user) {
 		if (user != null) {
+
 			String fullName = user.getString("name");
-			String email = null;
-			//if (fullName != null) {
-				getActionBar().setTitle("Profile");
-				//
-				donorId = user.getString("donorId");
-				email = user.getString("email");
+			String email = user.getString("email");
+			// if (fullName != null) {
+			getActionBar().setTitle("Profile");
 
-				if (ParseFacebookUtils.isLinked(user)) {
-					// /find email of parseUser from FB
-					// "https://graph.facebook.com/%s/picture",
-					// assuming will get email in email field
-					setEmail();
+			ParseHelper parseHelper = new ParseHelper(getApplicationContext());
+			ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
+			try {
+				donor = query.getFirst();
+			} catch (ParseException exp) {
+				exp.printStackTrace();
+			}
+			boolean isFacebookLinkedUser=ParseFacebookUtils.isLinked(user);
+			email = user.getString("email");
 
-				} else {
-					donarFullName.setText(fullName);
-					memberSinceDate.setText(Util.getFormatedDate(user.getCreatedAt()));
-					showDetailsForNonDonor();
-				}
-				
-				if(donorId!=null) {
-					setDonationsFragment(donorId);
-				}
-				
-				
-			//}
+			if (isFacebookLinkedUser) {
+				setEmail();
+
+			} else {
+				donarFullName.setText(fullName);
+				memberSinceDate.setText(Util.getFormatedDate(user
+						.getCreatedAt()));
+
+			}
+
+			if (donor != null) {
+				showDetailsForDonor(isFacebookLinkedUser);
+			} else {
+				showDetailsForNonDonor();
+			}
+
+			// }
 
 		}
 	}
 
-	private void showDetailsForNonDonor() {
+	private void setDefaultUserPic() {
 		String uri = "@drawable/profile_img";
-		int imageResource = getResources().getIdentifier(uri, null, getPackageName());		
+		int imageResource = getResources().getIdentifier(uri, null,
+				getPackageName());
 		Drawable res = getResources().getDrawable(imageResource);
 		profilePicture.setImageDrawable(res);
-		
+	}
+	private void showDetailsForNonDonor() {
+		setDefaultUserPic();
 		profilePicture.setVisibility(View.VISIBLE);
-		memberSinceDate.setText(Util.getFormatedDate(ParseUser.getCurrentUser().getCreatedAt()));
+		memberSinceDate.setText(Util.getFormatedDate(ParseUser.getCurrentUser()
+				.getCreatedAt()));
 		totalDonationsAmount.setText("");
 		donatedForText.setText("");
 		treatmetnsText.setText("");
 		totalTreatmentsFunded.setText("Make a difference");
 		setNewsFragment();
 	}
-	
-	private void showDetailsForDonor(Donor donor) {
-		
+
+	private void showDetailsForDonor(boolean isFBuser) {
+
+		if(!isFBuser) {
+			setDefaultUserPic();
+		}
 		profilePicture.setVisibility(View.VISIBLE);
 		memberSinceDate.setText(Util.getFormatedDate(donor.getMemberSince()));
-		donorId=donor.getObjectId();
-		setDonationsFragment(donorId);
-		
+		setDonationsFragment();
+
 	}
-	
+
 	public void setEmail() {
 		Request.newMeRequest(ParseFacebookUtils.getSession(),
 				new Request.GraphUserCallback() {
@@ -139,38 +159,21 @@ public class DonorProfileActivity extends BaseFragmentActivity implements OnDona
 						imgImageLoader.displayImage(
 								"http://graph.facebook.com/" + user.getId()
 										+ "/picture?type=large", profilePicture);
-						String email=user.asMap().get("email").toString();
-						//store facebook image url
-						//store donorId
-						
+//						String email = user.asMap().get("email").toString();
 						donarFullName.setText(user.getName());
-						ParseHelper parseHelper = new ParseHelper(getApplicationContext());
-						ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
-						try {
-							Donor donor = query.getFirst();
-							if(donor == null) {
-								showDetailsForNonDonor();
-							}else {
-								showDetailsForDonor(donor);
-							}
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
 					}
 
 				}).executeAsync();
 
 	}
 
-	private void setDonationsFragment(String donorId) {
+	private void setDonationsFragment() {
 
 		// Begin the transaction
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
 		ft.replace(R.id.donations,
-				DonationListFragment.newInstance(donorId));
+				DonationListFragment.newInstance(donor.getObjectId()));
 		ft.commit();
 	}
 
@@ -179,8 +182,7 @@ public class DonorProfileActivity extends BaseFragmentActivity implements OnDona
 		// Begin the transaction
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
-		ft.replace(R.id.donations,
-				PatientFeedFragment.newInstance(null));
+		ft.replace(R.id.donations, PatientFeedFragment.newInstance(null));
 		ft.commit();
 	}
 
@@ -192,6 +194,6 @@ public class DonorProfileActivity extends BaseFragmentActivity implements OnDona
 	@Override
 	public void totalTreatmentsCalculated(Integer totalTreatments) {
 		totalTreatmentsFunded.setText(String.valueOf(totalTreatments));
-		
+
 	}
 }
