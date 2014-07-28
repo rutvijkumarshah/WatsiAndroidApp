@@ -28,15 +28,14 @@ public class AlarmReciever extends BroadcastReceiver {
 
 			// Put a boolean in the intent when the alarm triggers
 			Intent actIntent = new Intent(context, AlarmReciever.class);
-			actIntent.putExtra("is_alarm", true);
 			actIntent.setAction("codepath.watsiapp.DAILY_ALARM");
 			PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
 			AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 			alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-			        					 1*60*1000, alarmIntent);
+			        					 AlarmManager.INTERVAL_DAY, alarmIntent); 
 			
-		} else if (intent.getBooleanExtra("is_alarm", false)) {
+		} else if (intent.getAction().equals("codepath.watsiapp.DAILY_ALARM")) {
 			// This is an alarm. If it is the first day of the month
 			// then send out a notification
 			Calendar cal = Calendar.getInstance();
