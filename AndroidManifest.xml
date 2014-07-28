@@ -82,7 +82,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
         <activity
@@ -99,9 +99,19 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name="codepath.watsiapp.PushReceiver" android:exported="true" >
+        <receiver
+            android:name="codepath.watsiapp.PushReceiver"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="codepath.watsiapp.NEWSFEED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="codepath.watsiapp.AlarmReciever"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="codepath.watsiapp.DAILY_ALARM" />
             </intent-filter>
         </receiver>
         <receiver

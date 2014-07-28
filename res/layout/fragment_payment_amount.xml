@@ -5,7 +5,7 @@
     android:padding="20dp" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/tvFullName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -13,53 +13,47 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter Full Name"
+        android:hint="@string/hintName"
         android:inputType="textPersonName" >
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/tvEmail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/tvFullName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="Enter your email address"
+        android:hint="@string/hintEmail"
         android:inputType="textEmailAddress" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" >
-
-        <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number" />
-    </LinearLayout>
-
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnDonate"
+        style="@style/ParseLoginUI.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_below="@+id/tvAmountToDonate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Donate" />
+        android:background="@color/watsi_blue"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:text="@string/btnDonate" />
+
+    <EditText
+        android:id="@+id/tvAmountToDonate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="@string/hintAmount"
+        android:inputType="number" />
 
 </RelativeLayout>
