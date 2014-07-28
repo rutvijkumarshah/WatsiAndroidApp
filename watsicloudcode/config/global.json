@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "WatsiAndroidApp": {
+            "applicationId": "tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ", 
+            "masterKey": "tWFbBiU5OkLbIkz6MiheHr1g3cbE1hAMvWc0GTO0"
+        }, 
+        "_default": {
+            "link": "WatsiAndroidApp"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}
