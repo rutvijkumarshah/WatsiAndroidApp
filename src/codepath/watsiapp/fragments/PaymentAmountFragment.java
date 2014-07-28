@@ -1,10 +1,12 @@
 package codepath.watsiapp.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import codepath.watsiapp.R;
@@ -35,6 +37,8 @@ public class PaymentAmountFragment extends DialogFragment {
 //		mEditText.requestFocus();
 		getDialog().getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		
+		getDialog().getWindow().setBackgroundDrawableResource(R.drawable.bg_card);
 		return view;
 	}
 }
