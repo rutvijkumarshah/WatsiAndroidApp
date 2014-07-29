@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hintName"
         android:inputType="textPersonName" >
@@ -25,25 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvFullName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hintEmail"
         android:inputType="textEmailAddress" />
-
-    <Button
-        android:id="@+id/btnDonate"
-        style="@style/ParseLoginUI.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAmountToDonate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@color/watsi_blue"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:text="@string/btnDonate" />
 
     <EditText
         android:id="@+id/tvAmountToDonate"
@@ -51,9 +36,33 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEmail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hintAmount"
         android:inputType="numberDecimal" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvAmountToDonate"
+        android:layout_below="@+id/tvAmountToDonate"
+        android:layout_marginTop="20dp"
+        android:text="Make donation anonomous" />
+
+    <Button
+        android:id="@+id/btnDonate"
+        style="@style/ParseLoginUI.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBox1"
+        android:layout_centerHorizontal="true"
+        android:background="@color/watsi_blue"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:text="@string/btnDonate" />
 
 </RelativeLayout>
