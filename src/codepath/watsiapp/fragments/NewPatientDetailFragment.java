@@ -179,16 +179,7 @@ public class NewPatientDetailFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-					//startFundTreatmentIntent(getActivity(),(Patient)v.getTag());
-					// This will be passed from Donation UI
-					DonationInfoStorage donationInfo=(DonationInfoStorage) getActivity();
-					donationInfo.setDonationAmount(5.0f);
-					donationInfo.setPatientId(patientObj.getObjectId());
-					donationInfo.setUserEmailAddress("rutvij.shah@yahoo.com");
-					donationInfo.setUserFullName("Rutvij Shah");
-					
-					Intent intent=Util.getFundTreatmentIntent(getActivity(), donationInfo,patientObj);
-					startActivityForResult(intent, 0);
+					//Put donate dialog here
 				}
 			});
 			

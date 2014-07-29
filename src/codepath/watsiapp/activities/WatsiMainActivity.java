@@ -1,15 +1,12 @@
 package codepath.watsiapp.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
@@ -18,7 +15,6 @@ import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
 
 public class WatsiMainActivity extends BaseFragmentActivity implements
@@ -40,9 +36,9 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 		setupSlidingTabs(vpPager);
 	}
 	
-	public void showDonateDialog(String dialogHeader){
+	public void showDonateDialog(String dialogHeader,String patientId,String donateTo){
 	  	FragmentManager fm = getSupportFragmentManager();
-	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader);
+	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader,patientId,donateTo);
 //	  	Dialog dialog = paymenttDialog.getDialog();
 //	  	Window window = dialog.getWindow();
 //	  	window.setBackgroundDrawableResource(R.drawable.bg_card);

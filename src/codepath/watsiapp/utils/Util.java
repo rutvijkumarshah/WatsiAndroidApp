@@ -88,13 +88,13 @@ public class Util {
 		// activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 	}
 
-	public static Intent getFundTreatmentIntent(Activity activity,DonationInfoStorage donationInfo,Patient patient) {
+	public static Intent getFundTreatmentIntent(Activity activity,DonationInfoStorage donationInfo,String donationTo) {
 		
 		float amount=donationInfo.getDonationAmount();
 		BigDecimal donation=BigDecimal.valueOf(amount);
 		
 		PayPalPayment payment = new PayPalPayment(donation,
-				"USD", patient.getFullName(), PayPalPayment.PAYMENT_INTENT_SALE);
+				"USD", donationTo, PayPalPayment.PAYMENT_INTENT_SALE);
 		Intent intent = new Intent(activity, PaymentActivity.class);
 		intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 		return intent;
