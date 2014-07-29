@@ -1,5 +1,6 @@
 package codepath.watsiapp.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
@@ -41,7 +43,11 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 	public void showDonateDialog(String dialogHeader){
 	  	FragmentManager fm = getSupportFragmentManager();
 	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader);
+//	  	Dialog dialog = paymenttDialog.getDialog();
+//	  	Window window = dialog.getWindow();
+//	  	window.setBackgroundDrawableResource(R.drawable.bg_card);
 	  	paymenttDialog.show(fm, "fragment_payment_amount");
+	  	
 	}
 
 	private void setupSlidingTabs(ViewPager vpPager2) {
