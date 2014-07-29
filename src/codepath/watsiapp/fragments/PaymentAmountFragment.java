@@ -72,7 +72,7 @@ public class PaymentAmountFragment extends DialogFragment {
 		if("".equals(prefUserName)) {
 			ParseUser parseUser = ParseUser.getCurrentUser();
 			if(parseUser!=null ) {
-				prefUserName=parseUser.getUsername();
+				prefUserName=parseUser.getString("name");
 				prefs.setUserFullName(prefUserName);
 			}
 		}
