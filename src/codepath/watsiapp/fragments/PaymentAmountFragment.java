@@ -62,9 +62,15 @@ public class PaymentAmountFragment extends DialogFragment {
 		mDonationAmount=(EditText)v.findViewById(R.id.tvAmountToDonate);
 		mDonateBtn=(Button)v.findViewById(R.id.btnDonate);
 		
+		boolean isAnonymousUser=ParseUser.getCurrentUser() ==null;
+		
 		//populates values if available;
 		mFullNameText.setText(getUserFullname());
 		mEmailAddressText.setText(getUserEmailAddress());
+		
+		mFullNameText.setEnabled(isAnonymousUser);
+		mEmailAddressText.setEnabled(isAnonymousUser);
+		
 		
 	}
 	private String getUserFullname() {
