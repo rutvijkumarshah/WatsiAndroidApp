@@ -31,9 +31,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.models.Patient;
@@ -103,7 +107,6 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
 		startService(intent);
 
-
 	}
 
 	@Override
@@ -149,8 +152,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	        PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
 	        if (confirm != null) {
 	            try {
-	                Toast.makeText(this, "Thanks for your generous donation.", Toast.LENGTH_LONG).show();
-	                
+	            	showThankYouNote();
 	                ParseObject confirmation = new ParseObject("PaymentConfirmatons");
 	                confirmation.put("donorName", getUserFullName());
 	                confirmation.put("donorEmail", getUserEmail());
@@ -229,7 +231,17 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	}
 
 	
-	
+	private  void showThankYouNote() {
+		LayoutInflater inflater = this.getLayoutInflater();
+		View view = inflater.inflate(R.layout.toast_thanks_for_donation,
+				(ViewGroup) this.findViewById(R.id.thanks_note));
+		Toast toast = new Toast(this);
+		toast.setView(view);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.show();
+
+	}
 	
 
 }
