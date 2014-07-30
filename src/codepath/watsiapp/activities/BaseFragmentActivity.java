@@ -54,7 +54,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	private PrefsHelper prefs;
 	
 	private static PayPalConfiguration payPalConfig;
-
+	private static final String TAG_PAYPAL="PAYPAL_PROCESSING";
 	static {
 		setupPayPalConfig();
 	}
@@ -156,19 +156,21 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	                confirmation.put("patient", Patient.createWithoutData(Patient.class, getPatientId()));
 	                confirmation.put("amount", getDonationAmount());
 	                confirmation.put("confirmation", confirm.toJSONObject().toString(4));
+	                confirmation.put("isAnonymous", isAnonymousDonation());
 	                confirmation.saveInBackground();
 	                
+	                prefs.clear();
 
 	            } catch (JSONException e) {
-	                Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+	                Log.e(TAG_PAYPAL, "an extremely unlikely failure occurred: ", e);
 	            }
 	        }
 	    }
 	    else if (resultCode == Activity.RESULT_CANCELED) {
-	        Log.i("paymentExample", "The user canceled.");
+	        Log.i(TAG_PAYPAL, "The user canceled.");
 	    }
 	    else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-	        Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+	        Log.i(TAG_PAYPAL, "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
 	    }
 	}
 
@@ -213,6 +215,16 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	public void setPatientId(String value) {
 		prefs.setPatientId(value);
 		
+	}
+
+	@Override
+	public boolean isAnonymousDonation() {
+		return prefs.isAnonymousDonation();
+	}
+
+	@Override
+	public void setAnonymousDonation(boolean isAnonymousDonation) {
+		prefs.setAnonymousDonation(isAnonymousDonation);
 	}
 
 	

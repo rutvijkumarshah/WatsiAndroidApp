@@ -34,9 +34,11 @@ public interface DonationInfoStorage {
 	public String getPatientId();
 	public String getUserFullName();
 	public String getUserEmail();
+	public boolean isAnonymousDonation();
 	
 	public void setUserFullName(String fullName) ;
 	public void setUserEmailAddress(String email) ;
 	public void setDonationAmount(float value);
 	public void setPatientId(String value);
+	public void setAnonymousDonation(boolean isAnonymous);
 }

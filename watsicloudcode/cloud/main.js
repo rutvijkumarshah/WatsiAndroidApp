@@ -1,14 +1,38 @@
+/***
+*
+*  Model classes
+*
+**/
 var Donor = Parse.Object.extend("Donor");
 var NewsItem = Parse.Object.extend("NewsItem");
 var Donation = Parse.Object.extend("Donation");				
 var Patient = Parse.Object.extend("Patient");
-var saveDonation = function(donorObj,patient,amount){
+
+/****
+*
+*  Saves donation information in parse db and updates referential integrities.
+*
+*  Watch out: Bad practice to have global function
+*  BUT :
+*      Added member function did not worked at afterSave function
+* 	   Added member function did not worked at query callback object
+* 
+*  AND :
+*      Duplication is more worse sinner.
+*/
+var saveDonation = function(donorObj,patient,amount,isAnonymousDonation){
 	  	var donationObj=new Donation();
 	    donationObj.set("patient", patient);
 		donationObj.set("donor", donorObj);
 		donationObj.set("donationAmount", amount);
 		donationObj.set("donationDate", new Date());
+		donationObj.set("isAnonymous", isAnonymousDonation);
 		donationObj.save();
+	
+		//News feed
+		var news = new NewsItem();
+		news.set("donation", donationObj);
+		news.set("type", "donation_raised");
 		if(patient){
 			var query = new Parse.Query(Patient);
 			query.get(patient.id, {
@@ -19,22 +43,18 @@ var saveDonation = function(donorObj,patient,amount){
 			  		var receivedDonation = patientObj.get("receivedDonation") + amount;
 			  		patientObj.set("receivedDonation",receivedDonation);
 			  		
-			  		//Add News feed item for this donation.
-			  		var news = new NewsItem();
-			  		news.set("donation", donationObj);
-					news.set("patient", patientObj);
+			  		//Add News feed item for this patient.
+			  		news.set("patient", patientObj);
 					if(!(targetDonation > receivedDonation)){
 			  			console.log("patient is marked as fully funded");
 			  			patientObj.set("isFullyFunded",true);
 			  			//fully funded
 			  			news.set("type", "fully_funded");
-			  		}else{
-			  			//donation Raised
-			  			news.set("type", "donation_raised");
+			  			console.log("### news type : fully_funded");
 			  		}
-
 					patientObj.save();
 					news.save();
+					console.log("### news Saved  for patient donation ");
 			  },
 			  error: function(object, error) {
 			    // The object was not retrieved successfully.
@@ -43,6 +63,10 @@ var saveDonation = function(donorObj,patient,amount){
 			  }
 			});
 
+		}else{
+			//Universl fund
+			news.save();
+			console.log("### news Saved  for universal fund donation ");
 		}
  };
 
@@ -61,6 +85,7 @@ Parse.Cloud.afterSave("PaymentConfirmatons", function(request) {
   var payerlastName=payerFullName.split(" ")[1];
   var patient=request.object.get("patient");
   var amount=request.object.get("amount");
+  var isAnonymousDonation=request.object.get("isAnonymous");
   var afterSavePaymentConfirmation= this;
   
 
@@ -79,7 +104,7 @@ Parse.Cloud.afterSave("PaymentConfirmatons", function(request) {
     		var existing_donor=results[0];
     		var donorObj=new Donor();
     		donorObj.id=existing_donor.id
-    	    saveDonation(donorObj,patient,amount);
+    	    saveDonation(donorObj,patient,amount,isAnonymousDonation);
     }else{
 
     	//Donor record does not exists
@@ -91,7 +116,7 @@ Parse.Cloud.afterSave("PaymentConfirmatons", function(request) {
 		donorObj.save(null, {
 		  success: function(donorObj) {
 		    // Execute any logic that should take place after the object is saved.
-		    saveDonation(donorObj,patient,amount);
+		    saveDonation(donorObj,patient,amount,isAnonymousDonation);
 		  },
 		  error: function(donorObj, error) {
 		    console.log("Error while adding new donor :"+error);

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.DonationInfoStorage;
@@ -24,6 +25,7 @@ public class PaymentAmountFragment extends DialogFragment {
 	private EditText mEmailAddressText;
 	private EditText mDonationAmount;
 	private Button   mDonateBtn;
+	private CheckBox mIsAnonymousDonation;
 	private PrefsHelper prefs;
 	private String patientId;
 	private String donateTo;
@@ -75,6 +77,7 @@ public class PaymentAmountFragment extends DialogFragment {
 		mEmailAddressText=(EditText) v.findViewById(R.id.tvEmail);
 		mDonationAmount=(EditText)v.findViewById(R.id.tvAmountToDonate);
 		mDonateBtn=(Button)v.findViewById(R.id.btnDonate);
+		mIsAnonymousDonation=(CheckBox)v.findViewById(R.id.isAnonymousDonation);
 		
 		boolean isAnonymousUser=ParseUser.getCurrentUser() ==null;
 		
@@ -127,7 +130,7 @@ public class PaymentAmountFragment extends DialogFragment {
 		donationInfo.setPatientId(patientId);
 		donationInfo.setUserEmailAddress(mEmailAddressText.getText().toString());
 		donationInfo.setUserFullName(mFullNameText.getText().toString());
-		
+		donationInfo.setAnonymousDonation(mIsAnonymousDonation.isChecked());
 		Intent intent=Util.getFundTreatmentIntent(getActivity(), donationInfo,donateTo);
 		startActivityForResult(intent, 0);
 		this.dismiss();

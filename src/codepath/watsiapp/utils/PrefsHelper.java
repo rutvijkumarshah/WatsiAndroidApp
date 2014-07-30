@@ -30,11 +30,13 @@ public class PrefsHelper {
 	private Context ctx;
 	private SharedPreferences prefs;
 
+
 	private static final String PACKAGE="codepath.watsiapp";
 	private static final String USER_FULL_NAME=PACKAGE+".PREF_USER_FULL_NAME";
 	private static final String USER_EMAIL=PACKAGE+".PREF_USER_EMAIL_NAME";
 	private static final String PATIENT_ID=PACKAGE+".PREF_PATIENT_ID";
 	private static final String DONATAION_AMOUNT=PACKAGE+".PREF_DONATION_AMOUNT";
+	private static final String IS_ANONYMOUS_DONATION=PACKAGE+".IS_ANONYMOUS_DONATION";
 
 	public PrefsHelper(Context ctx) {
 		this.ctx=ctx;
@@ -71,5 +73,17 @@ public class PrefsHelper {
 	}
 	public void setPatientId(String value) {
 		prefs.edit().putString(PATIENT_ID, value).apply();
+	}
+	public boolean isAnonymousDonation() {
+		return prefs.getBoolean(IS_ANONYMOUS_DONATION, true);
+	}
+	public void setAnonymousDonation(boolean isAnonymousDonation) {
+		prefs.edit().putBoolean(IS_ANONYMOUS_DONATION,isAnonymousDonation);
+	}
+	
+	public void clear() {
+		prefs.edit().remove(PATIENT_ID);
+		prefs.edit().remove(DONATAION_AMOUNT);
+		prefs.edit().remove(IS_ANONYMOUS_DONATION);
 	}
 }
