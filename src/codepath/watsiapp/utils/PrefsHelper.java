@@ -85,5 +85,11 @@ public class PrefsHelper {
 		prefs.edit().remove(PATIENT_ID);
 		prefs.edit().remove(DONATAION_AMOUNT);
 		prefs.edit().remove(IS_ANONYMOUS_DONATION);
+		prefs.edit().commit();
+	}
+	public void clearAll() {
+		prefs.edit().clear();
+		prefs.edit().commit();
+		
 	}
 }
