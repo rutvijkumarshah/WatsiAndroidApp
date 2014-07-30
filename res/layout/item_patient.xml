@@ -71,24 +71,31 @@
             android:id="@+id/fund_treatment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_fund" />
+            android:src="@drawable/ic_fund"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp" />
 
         <ImageView
             android:id="@+id/share_fb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_facebook" />
+            android:src="@drawable/ic_facebook" 
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/share_tw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_twitter" />
+            android:src="@drawable/ic_twitter"
+            android:layout_marginRight="10dp" 
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:id="@+id/shareIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ic_action_share" />
     </LinearLayout>
 
