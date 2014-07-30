@@ -188,7 +188,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 			}
 		});
 		if(patient.isFullyFunded()) {
-			viewHolder.donateView.setVisibility(View.INVISIBLE);
+			viewHolder.donateView.setVisibility(View.GONE); 
 			//Fully Funded  Text instead of showing $0 to go
 			viewHolder.donationTogo.setText("Fully Funded");// TODO will be externalized String as template
 											// string
