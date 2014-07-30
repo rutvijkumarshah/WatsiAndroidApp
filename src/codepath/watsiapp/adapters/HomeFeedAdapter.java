@@ -289,6 +289,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 //		.bitmapConfig(Bitmap.Config.RGB_565)
 //		.build();
 
+		//keep it transparent till image loads
+		// this will gives smooth effect while fast scroll other wise old image will display till new image loads
+		viewHolder.profileImage.setImageResource(android.R.color.transparent);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(photoUrl, viewHolder.profileImage);
 

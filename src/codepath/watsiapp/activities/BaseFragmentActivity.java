@@ -127,6 +127,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	}
 
 	private void logout() {
+		prefs.clearAll();
 		ParseUser.logOut();
 
 		// FLAG_ACTIVITY_CLEAR_TASK only works on API 11, so if the user

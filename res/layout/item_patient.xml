@@ -55,6 +55,7 @@
         android:layout_below="@+id/donation_togo"
         android:layout_toRightOf="@+id/imageArea"
         android:lines="3"
+        android:ellipsize="end"
         android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
         android:textSize="@dimen/fontsize_small" />
 
