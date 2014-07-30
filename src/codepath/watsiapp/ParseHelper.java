@@ -60,9 +60,8 @@ public class ParseHelper {
 	
 	public  ParseQuery<NewsItem> getAllNewsFeedItem() {
 		ParseQuery<NewsItem> newsItemQuery= new ParseQuery("NewsItem");
-		newsItemQuery.orderByAscending("updatedAt");
+		newsItemQuery.orderByDescending("updatedAt");
 		if(!Util.isNetworkAvailable(context)) {
-			// TODO : check if this is working
 			newsItemQuery.fromLocalDatastore();
 		}
 		return newsItemQuery;

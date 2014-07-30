@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:textColorHint="@color/dialog_hint_color"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/hintName"
@@ -26,17 +27,19 @@
         android:layout_below="@+id/tvFullName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/dialog_hint_color"
         android:ems="10"
         android:hint="@string/hintEmail"
         android:inputType="textEmailAddress" />
 
-    <EditText
+    <codepath.watsiapp.customview.PrefixedEditText
         android:id="@+id/tvAmountToDonate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEmail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/dialog_hint_color"
         android:ems="10"
         android:hint="@string/hintAmount"
         android:inputType="numberDecimal" />
@@ -47,8 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvAmountToDonate"
         android:layout_below="@+id/tvAmountToDonate"
+        android:alpha="0.6"
         android:layout_marginTop="20dp"
-        android:text="Make donation anonomous" />
+        android:text="" />
 
     <Button
         android:id="@+id/btnDonate"
@@ -64,5 +68,18 @@
         android:paddingRight="15dp"
         android:paddingTop="10dp"
         android:text="@string/btnDonate" />
+
+    <TextView
+        android:id="@+id/tvChkBoxLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/isAnonymousDonation"
+        android:layout_alignBottom="@+id/isAnonymousDonation"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/isAnonymousDonation"
+        android:text="@string/tvDonationAnon"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/dialog_hint_color"
+        android:textSize="16sp" />
 
 </RelativeLayout>

@@ -32,5 +32,6 @@
     <string name="hintEmail">Enter your email address</string>
     <string name="hintAmount">Enter Amount</string>
     <string name="btnDonate">Donate</string>
+    <string name="tvDonationAnon">Make donation anonymous</string>
 
 </resources>

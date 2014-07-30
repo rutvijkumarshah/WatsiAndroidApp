@@ -17,13 +17,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.DonationInfoStorage;
+import codepath.watsiapp.customview.PrefixedEditText;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
 public class PaymentAmountFragment extends DialogFragment {
 	private EditText mFullNameText;
 	private EditText mEmailAddressText;
-	private EditText mDonationAmount;
+	private PrefixedEditText mDonationAmount;
 	private Button   mDonateBtn;
 	private CheckBox mIsAnonymousDonation;
 	private PrefsHelper prefs;
@@ -61,6 +62,8 @@ public class PaymentAmountFragment extends DialogFragment {
 		
 		getDialog().setTitle(title);
 		initUI(view);
+		mDonationAmount.setPrefix("$");
+		mDonationAmount.setPrefixTextColor(getResources().getColor(R.color.dialog_hint_color));
 		// Show soft keyboard automatically
 //		mEditText.requestFocus();
 		getDialog().getWindow().setSoftInputMode(
@@ -75,7 +78,7 @@ public class PaymentAmountFragment extends DialogFragment {
 		//initialize UI elements
 		mFullNameText=(EditText) v.findViewById(R.id.tvFullName);
 		mEmailAddressText=(EditText) v.findViewById(R.id.tvEmail);
-		mDonationAmount=(EditText)v.findViewById(R.id.tvAmountToDonate);
+		mDonationAmount=(PrefixedEditText)v.findViewById(R.id.tvAmountToDonate);
 		mDonateBtn=(Button)v.findViewById(R.id.btnDonate);
 		mIsAnonymousDonation=(CheckBox)v.findViewById(R.id.isAnonymousDonation);
 		
