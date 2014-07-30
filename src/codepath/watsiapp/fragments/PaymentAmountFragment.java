@@ -1,30 +1,34 @@
 package codepath.watsiapp.fragments;
 
-import com.parse.ParseUser;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.test.PerformanceTestCase;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.customview.PrefixedEditText;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
+import com.parse.ParseUser;
+
 public class PaymentAmountFragment extends DialogFragment {
 	private EditText mFullNameText;
 	private EditText mEmailAddressText;
 	private PrefixedEditText mDonationAmount;
+	private TextView tvErrMsgEMail;
+	private TextView tvErrMsgAmount;
 	private Button   mDonateBtn;
 	private CheckBox mIsAnonymousDonation;
 	private PrefsHelper prefs;
@@ -81,7 +85,8 @@ public class PaymentAmountFragment extends DialogFragment {
 		mDonationAmount=(PrefixedEditText)v.findViewById(R.id.tvAmountToDonate);
 		mDonateBtn=(Button)v.findViewById(R.id.btnDonate);
 		mIsAnonymousDonation=(CheckBox)v.findViewById(R.id.isAnonymousDonation);
-		
+		tvErrMsgAmount = (TextView) v.findViewById(R.id.tvErrMsgAmount);
+		tvErrMsgEMail = (TextView) v.findViewById(R.id.tvErrMsgEmail);
 		boolean isAnonymousUser=ParseUser.getCurrentUser() ==null;
 		
 		//populates values if available;
@@ -99,8 +104,43 @@ public class PaymentAmountFragment extends DialogFragment {
 			}
 		});
 		
+		mDonationAmount.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				Float amount = (float) 0;
+				if(!hasFocus){
+					if(!mDonationAmount.getText().toString().equalsIgnoreCase("")){
+						amount = Float.parseFloat(mDonationAmount.getText().toString());
+						if(amount < 5){
+							tvErrMsgAmount.setVisibility(View.VISIBLE);
+						}else if(tvErrMsgAmount.getVisibility() == View.VISIBLE){
+							tvErrMsgAmount.setVisibility(View.GONE);
+						}
+					}
+				}
+			}
+		});
+		
+		mEmailAddressText.setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				if(!hasFocus){
+					if(Util.isValidEmail(mEmailAddressText.getText().toString())== false){
+						tvErrMsgEMail.setVisibility(View.VISIBLE);
+					}else if(tvErrMsgEMail.getVisibility() == View.VISIBLE){
+						tvErrMsgEMail.setVisibility(View.GONE);
+					}
+				}
+			}
+		});
+		
 		
 	}
+	
+	
 	private String getUserFullname() {
 		String prefUserName = prefs.getUserFullName();
 		if("".equals(prefUserName)) {

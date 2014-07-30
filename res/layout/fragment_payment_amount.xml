@@ -82,4 +82,28 @@
         android:textColor="@color/dialog_hint_color"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/tvErrMsgAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvAmountToDonate"
+        android:layout_below="@+id/tvAmountToDonate"
+        android:textColor="@color/watsi_red"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:text="@string/tvErrAmount"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tvErrMsgEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvEmail"
+        android:layout_below="@+id/tvEmail"
+        android:text="@string/tvErrEmail"
+        android:textColor="@color/watsi_red"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

@@ -33,5 +33,7 @@
     <string name="hintAmount">Enter Amount</string>
     <string name="btnDonate">Donate</string>
     <string name="tvDonationAnon">Make donation anonymous</string>
+    <string name="tvErrEmail">Please enter valid email address</string>
+    <string name="tvErrAmount">Minimum amount is $5</string>
 
 </resources>
