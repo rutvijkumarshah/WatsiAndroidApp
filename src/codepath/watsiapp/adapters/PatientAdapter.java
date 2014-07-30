@@ -127,7 +127,9 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 //        	.imageScaleType(ImageScaleType.EXACTLY)
 //            .bitmapConfig(Bitmap.Config.RGB_565)
 //        	.build();
-
+		//keep it transparent till image loads
+		// this will gives smooth effect while fast scroll other wise old image will display till new image loads
+		viewHolder.patientPhoto.setImageResource(android.R.color.transparent);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader
 				.displayImage(patient.getPhotoUrl(), viewHolder.patientPhoto);
