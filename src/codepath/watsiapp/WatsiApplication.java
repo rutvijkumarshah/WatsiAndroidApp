@@ -8,6 +8,7 @@ import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
@@ -50,7 +51,13 @@ public class WatsiApplication extends Application {
 		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
         
+		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+		.cacheInMemory()
+		.cacheOnDisc()
+		.build();
+		
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        	.defaultDisplayImageOptions(defaultOptions)
             .build();
         ImageLoader.getInstance().init(config);
 	}
