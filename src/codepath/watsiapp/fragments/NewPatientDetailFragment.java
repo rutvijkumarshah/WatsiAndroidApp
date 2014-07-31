@@ -7,6 +7,7 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 import java.math.BigDecimal;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -81,6 +82,30 @@ public class NewPatientDetailFragment extends Fragment {
 		}
 	}
 
+	  // Define the listener of the interface type
+	  // listener is the activity itself
+	  private OnDonateClickedListener listener;
+	  
+	  // Define the events that the fragment will use to communicate
+	  public interface OnDonateClickedListener {
+	    public void onDonateClicked(String dialogHeader,String patientId,String donateTo);
+	  }
+	
+	  
+	  // Store the listener (activity) that will have events fired once the fragment is attached
+	  @Override
+	  public void onAttach(Activity activity) {
+	    super.onAttach(activity);
+	      if (activity instanceof OnDonateClickedListener) {
+	        listener = (OnDonateClickedListener) activity;
+	      } else {
+	        throw new ClassCastException(activity.toString()
+	            + " must implement MyListFragment.OnItemSelectedListener");
+	      }
+	  }
+	 
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -180,6 +205,7 @@ public class NewPatientDetailFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					//Put donate dialog here
+					listener.onDonateClicked("Donate for "+patientObj.getFullName(),patientObj.getObjectId(),patientObj.getFullName());
 				}
 			});
 			
