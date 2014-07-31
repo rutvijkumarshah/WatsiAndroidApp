@@ -301,6 +301,7 @@ public class PullToRefreshListView extends ListView{
                             break;
                     }
                 }
+                previousY = event.getY();//Added to fix issue #42 (https://github.com/erikwt/PullToRefresh-ListView/issues/42)
                 break;
 
             case MotionEvent.ACTION_MOVE:
