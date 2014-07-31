@@ -1,9 +1,11 @@
 package codepath.watsiapp.fragments;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,7 @@ import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.customview.PrefixedEditText;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
-
+import static codepath.watsiapp.utils.Util.*;
 import com.parse.ParseUser;
 
 public class PaymentAmountFragment extends DialogFragment {
@@ -88,6 +90,16 @@ public class PaymentAmountFragment extends DialogFragment {
 		tvErrMsgAmount = (TextView) v.findViewById(R.id.tvErrMsgAmount);
 		tvErrMsgEMail = (TextView) v.findViewById(R.id.tvErrMsgEmail);
 		boolean isAnonymousUser=ParseUser.getCurrentUser() ==null;
+		
+		FragmentActivity activity = getActivity();
+		
+		applyPrimaryFont(activity, mFullNameText);
+		applyPrimaryFont(activity, mEmailAddressText);
+		applyPrimaryFont(activity, mDonationAmount);
+		applyPrimaryFont(activity, mDonateBtn);
+		applyPrimaryFont(activity, mIsAnonymousDonation);
+		applyPrimaryFont(activity, tvErrMsgAmount);
+		applyPrimaryFont(activity, tvErrMsgEMail);
 		
 		//populates values if available;
 		mFullNameText.setText(getUserFullname());
