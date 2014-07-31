@@ -62,18 +62,21 @@
                     android:id="@+id/fund_treatment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
                     android:src="@drawable/ic_fund" />
 
                 <ImageView
                     android:id="@+id/share_fb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
                     android:src="@drawable/ic_facebook" />
 
                 <ImageView
                     android:id="@+id/share_tw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
                     android:src="@drawable/ic_twitter" />
 
                 <ImageView
