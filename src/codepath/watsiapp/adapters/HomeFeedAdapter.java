@@ -6,9 +6,11 @@ import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -97,17 +99,24 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		switch(newsItem.getItemType()) {
 		case CAMPAIGN_CONTENT : 
 			convertView = getCampaignContentItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.INVISIBLE);
 			break;
 		case ON_BOARDED:
 			convertView = getOnBoardedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break;
 		case FULLY_FUNDED:
 			convertView = getFullyFundedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break;
 		case DONATION_RAISED:
 			convertView = getDonationRaisedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break; 
 		}
+		
+			
+			
 		return convertView;	
 	}
 
@@ -152,8 +161,11 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.message.setText(newsItem.getCampaignContent());
 		viewHolder.shareableItem = Util.getUniversalShareableItem();
 
+
 		// no donation progress bar
 		viewHolder.donationProgress.setVisibility(View.INVISIBLE);
+		viewHolder.donateView.setVisibility(View.VISIBLE);
+
 
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		viewHolder.donateView.setOnClickListener(null);
@@ -161,7 +173,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		setShareListeners(viewHolder);
 		setPatientFundButton(viewHolder.donateView, viewHolder.shareableItem);
 		
-		
+		viewHolder.message.setMaxLines(20); 
+		viewHolder.message.setEllipsize(TextUtils.TruncateAt.END);
 		return convertView;
 	}
 
@@ -295,6 +308,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		imageLoader.displayImage(photoUrl, viewHolder.profileImage);
 
 		viewHolder.shortDescription.setText(shortDescription);
+		
+		if (viewHolder.itemType != ItemType.CAMPAIGN_CONTENT) {
+			viewHolder.message.setMaxLines(3);
+			viewHolder.message.setEllipsize(TextUtils.TruncateAt.END);
+		} 
+		
 		viewHolder.message.setText(message);
 
 		int donationProgressPecentage = viewHolder.patient.getDonationProgressPecentage();
@@ -306,7 +325,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		if (viewHolder.patient.isFullyFunded()) {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.fully_funded_progressbar);
-			viewHolder.donateView.setVisibility(View.GONE);
+			viewHolder.donateView.setVisibility(View.INVISIBLE);
 		} else {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.progressbar);
