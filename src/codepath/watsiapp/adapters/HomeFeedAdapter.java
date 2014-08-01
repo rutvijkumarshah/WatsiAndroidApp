@@ -133,7 +133,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 		viewHolder.donationProgress = (ProgressBar) convertView
 				.findViewById(R.id.progressBarToday);
-
+  
 		viewHolder.shareAction = (ImageView) convertView
 				.findViewById(R.id.shareIv);
 
@@ -161,10 +161,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 		
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
+		viewHolder.donateView.setOnClickListener(null);
 		convertView.setTag(viewHolder);
 		setShareListeners(viewHolder);
 		setPatientFundButton(viewHolder.donateView, viewHolder.shareableItem);
-
+		
+		
 		return convertView;
 	}
 
@@ -309,10 +311,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		if (viewHolder.patient.isFullyFunded()) {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.fully_funded_progressbar);
-
+			viewHolder.donateView.setVisibility(View.GONE);
 		} else {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.progressbar);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
+			viewHolder.donateView.setVisibility(View.VISIBLE);
 		}
 
 		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
@@ -325,6 +329,10 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		v.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Patient pt = (Patient) ((ViewHolder) v.getTag()).patient;
+				if (pt == null) {
+					return;
+				}
 				String patientId= ((ViewHolder) v.getTag()).patient.getObjectId();
 				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
 			}
