@@ -1,14 +1,11 @@
 package codepath.watsiapp.adapters;
 
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
-import static codepath.watsiapp.utils.Util.getPixels;
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -18,6 +15,7 @@ import android.widget.TextView;
 import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
+import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.FeedItem;
@@ -27,17 +25,14 @@ import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
 import codepath.watsiapp.utils.Util.ShareableItem;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
-	private FragmentActivity activity;
+	private WatsiMainActivity activity;
 	public static final int PAGE_SIZE = 20; 
 
 
@@ -63,8 +58,9 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	public HomeFeedAdapter(Context context,ParseQueryAdapter.QueryFactory<NewsItem> queryFactory) {
 		//Custom Query
 		super(context,queryFactory); 
-		activity = (FragmentActivity) context;
+		activity = (WatsiMainActivity) context;
 		this.setObjectsPerPage(PAGE_SIZE);
+		
 	}
 
 	public HomeFeedAdapter(final Context context) {
@@ -87,6 +83,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	@Override
 	public View getItemView(final NewsItem newsItem, View convertView,ViewGroup parent) {
 
+		
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			convertView = buildViewHolder(newsItem.getItemType());
@@ -343,8 +340,14 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 			@Override
 			public void onClick(View v) {
-				ShareableItem patient = (ShareableItem) v.getTag();
-				Util.startFundTreatmentIntent(activity, patient);
+				
+				ShareableItem item = (ShareableItem) v.getTag();
+				if(item instanceof Patient) {
+					 Patient patient=(Patient)item;
+					 activity.showDonateDialog("Donate for "+patient.getFullName(),patient.getObjectId(),patient.getFullName());
+				}else {
+					activity.showDonateDialog("Universal Fund",null,"Watsi Universal Fund");
+				}
 			}
 		});
 	}
