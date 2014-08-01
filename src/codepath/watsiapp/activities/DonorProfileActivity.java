@@ -85,40 +85,38 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 
 			String fullName = user.getString("name");
 			String email = user.getString("email");
-			// if (fullName != null) {
 			getActionBar().setTitle("Profile");
 
-			ParseHelper parseHelper = new ParseHelper(getApplicationContext());
-			ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
-			try {
-				donor = query.getFirst();
-			} catch (ParseException exp) {
-				exp.printStackTrace();
-			}
+			
 			boolean isFacebookLinkedUser=ParseFacebookUtils.isLinked(user);
 			email = user.getString("email");
 
 			if (isFacebookLinkedUser) {
 				setEmail();
-
 			} else {
-				donarFullName.setText(fullName);
-				memberSinceDate.setText(Util.getFormatedDate(user
-						.getCreatedAt()));
-
+				showDonorInformaiton(fullName,email,false);
 			}
-
-			if (donor != null) {
-				showDetailsForDonor(isFacebookLinkedUser);
-			} else {
-				showDetailsForNonDonor();
-			}
-
-			// }
 
 		}
 	}
 
+	private void showDonorInformaiton(String fullName,String email,boolean isFacebookLinkedUser) {
+		
+		donarFullName.setText(fullName);
+		ParseHelper parseHelper = new ParseHelper(getApplicationContext());
+		ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
+		try {
+			donor = query.getFirst();
+		} catch (ParseException exp) {
+			exp.printStackTrace();
+		}
+		
+		if (donor != null) {
+			showDetailsForDonor(isFacebookLinkedUser);
+		} else {
+			showDetailsForNonDonor();
+		}
+	}
 	private void setDefaultUserPic() {
 		String uri = "@drawable/profile_img";
 		int imageResource = getResources().getIdentifier(uri, null,
@@ -159,8 +157,8 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 						imgImageLoader.displayImage(
 								"http://graph.facebook.com/" + user.getId()
 										+ "/picture?type=large", profilePicture);
-//						String email = user.asMap().get("email").toString();
-						donarFullName.setText(user.getName());
+						String email = user.asMap().get("email").toString();
+						showDonorInformaiton(user.getName(),email,true);
 					}
 
 				}).executeAsync();
