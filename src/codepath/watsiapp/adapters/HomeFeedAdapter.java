@@ -311,7 +311,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		if (viewHolder.patient.isFullyFunded()) {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.fully_funded_progressbar);
-			viewHolder.donateView.setVisibility(View.GONE);
+			viewHolder.donateView.setVisibility(View.INVISIBLE);
 		} else {
 			progressDrawable = getContext().getResources().getDrawable(
 					R.drawable.progressbar);
