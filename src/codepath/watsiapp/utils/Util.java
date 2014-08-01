@@ -65,7 +65,10 @@ public class Util {
 	private static final String DATE_FORMAT = "MMM dd yyyy";
 	private static String PRIMARY_FONT = "Roboto-Regular.ttf";
 	
-	private static final Set<String> FB_ACTIVITIES=new HashSet<String>(Arrays.asList("com.facebook.composer.shareintent.ImplicitShareIntentHandler", "com.facebook.katana.ShareLinkActivity"));
+	private static final Set<String> FB_ACTIVITIES=new HashSet<String>(
+			Arrays.asList(
+					"com.facebook.composer.shareintent.ImplicitShareIntentHandler",
+					"com.facebook.katana.ShareLinkActivity"));
 
 	private static final Set<String> TWITTER_ACTIVITIES=new HashSet<String>(Arrays.asList("com.twitter.android.composer.ComposerActivity"));
 	public static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
