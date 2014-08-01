@@ -97,17 +97,24 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		switch(newsItem.getItemType()) {
 		case CAMPAIGN_CONTENT : 
 			convertView = getCampaignContentItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.INVISIBLE);
 			break;
 		case ON_BOARDED:
 			convertView = getOnBoardedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break;
 		case FULLY_FUNDED:
 			convertView = getFullyFundedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break;
 		case DONATION_RAISED:
 			convertView = getDonationRaisedItemView(newsItem, convertView, parent);
+			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			break; 
 		}
+		
+			
+			
 		return convertView;	
 	}
 
@@ -152,9 +159,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.message.setText(newsItem.getCampaignContent());
 		viewHolder.shareableItem = Util.getUniversalShareableItem();
 
-		// no donation progress bar
-		viewHolder.donationProgress.setVisibility(View.INVISIBLE);
-
+		
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		setShareListeners(viewHolder);
