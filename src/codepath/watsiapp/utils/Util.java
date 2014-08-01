@@ -24,8 +24,11 @@ package codepath.watsiapp.utils;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -45,14 +48,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
-import codepath.watsiapp.activities.BaseFragmentActivity;
 import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.models.MedicalPartner;
-import codepath.watsiapp.models.Patient;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -62,8 +64,10 @@ public class Util {
 
 	private static final String DATE_FORMAT = "MMM dd yyyy";
 	private static String PRIMARY_FONT = "Roboto-Regular.ttf";
-	private static final String FB_ACTIVITY = "com.facebook.composer.shareintent.ImplicitShareIntentHandler";
-	private static final String TWITTER_ACTIVITY = "com.twitter.android.composer.ComposerActivity";
+	
+	private static final Set<String> FB_ACTIVITIES=new HashSet<String>(Arrays.asList("com.facebook.composer.shareintent.ImplicitShareIntentHandler", "com.facebook.katana.ShareLinkActivity"));
+
+	private static final Set<String> TWITTER_ACTIVITIES=new HashSet<String>(Arrays.asList("com.twitter.android.composer.ComposerActivity"));
 	public static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
 
 	private static class UniversalFeedItem implements ShareableItem {
@@ -144,7 +148,7 @@ public class Util {
 	}
 
 	private static void startShareIntentWithExplicitSocialActivity(
-			Activity ctx, ShareableItem patient, String socialActivityName,
+			Activity ctx, ShareableItem patient, Set<String> socialActivitiesName,
 			String displayName) {
 		Intent shareIntent = new Intent();
 		shareIntent.setAction(Intent.ACTION_SEND);
@@ -157,7 +161,8 @@ public class Util {
 			int len = activityList.size();
 			for (int i = 0; i < len; i++) {
 				final ResolveInfo app = (ResolveInfo) activityList.get(i);
-				if (socialActivityName.equals(app.activityInfo.name)) {
+				Log.d("#####################", app.activityInfo.name);
+				if (socialActivitiesName.contains(app.activityInfo.name)) {
 					final ActivityInfo activity = app.activityInfo;
 					final ComponentName name = new ComponentName(
 							activity.applicationInfo.packageName, activity.name);
@@ -181,12 +186,12 @@ public class Util {
 	public static void startShareIntentWithTwitter(Activity ctx,
 			ShareableItem patient) {
 		startShareIntentWithExplicitSocialActivity(ctx, patient,
-				TWITTER_ACTIVITY, "Twitter");
+				TWITTER_ACTIVITIES, "Twitter");
 	}
 
 	public static void startShareIntentWithFaceBook(Activity ctx,
 			ShareableItem patient) {
-		startShareIntentWithExplicitSocialActivity(ctx, patient, FB_ACTIVITY,
+		startShareIntentWithExplicitSocialActivity(ctx, patient, FB_ACTIVITIES,
 				"Facebook");
 	}
 
