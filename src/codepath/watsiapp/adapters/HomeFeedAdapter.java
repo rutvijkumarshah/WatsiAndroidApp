@@ -332,7 +332,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			viewHolder.donationProgress.setVisibility(View.VISIBLE);
 			viewHolder.donateView.setVisibility(View.VISIBLE);
 		}
-
+   
 		viewHolder.donationProgress.setProgressDrawable(progressDrawable);
 		setPatientNavigation(convertView, viewHolder.patient, viewHolder.itemType);
 		setPatientFundButton(viewHolder.donateView, viewHolder.patient);
