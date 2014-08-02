@@ -6,9 +6,11 @@ import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -159,14 +161,20 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.message.setText(newsItem.getCampaignContent());
 		viewHolder.shareableItem = Util.getUniversalShareableItem();
 
-		
+
+		// no donation progress bar
+		viewHolder.donationProgress.setVisibility(View.INVISIBLE);
+		viewHolder.donateView.setVisibility(View.VISIBLE);
+
+
 		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		viewHolder.donateView.setOnClickListener(null);
 		convertView.setTag(viewHolder);
 		setShareListeners(viewHolder);
 		setPatientFundButton(viewHolder.donateView, viewHolder.shareableItem);
 		
-		
+		viewHolder.message.setMaxLines(20); 
+		viewHolder.message.setEllipsize(TextUtils.TruncateAt.END);
 		return convertView;
 	}
 
@@ -300,6 +308,12 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		imageLoader.displayImage(photoUrl, viewHolder.profileImage);
 
 		viewHolder.shortDescription.setText(shortDescription);
+		
+		if (viewHolder.itemType != ItemType.CAMPAIGN_CONTENT) {
+			viewHolder.message.setMaxLines(3);
+			viewHolder.message.setEllipsize(TextUtils.TruncateAt.END);
+		} 
+		
 		viewHolder.message.setText(message);
 
 		int donationProgressPecentage = viewHolder.patient.getDonationProgressPecentage();
