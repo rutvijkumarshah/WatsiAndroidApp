@@ -56,6 +56,7 @@
                 android:id="@+id/donateAndShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:layout_alignParentRight="true" >
 
                 <ImageView
@@ -93,7 +94,7 @@
                 android:layout_alignTop="@+id/donateAndShare"
                 android:layout_marginRight="40dp"
                 android:layout_toLeftOf="@+id/donateAndShare"
-                android:paddingTop="7dp"
+                android:paddingTop="17dp"
                 android:text=""
                 android:textColor="@color/watsi_red"
                 android:textSize="@dimen/fontsize_medium" />
@@ -112,6 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divder_down"
+                android:paddingBottom="15dp"
                 android:text=""
                 android:textSize="@dimen/fontsize_medium" >
             </TextView>
