@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/watsiName"
         android:layout_alignStart="@+id/logo"
-        android:textSize="@dimen/fontsize_medium"
+        android:textSize="@dimen/fontsize_small"
+        android:layout_centerHorizontal="true"
         android:text="Fund healthcare for people around the world."
         android:textColor="@android:color/white" />
 
