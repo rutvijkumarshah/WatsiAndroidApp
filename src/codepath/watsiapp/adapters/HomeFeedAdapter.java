@@ -256,7 +256,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			return convertView;
 		}
 
-		String shortDescription = patient.getFirstName() + " is now fully funded!!";
+		String shortDescription = patient.getFirstName() + " fully funded!!";
 		String message = patient.getFullName() + " will now be able to get medical" +
 				" treatment. Donors like you helped raise " +
 				Util.formatAmount(patient.getDonationReceived()) +". Big Thank You to all the donors !!"; 
