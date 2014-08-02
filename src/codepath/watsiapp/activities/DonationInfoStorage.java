@@ -41,4 +41,6 @@ public interface DonationInfoStorage {
 	public void setDonationAmount(float value);
 	public void setPatientId(String value);
 	public void setAnonymousDonation(boolean isAnonymous);
+	
+	public void set(float donationAmount,String patientId,boolean isAnonymousDonation,String fullName,String email);
 }

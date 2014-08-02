@@ -24,6 +24,7 @@ package codepath.watsiapp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class PrefsHelper {
 
@@ -91,5 +92,16 @@ public class PrefsHelper {
 		prefs.edit().clear();
 		prefs.edit().commit();
 		
+	}
+	public void set(float donationAmount, String patientId,
+			boolean isAnonymousDonation, String fullName, String email) {
+		Editor editor = prefs.edit();
+		editor.putString(USER_FULL_NAME, fullName);
+		editor.putString(USER_EMAIL, email);
+		editor.putString(PATIENT_ID, patientId);
+		editor.putFloat(DONATAION_AMOUNT, donationAmount);
+		editor.putBoolean(IS_ANONYMOUS_DONATION,isAnonymousDonation);
+		
+		editor.commit();
 	}
 }

@@ -1,8 +1,8 @@
 package codepath.watsiapp.fragments;
 
 import android.app.Activity;
-
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +23,7 @@ import codepath.watsiapp.customview.PrefixedEditText;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 import static codepath.watsiapp.utils.Util.*;
+
 import com.parse.ParseUser;
 
 public class PaymentAmountFragment extends DialogFragment {
@@ -177,17 +178,31 @@ public class PaymentAmountFragment extends DialogFragment {
 		return perfUserEmail;
 	}
 	
-	private void donate() {
-		String strDonationAmount=mDonationAmount.getText().toString();
+	public class StoreDonationInfoTask extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
+	}
+	private void donate() {
+		this.dismiss();
+		String strDonationAmount=mDonationAmount.getText().toString();
 		DonationInfoStorage donationInfo=(DonationInfoStorage) getActivity();
-		donationInfo.setDonationAmount(Float.valueOf(strDonationAmount));
-		donationInfo.setPatientId(patientId);
-		donationInfo.setUserEmailAddress(mEmailAddressText.getText().toString());
-		donationInfo.setUserFullName(mFullNameText.getText().toString());
-		donationInfo.setAnonymousDonation(mIsAnonymousDonation.isChecked());
+//		donationInfo.setDonationAmount(Float.valueOf(strDonationAmount));
+//		donationInfo.setPatientId(patientId);
+//		donationInfo.setUserEmailAddress(mEmailAddressText.getText().toString());
+//		donationInfo.setUserFullName(mFullNameText.getText().toString());
+//		donationInfo.setAnonymousDonation(mIsAnonymousDonation.isChecked());
+//		
+		donationInfo.set(Float.valueOf(strDonationAmount), 
+				patientId, mIsAnonymousDonation.isChecked(), 
+				mFullNameText.getText().toString(), 
+				mEmailAddressText.getText().toString());
 		Intent intent=Util.getFundTreatmentIntent(getActivity(), donationInfo,donateTo);
 		startActivityForResult(intent, 0);
-		this.dismiss();
+		
 	}
 }

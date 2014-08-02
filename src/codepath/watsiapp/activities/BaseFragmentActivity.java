@@ -242,6 +242,13 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 		toast.show();
 
 	}
+
+	@Override
+	public void set(float donationAmount, String patientId,
+			boolean isAnonymousDonation, String fullName, String email) {
+		prefs.set(donationAmount, patientId, isAnonymousDonation, fullName, email);
+		
+	}
 	
 
 }
