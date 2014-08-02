@@ -46,7 +46,8 @@
         android:text="XYZ ABC"
         android:textColor="@color/watsi_red"
         android:textSize="@dimen/fontsize_medium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:id="@+id/medicalNeeds"
@@ -57,7 +58,8 @@
         android:lines="3"
         android:ellipsize="end"
         android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
-        android:textSize="@dimen/fontsize_small" />
+        android:textSize="@dimen/fontsize_small"
+        android:layout_marginLeft="10dp" />
 
     <LinearLayout
         android:id="@+id/donateAndShare"
