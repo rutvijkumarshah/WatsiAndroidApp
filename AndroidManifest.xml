@@ -75,7 +75,8 @@
         </activity>
         <activity
             android:name="codepath.watsiapp.activities.WatsiMainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize" >
 
             <!--
                  <intent-filter>
