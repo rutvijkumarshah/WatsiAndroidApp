@@ -61,6 +61,7 @@
         android:layout_marginBottom="8dp"
         android:textColor="@color/watsi_red"
         android:textSize="@dimen/fontsize_medium"
+        android:layout_marginLeft="10dp"
      />
  
    
@@ -74,6 +75,7 @@
         android:lines="3"
         android:textSize="@dimen/fontsize_small"
         android:text="need is to take off few days off and working nice and good fast faster fastest no one can chase me like this"
+        android:layout_marginLeft="10dp"
          />
     
     <LinearLayout      
@@ -90,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_fund" />
         
     
@@ -98,6 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_facebook" />
 
     <ImageView
@@ -105,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_twitter" />
 
     
@@ -112,6 +117,7 @@
         android:id="@+id/shareIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_action_share" />
     
    </LinearLayout>
