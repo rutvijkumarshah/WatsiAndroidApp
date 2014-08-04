@@ -41,6 +41,7 @@ public class ParseHelper {
 	}
 	public  ParseQuery<Patient> getAllPatientsQuery(){
 		ParseQuery<Patient> patientQuery= new ParseQuery("Patient");
+		
 		if(!Util.isNetworkAvailable(context)) {
 			/***
 			 * 
@@ -52,7 +53,7 @@ public class ParseHelper {
 			patientQuery.orderByAscending("updatedAt");
 			patientQuery.fromLocalDatastore();
 		}else {
-			patientQuery.orderByAscending("isFullyFunded");
+			patientQuery.addAscendingOrder("isFullyFunded").addDescendingOrder("createdAt");
 		}
 		return patientQuery;
 	};
