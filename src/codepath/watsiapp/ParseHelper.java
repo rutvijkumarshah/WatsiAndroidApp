@@ -61,6 +61,10 @@ public class ParseHelper {
 	public  ParseQuery<NewsItem> getAllNewsFeedItem() {
 		ParseQuery<NewsItem> newsItemQuery= new ParseQuery("NewsItem");
 		newsItemQuery.orderByDescending("updatedAt");
+		newsItemQuery.include("patient");
+		newsItemQuery.include("donation");
+		newsItemQuery.include("donation.donor");
+		newsItemQuery.whereNotEqualTo("hidden", true);
 		if(!Util.isNetworkAvailable(context)) {
 			newsItemQuery.fromLocalDatastore();
 		}

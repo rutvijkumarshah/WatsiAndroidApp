@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -167,7 +166,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.donateView.setVisibility(View.VISIBLE);
 
 
-		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
+		
 		viewHolder.donateView.setOnClickListener(null);
 		convertView.setTag(viewHolder);
 		setShareListeners(viewHolder);
@@ -218,10 +217,10 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		Donor donor;
 		Donation dn;
 		try {
-			dn = newsItem.getDonation().fetchIfNeeded();
-			donor = dn.getDonor().fetchIfNeeded();
-			patient = dn.getPatient().fetchIfNeeded();
-		} catch (ParseException e) {
+			dn = newsItem.getDonation();
+			donor = dn.getDonor();
+			patient = newsItem.getPatient();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return convertView;
 		}
@@ -238,7 +237,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 
@@ -264,7 +262,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 	}
@@ -287,7 +284,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
 		setupUI(convertView, viewHolder, patient.getPhotoUrl(), shortDescription, message);
-		convertView.findViewById(R.id.donateAndShare).setVisibility(View.VISIBLE);
 		convertView.setTag(viewHolder);
 		return convertView;
 	}
