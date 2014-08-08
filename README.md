@@ -14,8 +14,7 @@ This is an android application for aspreading Watsi updates and helping patients
 5. App user can share  patient's story on Facebook,Twitter and other social media.
 6. App user can signup with App and see history of donations he made so far.
 
-### Presentation 
+[![ScreenShot](https://github.com/rutvijkumarshah/WatsiAndroidApp/blob/master/docs/watsiApp.PNG?raw=true)](http://player.vimeo.com/video/102565483)
+
 [Power Point Presentation Slides](https://github.com/rutvijkumarshah/WatsiAndroidApp/blob/master/docs/Watsi.pptx?raw=true)
 
-### Visual Demo
-![Demo](https://github.com/rutvijkumarshah/WatsiAndroidApp/blob/master/docs/watsiApp.PNG?raw=true)
