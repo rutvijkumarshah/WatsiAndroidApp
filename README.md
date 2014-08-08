@@ -15,6 +15,6 @@ This is an android application for aspreading Watsi updates and helping patients
 6. App user can signup with App and see history of donations he made so far.
 
 ### Presentation 
-![Video Walkthrough](docs/Watsi.pptx)
+[Power Point Presentation Slides](docs/Watsi.pptx)
 
 ### Visual Demo
