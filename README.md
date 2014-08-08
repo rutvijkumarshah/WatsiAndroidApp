@@ -18,3 +18,4 @@ This is an android application for aspreading Watsi updates and helping patients
 [Power Point Presentation Slides](https://github.com/rutvijkumarshah/WatsiAndroidApp/blob/master/docs/Watsi.pptx?raw=true)
 
 ### Visual Demo
+![Demo](https://github.com/rutvijkumarshah/WatsiAndroidApp/blob/master/docs/watsiApp.PNG?raw=true)
