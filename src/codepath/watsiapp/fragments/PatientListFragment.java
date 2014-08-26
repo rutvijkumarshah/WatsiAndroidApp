@@ -26,10 +26,8 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 public class PatientListFragment extends Fragment {
 	
 	private PatientAdapter patientAdapter;
-	//private ListView listView;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
-	//private PullToRefreshLayout pullToRefreshLayout;
 	
 	private PagerListener pagerListener;
 	
@@ -113,39 +111,6 @@ public class PatientListFragment extends Fragment {
 			}
 
 		});
-		
-//
-//		listView.setOnScrollListener(new OnScrollListener() {
-//			int mLastFirstVisibleItem = 0;
-//
-//			@Override
-//			public void onScrollStateChanged(AbsListView view, int scrollState) {   }
-//
-//			@Override
-//			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) 
-//			{   
-//				if (view.getId() == listView.getId()) 
-//				{
-//					final int currentFirstVisibleItem = listView.getFirstVisiblePosition();
-//
-//					if (currentFirstVisibleItem > mLastFirstVisibleItem) 
-//					{
-//						if (pagerListener != null) {
-//							pagerListener.hidePager();
-//						}
-//					} 
-//					else if (currentFirstVisibleItem < mLastFirstVisibleItem) 
-//					{
-//						if (pagerListener != null) {
-//							pagerListener.showPager();
-//						}
-//					}
-//
-//					mLastFirstVisibleItem = currentFirstVisibleItem;
-//				}
-//			}
-//
-//		});
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -153,13 +118,6 @@ public class PatientListFragment extends Fragment {
 				patientAdapter.loadObjects();
 			}
 		});
-		
-//		 ActionBarPullToRefresh.from(getActivity())
-//         // Mark All Children as pullable
-//         .allChildrenArePullable()
-//         // Set a OnRefreshListener
-//         // Finally commit the setup to our PullToRefreshLayout
-//         .setup(pullToRefreshLayout);
 	}
 
 

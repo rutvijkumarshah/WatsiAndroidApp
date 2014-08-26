@@ -40,7 +40,7 @@ public class ParseHelper {
 		this.context=context;
 	}
 	public  ParseQuery<Patient> getAllPatientsQuery(){
-		ParseQuery<Patient> patientQuery= new ParseQuery("Patient");
+		ParseQuery<Patient> patientQuery= new ParseQuery<Patient>("Patient");
 		
 		if(!Util.isNetworkAvailable(context)) {
 			/***
@@ -60,7 +60,7 @@ public class ParseHelper {
 	
 	
 	public  ParseQuery<NewsItem> getAllNewsFeedItem() {
-		ParseQuery<NewsItem> newsItemQuery= new ParseQuery("NewsItem");
+		ParseQuery<NewsItem> newsItemQuery= new ParseQuery<NewsItem>("NewsItem");
 		newsItemQuery.orderByDescending("updatedAt");
 		newsItemQuery.include("patient");
 		newsItemQuery.include("donation");
@@ -78,7 +78,7 @@ public class ParseHelper {
 	
 	public ParseQuery<Donation> getDonationsByDonor(Donor donor) {
 		if(Util.isNetworkAvailable(context)) {
-			ParseQuery<Donation> donationsByDonorId= new ParseQuery("Donation");
+			ParseQuery<Donation> donationsByDonorId= new ParseQuery<Donation>("Donation");
 			donationsByDonorId.whereEqualTo("donor", donor)
 			.addDescendingOrder("donationDate");
 			return donationsByDonorId;
@@ -87,14 +87,14 @@ public class ParseHelper {
 	};
 	public  ParseQuery<Donor> findDonorByEmail(String emailAddress){
 	
-		ParseQuery<Donor> query= new ParseQuery("Donor");
+		ParseQuery<Donor> query= new ParseQuery<Donor>("Donor");
 		query.whereEqualTo("email", emailAddress);
 		
 		return query;
 
 	}
 	public ParseQuery<Donation> findDonationById(String donationId) {
-		ParseQuery<Donation> query= new ParseQuery("Donation");
+		ParseQuery<Donation> query= new ParseQuery<Donation>("Donation");
 		query.whereEqualTo("objectId", donationId);
 		
 		return query;

@@ -52,16 +52,10 @@ public class PatientSummaryFragment extends Fragment {
 	private String fundedProgress;
 
 	private TextView medicalNeedTv;
-	private TextView ageTv;
 	private TextView personBio;
-	private TextView locationTv;
-
 	private TextView percentageFundedTv;
-
 	private TextView medicalPartnerVal;
-
 	private String patientId;
-
 	private Patient patientObj;
 
 	@Override
@@ -85,9 +79,7 @@ public class PatientSummaryFragment extends Fragment {
 				false);
 
 		medicalNeedTv = (TextView) v.findViewById(R.id.medicalNeed);
-//		ageTv = (TextView) v.findViewById(R.id.patientAge);
 		personBio =(TextView) v.findViewById(R.id.personBio);
-//		locationTv = (TextView) v.findViewById(R.id.location);
 		percentageFundedTv = (TextView) v.findViewById(R.id.percentageFunded);
 		medicalPartnerVal = (TextView) v.findViewById(R.id.medicalPartnerVal);
 
@@ -95,10 +87,6 @@ public class PatientSummaryFragment extends Fragment {
 		Util.applyPrimaryFont(getActivity(), medicalNeedTv);
 		personBio.setText(patientObj.getFullName() +" is " +age +" from "+location+"." );
 		Util.applyPrimaryFont(getActivity(), personBio);
-//		ageTv.setText(age);
-//		Util.applyPrimaryFont(getActivity(), ageTv);
-//		locationTv.setText(location);
-//		Util.applyPrimaryFont(getActivity(), locationTv);
 		percentageFundedTv.setText(fundedProgress);
 		Util.applyPrimaryFont(getActivity(), percentageFundedTv);
 

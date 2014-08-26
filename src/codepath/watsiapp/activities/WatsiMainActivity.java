@@ -17,6 +17,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 import com.paypal.android.sdk.payments.PayPalService;
 
+
 public class WatsiMainActivity extends BaseFragmentActivity implements
 		PagerListener {
 	private ViewPager vpPager;
@@ -39,9 +40,6 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 	public void showDonateDialog(String dialogHeader,String patientId,String donateTo){
 	  	FragmentManager fm = getSupportFragmentManager();
 	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader,patientId,donateTo);
-//	  	Dialog dialog = paymenttDialog.getDialog();
-//	  	Window window = dialog.getWindow();
-//	  	window.setBackgroundDrawableResource(R.drawable.bg_card);
 	  	paymenttDialog.show(fm, "fragment_payment_amount");
 	  	
 	}
@@ -49,16 +47,16 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
 		tabs.setShouldExpand(true);
-		// tabs.setActivated(false);
+		
 		tabs.setAllCaps(false);
 		float dimension = getResources().getDimensionPixelSize(
 				R.dimen.fontsize_small);
 		tabs.setTextSize((int) dimension);
 		Util.applyPrimaryFont(getApplicationContext(), tabs);
 		tabs.setViewPager(vpPager);
-		// tabs.setTextColor(getResources().getColor(R.color.watsi_blue));
+		
 		tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
-		// tabs.setDividerColor(getResources().getColor(R.color.watsi_blue));
+		
 
 	}
 
@@ -97,9 +95,7 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 			switch (position) {
 			case 0:
 				return PatientListFragment.newInstance(pagerListener);
-				// return PatientFeedFragment.newInstance();
 			case 1:
-				// return PatientListFragment.newInstance();
 				return PatientFeedFragment.newInstance(pagerListener);
 
 			default:

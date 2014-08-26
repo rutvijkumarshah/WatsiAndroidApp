@@ -9,10 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.HomeFeedAdapter;
@@ -87,39 +85,6 @@ public class PatientFeedFragment extends Fragment {
 		swingBottomInAnimationAdapter.setAbsListView(listView);
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
 		listView.setAdapter(swingBottomInAnimationAdapter);
-
-		/****
-		listView.setOnScrollListener(new OnScrollListener() 
-		{
-			int mLastFirstVisibleItem = 0;
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {   }
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) 
-			{   
-				if (view.getId() == listView.getId()) 
-				{
-					final int currentFirstVisibleItem = listView.getFirstVisiblePosition();
-
-					if (currentFirstVisibleItem > mLastFirstVisibleItem) 
-					{
-						if (pagerListener != null) {
-							pagerListener.hidePager();
-						}
-					} 
-					else if (currentFirstVisibleItem < mLastFirstVisibleItem) 
-					{
-						if (pagerListener != null) {
-							pagerListener.showPager();
-						}
-					}
-
-					mLastFirstVisibleItem = currentFirstVisibleItem;
-				}
-			}
-		});*****/
 		setupIintialViews();
 		return v;
 	}

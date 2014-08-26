@@ -22,12 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.adapters;
 
+import static codepath.watsiapp.utils.Util.applyPrimaryFont;
+import static codepath.watsiapp.utils.Util.startShareIntent;
+import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
+import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -40,18 +41,14 @@ import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.Util;
-import static codepath.watsiapp.utils.Util.*;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 public class PatientAdapter extends ParseQueryAdapter<Patient> {
 
-	private static final String TAG = "PATIENT_ADAPTER";
+	//private static final String TAG = "PATIENT_ADAPTER";
 
 	private FragmentActivity activity;
 	/***
@@ -94,6 +91,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 		// load all patients
 		// if required this is the place to apply where filters on patients list
 		this(context, new ParseQueryAdapter.QueryFactory<Patient>() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public ParseQuery create() {
 				return new ParseHelper(context).getAllPatientsQuery();
 			}
@@ -250,7 +248,7 @@ public class PatientAdapter extends ParseQueryAdapter<Patient> {
 				
 				ViewHolder _viewHolder = (ViewHolder) v.getTag();
 				String patientId=_viewHolder.patientId;
-				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+				PatientDetailActivity.showPatientDetailsActivity(activity, patientId);
 				
 			}
 		});

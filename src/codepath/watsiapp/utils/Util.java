@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -48,7 +49,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -160,11 +160,11 @@ public class Util {
 
 		try {
 			final PackageManager pm = ctx.getPackageManager();
+			@SuppressWarnings("rawtypes")
 			final List activityList = pm.queryIntentActivities(shareIntent, 0);
 			int len = activityList.size();
 			for (int i = 0; i < len; i++) {
 				final ResolveInfo app = (ResolveInfo) activityList.get(i);
-				Log.d("#####################", app.activityInfo.name);
 				if (socialActivitiesName.contains(app.activityInfo.name)) {
 					final ActivityInfo activity = app.activityInfo;
 					final ComponentName name = new ComponentName(
@@ -210,6 +210,7 @@ public class Util {
 		return isNetworkAvailable;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public static String getFormatedDate(Date date) {
 
 		SimpleDateFormat sf = new SimpleDateFormat(DATE_FORMAT);

@@ -71,6 +71,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		// load all patients
 		// if required this is the place to apply where filters on patients list
 		this(context, new ParseQueryAdapter.QueryFactory<NewsItem>() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public ParseQuery create() {
 				return new ParseHelper(context).getAllNewsFeedItem();
 			}
@@ -344,7 +345,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 					return;
 				}
 				String patientId= ((ViewHolder) v.getTag()).patient.getObjectId();
-				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+				PatientDetailActivity.showPatientDetailsActivity(activity, patientId);
 			}
 		});
 	}

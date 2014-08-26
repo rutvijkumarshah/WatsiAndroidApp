@@ -9,7 +9,6 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.NewPatientDetailFragment;
 import codepath.watsiapp.fragments.NewPatientDetailFragment.OnDonateClickedListener;
 import codepath.watsiapp.fragments.PaymentAmountFragment;
-import codepath.watsiapp.models.Patient;
 
 public class PatientDetailActivity extends BaseFragmentActivity implements OnDonateClickedListener {
 	private String patientId;
@@ -33,7 +32,7 @@ public class PatientDetailActivity extends BaseFragmentActivity implements OnDon
 		ft.commit();
 	}
 
-	public static void getPatientDetailsIntent(Activity currentActivity,
+	public static void showPatientDetailsActivity(Activity currentActivity,
 			String patientId) {
 		Intent detailsIntent = new Intent(currentActivity,
 				PatientDetailActivity.class);

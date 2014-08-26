@@ -1,12 +1,12 @@
 package codepath.watsiapp.fragments;
 
+import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,7 +22,6 @@ import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.customview.PrefixedEditText;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
-import static codepath.watsiapp.utils.Util.*;
 
 import com.parse.ParseUser;
 
@@ -188,12 +187,6 @@ public class PaymentAmountFragment extends DialogFragment {
 		this.dismiss();
 		String strDonationAmount=mDonationAmount.getText().toString();
 		DonationInfoStorage donationInfo=(DonationInfoStorage) getActivity();
-//		donationInfo.setDonationAmount(Float.valueOf(strDonationAmount));
-//		donationInfo.setPatientId(patientId);
-//		donationInfo.setUserEmailAddress(mEmailAddressText.getText().toString());
-//		donationInfo.setUserFullName(mFullNameText.getText().toString());
-//		donationInfo.setAnonymousDonation(mIsAnonymousDonation.isChecked());
-//		
 		donationInfo.set(Float.valueOf(strDonationAmount), 
 				patientId, mIsAnonymousDonation.isChecked(), 
 				mFullNameText.getText().toString(), 

@@ -45,7 +45,6 @@ import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseObject;
-import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;

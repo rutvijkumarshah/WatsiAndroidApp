@@ -49,11 +49,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
-import static codepath.watsiapp.utils.Util.*;
-
 public class DonationAdapter extends ParseQueryAdapter<Donation> {
 
-	private static final String TAG = "DONATION_ADAPTER";
+	//private static final String TAG = "DONATION_ADAPTER";
 	private FragmentActivity activity;
 	public static final int PAGE_SIZE = 100;
 
@@ -73,6 +71,8 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 		// if required this is the place to apply where filters on Donations
 		// list
 		this(context, new ParseQueryAdapter.QueryFactory<Donation>() {
+			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public ParseQuery create() {
 				return new ParseHelper(context).getDonationsByDonorId(donorId);
 			}
@@ -158,7 +158,7 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 
 				ViewHolder _viewHolder = (ViewHolder) v.getTag();
 				String patientId = _viewHolder.patientId;
-				PatientDetailActivity.getPatientDetailsIntent(activity, patientId);
+				PatientDetailActivity.showPatientDetailsActivity(activity, patientId);
 			}
 		});
 		
