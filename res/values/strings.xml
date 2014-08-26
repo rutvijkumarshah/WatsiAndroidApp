@@ -6,7 +6,7 @@
     <string name="lblLocation">Location</string>
     <string name="lblMedicalPartner">Medical Partner</string>
     <string name="title_activity_patient_detail">PatientDetail</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="paypal_client_id">AQlMcRBDK-q2VKSt4Bkg2wbNJYT-MQIAL2gmPoXapLGotF4JQ94mgVpvYzQA</string>
     <string name="lableUserName">User!</string>
     <string name="lblBtNewsAction">Fund Treatment</string>
     <string name="lblNewsHeading">You can make a difference !</string>

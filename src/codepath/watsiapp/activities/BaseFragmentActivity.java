@@ -45,6 +45,7 @@ import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseObject;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -59,16 +60,15 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	
 	private static PayPalConfiguration payPalConfig;
 	private static final String TAG_PAYPAL="PAYPAL_PROCESSING";
-	static {
-		setupPayPalConfig();
-	}
+		
 
-	private static void setupPayPalConfig() {
+	private  void setupPayPalConfig() {
 		try {
+				
 			payPalConfig = new PayPalConfiguration()
 					.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
 					.clientId(
-							"AQlMcRBDK-q2VKSt4Bkg2wbNJYT-MQIAL2gmPoXapLGotF4JQ94mgVpvYzQA");
+							getString(R.string.twitter_consumer_key));
 		} catch (Exception e) {
 			Log.e(TAG_PAYPAL, "Exception while paypal init configuration"+e,e);
 		}
@@ -103,6 +103,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		prefs=new PrefsHelper(this);
+		setupPayPalConfig();
 		Intent intent = new Intent(this, PayPalService.class);
 		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
 		startService(intent);
