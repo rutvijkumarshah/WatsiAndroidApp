@@ -63,7 +63,6 @@ public class DonationListFragment extends Fragment {
 
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		listener = (OnDonationStatsCalculatedListener) activity;
 		super.onAttach(activity);
 	}
@@ -97,9 +96,6 @@ public class DonationListFragment extends Fragment {
 							listener.totalTreatmentsCalculated(treatments
 									.size());
 							Donation.pinAllInBackground(donations);	
-						} else {
-							// TODO:RUTVIJ
-							// SHOW Failure Toast
 						}
 					}
 

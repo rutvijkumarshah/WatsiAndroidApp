@@ -51,7 +51,6 @@ public class PatientDetailActivity extends BaseFragmentActivity implements OnDon
 
 	@Override
 	public void onDonateClicked(String dialogHeader,String patientId,String donateTo) {
-		// TODO Auto-generated method stub
 	  	FragmentManager fm = getSupportFragmentManager();
 	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader,patientId,donateTo);
 	  	paymenttDialog.show(fm, "fragment_payment_amount");

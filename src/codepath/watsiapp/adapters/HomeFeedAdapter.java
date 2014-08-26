@@ -273,7 +273,6 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		try {
 			patient = newsItem.getPatient().fetchIfNeeded();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			Log.e(TAG, "Exxception while getting donation details "+e,e);
 			return convertView;
 		}

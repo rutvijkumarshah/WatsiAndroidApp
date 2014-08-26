@@ -100,7 +100,6 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 
 	@Override
 	protected void onCreate(Bundle arg0) {
-		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		prefs=new PrefsHelper(this);
 		setupPayPalConfig();
@@ -125,7 +124,6 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		checkLogOutVisible();
 	}

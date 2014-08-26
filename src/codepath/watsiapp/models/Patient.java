@@ -88,7 +88,6 @@ public class Patient extends ParseObject implements ShareableItem {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getFullName() +" "+ getProfileUrl()+" "+getAge()+" "+getCountry()+" "+getDonationProgressPecentage();
 	}
 	@Override

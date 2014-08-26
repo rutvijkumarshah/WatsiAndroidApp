@@ -112,7 +112,6 @@ public class DonationAdapter extends ParseQueryAdapter<Donation> {
 
 			@Override
 			public void done(final Patient patient, ParseException exp) {
-				// TODO Auto-generated method stub
 				if (exp == null) {
 					imageLoader.displayImage(patient.getPhotoUrl(),
 							vh.patientPhoto,options);

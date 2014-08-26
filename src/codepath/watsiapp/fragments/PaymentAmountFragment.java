@@ -121,7 +121,6 @@ public class PaymentAmountFragment extends DialogFragment {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
 				Float amount = (float) 0;
 				if(!hasFocus){
 					if(!mDonationAmount.getText().toString().equalsIgnoreCase("")){
@@ -139,7 +138,6 @@ public class PaymentAmountFragment extends DialogFragment {
 		mEmailAddressText.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
 				if(!hasFocus){
 					if(Util.isValidEmail(mEmailAddressText.getText().toString())== false){
 						tvErrMsgEMail.setVisibility(View.VISIBLE);
@@ -182,7 +180,6 @@ public class PaymentAmountFragment extends DialogFragment {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 		
