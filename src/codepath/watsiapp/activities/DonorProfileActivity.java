@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.DonationListFragment;
 import codepath.watsiapp.fragments.PatientFeedFragment;
+import codepath.watsiapp.listeners.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.models.OnDonationStatsCalculatedListener;
+import codepath.watsiapp.utils.ParseHelper;
 import codepath.watsiapp.utils.Util;
 
 import com.facebook.Request;

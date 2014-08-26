@@ -20,7 +20,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***/
 
-package codepath.watsiapp.models;
+package codepath.watsiapp.listeners;
 
 public interface OnDonationStatsCalculatedListener {
 	public void totalDonationsCalculated(double totalDonationAmount);

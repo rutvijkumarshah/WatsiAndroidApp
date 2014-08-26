@@ -20,14 +20,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***/
 
-package codepath.watsiapp;
+package codepath.watsiapp.utils;
 
 import android.content.Context;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;

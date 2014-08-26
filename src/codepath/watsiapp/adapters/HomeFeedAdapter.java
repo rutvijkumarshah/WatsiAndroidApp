@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import codepath.watsiapp.ParseHelper;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.activities.WatsiMainActivity;
@@ -24,6 +23,7 @@ import codepath.watsiapp.models.FeedItem;
 import codepath.watsiapp.models.FeedItem.ItemType;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.ParseHelper;
 import codepath.watsiapp.utils.Util;
 import codepath.watsiapp.utils.Util.ShareableItem;
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.utils.ParseHelper;
 import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseException;
