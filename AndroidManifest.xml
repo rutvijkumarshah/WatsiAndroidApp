@@ -131,7 +131,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="codepath.watsiapp.SplashScreenActivity"
+            android:name="codepath.watsiapp.activities.SplashScreenActivity"
             android:label="@string/title_activity_splash_screen"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >

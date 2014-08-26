@@ -1,6 +1,9 @@
-package codepath.watsiapp;
+package codepath.watsiapp.activities;
 
-import codepath.watsiapp.activities.WatsiMainActivity;
+import codepath.watsiapp.R;
+import codepath.watsiapp.R.anim;
+import codepath.watsiapp.R.id;
+import codepath.watsiapp.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
