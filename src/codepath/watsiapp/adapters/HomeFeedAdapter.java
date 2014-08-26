@@ -7,6 +7,7 @@ import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private WatsiMainActivity activity;
 	public static final int PAGE_SIZE = 20; 
 
+	private static final String TAG = "HOME_FEED_ADAPTER";
 
 
 
@@ -221,7 +223,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			donor = dn.getDonor();
 			patient = newsItem.getPatient();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG, "Exxception while getting donation details "+e,e);
 			return convertView;
 		}
 
@@ -249,8 +251,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		try {
 			patient = newsItem.getPatient().fetchIfNeeded();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, "Exxception while getting patient details "+e,e);;
 			return convertView;
 		}
 
@@ -273,7 +274,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			patient = newsItem.getPatient().fetchIfNeeded();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, "Exxception while getting donation details "+e,e);
 			return convertView;
 		}
 

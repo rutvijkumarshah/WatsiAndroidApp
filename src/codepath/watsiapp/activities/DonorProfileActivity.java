@@ -4,6 +4,7 @@ import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +37,9 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 	private TextView donatedForText;
 	private TextView treatmetnsText;
 	private Donor donor;
-
+	
+	private static final String TAG_IGNORE_EXP="IGNORE_EXP";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,7 +111,7 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 		try {
 			donor = query.getFirst();
 		} catch (ParseException exp) {
-			exp.printStackTrace();
+			Log.e(TAG_IGNORE_EXP, "Donor not found from email address ");
 		}
 		
 		if (donor != null) {

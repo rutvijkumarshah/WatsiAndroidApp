@@ -4,10 +4,12 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.PatientAdapter;
@@ -30,6 +32,8 @@ public class PatientListFragment extends Fragment {
 	//private PullToRefreshLayout pullToRefreshLayout;
 	
 	private PagerListener pagerListener;
+	
+	private static final String TAG="PATIENT_LIST";
 
 	public void setPagerListener(PagerListener pagerListener) {
 		this.pagerListener = pagerListener;
@@ -60,11 +64,10 @@ public class PatientListFragment extends Fragment {
 					try {
 						Patient.pinAll(patients);
 					} catch (ParseException e) {
-						e.printStackTrace();
+						Log.e(TAG, "Exception while storing patients object to db :"+e,e);
 					}
 				}else {
-					//TODO:RUTVIJ
-					//SHOW Failure Toast
+					Toast.makeText(getActivity(), "Failure. Please check network connection", Toast.LENGTH_LONG).show();
 				}
 			}
 

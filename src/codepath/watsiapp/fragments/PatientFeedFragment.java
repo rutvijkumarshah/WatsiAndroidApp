@@ -5,10 +5,12 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
@@ -29,7 +31,8 @@ public class PatientFeedFragment extends Fragment {
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	private PagerListener pagerListener;
-
+	private static final String TAG="PATIENT_FEED";
+	
 	public void setPagerListener(PagerListener pagerListener) {
 		this.pagerListener = pagerListener;
 	}
@@ -64,13 +67,14 @@ public class PatientFeedFragment extends Fragment {
 						}
 						NewsItem.pinAll(list);
 					} catch (ParseException e) {
-						e.printStackTrace();
+						Log.e(TAG, "Exception while storing patients object to db :"+e,e);
+						
 					}
 				}else {
-					// TODO:  Failure Toast
+					Toast.makeText(getActivity(), "Failure. Please check network connection", Toast.LENGTH_LONG).show();
 				}
 			}
-
+	
 			@Override
 			public void onLoading() {
 				progressBar.setVisibility(View.VISIBLE);

@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,6 +62,8 @@ public class NewPatientDetailFragment extends Fragment {
 //	private String medicalPartnerName;
 //	private String medicalPartnerUrl;
 
+	private static final String TAG="PATIENT_DETAILS";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,7 +81,7 @@ public class NewPatientDetailFragment extends Fragment {
 //			});
 //
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Log.e(TAG, "Exception while getting patient by id="+patientId+" "+e,e);
 		}
 	}
 

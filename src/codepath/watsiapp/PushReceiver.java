@@ -44,7 +44,7 @@ public class PushReceiver extends BroadcastReceiver {
 			}
 
 		} catch (JSONException e) {
-			Log.d(TAG, "JSONException: " + e.getMessage());
+			Log.e(TAG, "JSONException: " + e.getMessage());
 		}
 	}   
 
@@ -60,7 +60,7 @@ public class PushReceiver extends BroadcastReceiver {
 			postNotification(context, msg, p.getObjectId());
 		} catch (ParseException e) {
 			Toast.makeText(context, "Failed to open patient details", Toast.LENGTH_SHORT).show();
-			e.printStackTrace();
+			Log.e(TAG, "Excepton while geting donation info from donation Id="+donationId);
 		}
 		
 	}
@@ -74,8 +74,7 @@ public class PushReceiver extends BroadcastReceiver {
 			String msg = p.getFirstName() + news; 
 			postNotification(context, msg, patientId);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(TAG, "Exception while getting patient  from patientId="+patientId);
 		}
 	}
 

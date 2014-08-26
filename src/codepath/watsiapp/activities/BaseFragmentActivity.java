@@ -70,7 +70,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 					.clientId(
 							"AQlMcRBDK-q2VKSt4Bkg2wbNJYT-MQIAL2gmPoXapLGotF4JQ94mgVpvYzQA");
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e(TAG_PAYPAL, "Exception while paypal init configuration"+e,e);
 		}
 	}
 
