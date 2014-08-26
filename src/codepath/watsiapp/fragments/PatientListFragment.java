@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import codepath.watsiapp.R;
-import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.PatientAdapter;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.EndlessScrollListener;
@@ -29,13 +28,7 @@ public class PatientListFragment extends Fragment {
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	
-	private PagerListener pagerListener;
-	
 	private static final String TAG="PATIENT_LIST";
-
-	public void setPagerListener(PagerListener pagerListener) {
-		this.pagerListener = pagerListener;
-	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,12 +67,7 @@ public class PatientListFragment extends Fragment {
 				progressBar.setVisibility(View.VISIBLE);
 			}
 		});
-	    //pullToRefreshLayout = (PullToRefreshLayout) v.findViewById(R.id.ptr_layout);   
-	    //pullToRefreshAttacher = pullToRefreshLayout.createPullToRefreshAttacher(getActivity(), null);
-		// Initialize ListView and set initial view to patientAdapter
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_list);
-		//listView.setAdapter(patientAdapter);
-		//patientAdapter.loadObjects();
 		
 		
 		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientAdapter);
@@ -121,9 +109,9 @@ public class PatientListFragment extends Fragment {
 	}
 
 
-	public static PatientListFragment newInstance(PagerListener pagerListener) {
+	public static PatientListFragment newInstance() {
 		PatientListFragment fragment = new PatientListFragment();
-		fragment.setPagerListener(pagerListener);
+		
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;

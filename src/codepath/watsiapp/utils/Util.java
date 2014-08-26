@@ -52,8 +52,8 @@ import android.text.style.URLSpan;
 import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
-import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.activities.ParseDispatchActivity;
+import codepath.watsiapp.interfaces.DonationInfoStorage;
 import codepath.watsiapp.models.MedicalPartner;
 
 import com.astuetz.PagerSlidingTabStrip;

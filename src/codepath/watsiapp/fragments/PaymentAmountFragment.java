@@ -18,8 +18,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import codepath.watsiapp.R;
-import codepath.watsiapp.activities.DonationInfoStorage;
 import codepath.watsiapp.customview.PrefixedEditText;
+import codepath.watsiapp.interfaces.DonationInfoStorage;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 

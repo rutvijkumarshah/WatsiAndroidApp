@@ -20,7 +20,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***/
 
-package codepath.watsiapp.activities;
+package codepath.watsiapp.interfaces;
 
 /***
  * Interface defines donation (in progress payment) information storage

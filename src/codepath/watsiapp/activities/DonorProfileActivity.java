@@ -11,7 +11,7 @@ import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.DonationListFragment;
 import codepath.watsiapp.fragments.PatientFeedFragment;
-import codepath.watsiapp.listeners.OnDonationStatsCalculatedListener;
+import codepath.watsiapp.interfaces.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.utils.ParseHelper;
 import codepath.watsiapp.utils.Util;
@@ -183,7 +183,7 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 		// Begin the transaction
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
-		ft.replace(R.id.donations, PatientFeedFragment.newInstance(null));
+		ft.replace(R.id.donations, PatientFeedFragment.newInstance());
 		ft.commit();
 	}
 

@@ -40,6 +40,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import codepath.watsiapp.R;
+import codepath.watsiapp.interfaces.DonationInfoStorage;
 import codepath.watsiapp.models.Patient;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;

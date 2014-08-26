@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import codepath.watsiapp.R;
-import codepath.watsiapp.activities.PagerListener;
 import codepath.watsiapp.adapters.HomeFeedAdapter;
 import codepath.watsiapp.models.NewsItem;
 
@@ -28,12 +27,9 @@ public class PatientFeedFragment extends Fragment {
 	private HomeFeedAdapter patientFeedAdapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
-	private PagerListener pagerListener;
+	
 	private static final String TAG="PATIENT_FEED";
 	
-	public void setPagerListener(PagerListener pagerListener) {
-		this.pagerListener = pagerListener;
-	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,9 +102,8 @@ public class PatientFeedFragment extends Fragment {
 
 	}
 
-	public static PatientFeedFragment newInstance(PagerListener pagerListener) {
+	public static PatientFeedFragment newInstance() {
 		PatientFeedFragment fragment = new PatientFeedFragment();
-		fragment.setPagerListener(pagerListener);
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;

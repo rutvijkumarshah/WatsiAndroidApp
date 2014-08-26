@@ -17,9 +17,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.parse.ParseAnalytics;
 import com.paypal.android.sdk.payments.PayPalService;
 
-
-public class WatsiMainActivity extends BaseFragmentActivity implements
-		PagerListener {
+public class WatsiMainActivity extends BaseFragmentActivity {
 	private ViewPager vpPager;
 	private PatientsPagerAdapter adapterViewPager;
 	private PagerSlidingTabStrip tabs;
@@ -31,32 +29,32 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 
 		ParseAnalytics.trackAppOpened(getIntent());
 		vpPager = (ViewPager) findViewById(R.id.viewPager);
-		adapterViewPager = new PatientsPagerAdapter(
-				getSupportFragmentManager(), this);
+		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());
 		vpPager.setAdapter(adapterViewPager);
 		setupSlidingTabs(vpPager);
 	}
-	
-	public void showDonateDialog(String dialogHeader,String patientId,String donateTo){
-	  	FragmentManager fm = getSupportFragmentManager();
-	  	PaymentAmountFragment paymenttDialog = PaymentAmountFragment.newInstance(dialogHeader,patientId,donateTo);
-	  	paymenttDialog.show(fm, "fragment_payment_amount");
-	  	
+
+	public void showDonateDialog(String dialogHeader, String patientId,
+			String donateTo) {
+		FragmentManager fm = getSupportFragmentManager();
+		PaymentAmountFragment paymenttDialog = PaymentAmountFragment
+				.newInstance(dialogHeader, patientId, donateTo);
+		paymenttDialog.show(fm, "fragment_payment_amount");
+
 	}
 
 	private void setupSlidingTabs(ViewPager vpPager2) {
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.slidingTabStrip);
 		tabs.setShouldExpand(true);
-		
+
 		tabs.setAllCaps(false);
 		float dimension = getResources().getDimensionPixelSize(
 				R.dimen.fontsize_small);
 		tabs.setTextSize((int) dimension);
 		Util.applyPrimaryFont(getApplicationContext(), tabs);
 		tabs.setViewPager(vpPager);
-		
+
 		tabs.setIndicatorColor(getResources().getColor(R.color.watsi_blue));
-		
 
 	}
 
@@ -77,12 +75,10 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 	public static class PatientsPagerAdapter extends FragmentPagerAdapter {
 
 		private static final String LABLES[] = { "Patients", "News" };
-		private PagerListener pagerListener;
 
-		public PatientsPagerAdapter(FragmentManager fragmentManager,
-				PagerListener pagerListener) {
+		public PatientsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
-			this.pagerListener = pagerListener;
+
 		}
 
 		@Override
@@ -94,9 +90,9 @@ public class WatsiMainActivity extends BaseFragmentActivity implements
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return PatientListFragment.newInstance(pagerListener);
+				return PatientListFragment.newInstance();
 			case 1:
-				return PatientFeedFragment.newInstance(pagerListener);
+				return PatientFeedFragment.newInstance();
 
 			default:
 				return null;

@@ -35,7 +35,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import codepath.watsiapp.R;
 import codepath.watsiapp.adapters.DonationAdapter;
-import codepath.watsiapp.listeners.OnDonationStatsCalculatedListener;
+import codepath.watsiapp.interfaces.OnDonationStatsCalculatedListener;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
