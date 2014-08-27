@@ -101,14 +101,14 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="codepath.watsiapp.PushReceiver"
+            android:name="codepath.watsiapp.notifications.PushReceiver"
             android:exported="true" >
             <intent-filter>
                 <action android:name="codepath.watsiapp.NEWSFEED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="codepath.watsiapp.AlarmReciever"
+            android:name="codepath.watsiapp.notifications.AlarmReciever"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -1,4 +1,4 @@
-package codepath.watsiapp;
+package codepath.watsiapp.notifications;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
+import codepath.watsiapp.R;
+import codepath.watsiapp.R.drawable;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Patient;

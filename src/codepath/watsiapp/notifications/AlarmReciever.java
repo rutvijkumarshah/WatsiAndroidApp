@@ -1,4 +1,4 @@
-package codepath.watsiapp;
+package codepath.watsiapp.notifications;
 
 import java.util.Calendar;
 
@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import codepath.watsiapp.R;
+import codepath.watsiapp.R.drawable;
 import codepath.watsiapp.activities.WatsiMainActivity;
 
 public class AlarmReciever extends BroadcastReceiver {
