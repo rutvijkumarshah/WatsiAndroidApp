@@ -18,7 +18,7 @@ var Patient = Parse.Object.extend("Patient");
 * 	   Added member function did not worked at query callback object
 * 
 *  AND :
-*      Duplication is more worse sinner.
+*      Duplication is  worse sinner.
 */
 var saveDonation = function(donorObj,patient,amount,isAnonymousDonation){
 	  	var donationObj=new Donation();

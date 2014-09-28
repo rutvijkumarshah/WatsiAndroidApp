@@ -75,7 +75,7 @@ public class ParseHelper {
 		return getDonationsByDonor(donor);	
 	}
 	
-	public ParseQuery<Donation> getDonationsByDonor(Donor donor) {
+	private ParseQuery<Donation> getDonationsByDonor(Donor donor) {
 		if(Util.isNetworkAvailable(context)) {
 			ParseQuery<Donation> donationsByDonorId= new ParseQuery<Donation>("Donation");
 			donationsByDonorId.whereEqualTo("donor", donor)
