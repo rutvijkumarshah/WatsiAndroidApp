@@ -8,6 +8,7 @@ import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
+import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -15,7 +16,6 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
-import com.parse.ParseTwitterUtils;
 import com.parse.PushService;
 
 public class WatsiApplication extends Application {
@@ -25,17 +25,13 @@ public class WatsiApplication extends Application {
 		super.onCreate();
 		parsePreInit();
 
+		activeAndroidInit();
+		
 		// Add your initialization code here
 	    Parse.initialize(this, getString(R.string.parse_app_id),
 	            getString(R.string.parse_client_key));
 	    
 	    ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
-
-	    // Optional - If you don't want to allow Twitter login, you can
-	    // remove this line (and other related ParseTwitterUtils calls)
-	    ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
-	        getString(R.string.twitter_consumer_secret));
-
 		configurePush();
 
 		/**
@@ -67,6 +63,10 @@ public class WatsiApplication extends Application {
 		PushService.subscribe(this, "NewsFeed", WatsiMainActivity.class);  
 	}
   
+	private void activeAndroidInit() {
+		ActiveAndroid.initialize(this);
+
+	}
 	/**
 	 * Parse has many configurations that can be turned on or off before
 	 * initialization. All of them can go inside this function.
