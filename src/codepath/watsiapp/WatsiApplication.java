@@ -24,8 +24,6 @@ public class WatsiApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		parsePreInit();
-
-		activeAndroidInit();
 		
 		// Add your initialization code here
 	    Parse.initialize(this, getString(R.string.parse_app_id),
@@ -63,10 +61,6 @@ public class WatsiApplication extends Application {
 		PushService.subscribe(this, "NewsFeed", WatsiMainActivity.class);  
 	}
   
-	private void activeAndroidInit() {
-		ActiveAndroid.initialize(this);
-
-	}
 	/**
 	 * Parse has many configurations that can be turned on or off before
 	 * initialization. All of them can go inside this function.

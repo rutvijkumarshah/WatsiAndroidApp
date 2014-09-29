@@ -34,39 +34,7 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());
 		vpPager.setAdapter(adapterViewPager);
 		setupSlidingTabs(vpPager);
-		DoTest();
-	}
-
-	private void DoTest() {
-		String sample= "{\n" +
-	              "    \"age\": 1,\n" +
-	              "    \"country\": \"Kenya\",\n" +
-	              "    \"firstName\": \"Michael\",\n" +
-	              "    \"isFullyFunded\": true,\n" +
-	              "    \"medicalNeed\": \"Michael needs spina bifida closure surgery.\",\n" +
-	              "    \"medicalPartner\": {\n" +
-	              "                \"name\": \"African Mission Healthcare Foundation\",\n" +
-	              "                \"websiteUrl\": \"http://www.amhf.us/\",\n" +
-	              "                \"createdAt\": \"2014-07-10T01:18:32.807Z\",\n" +
-	              "                \"updatedAt\": \"2014-07-10T01:19:01.898Z\",\n" +
-	              "                \"objectId\": \"bpQh0xZkuS\",\n" +
-	              "                \"__type\": \"Object\",\n" +
-	              "                \"className\": \"MedicalPartner\"\n" +
-	              "    },\n" +
-	              "    \"photoUrl\": \"https://d3w52z135jkm97.cloudfront.net/uploads/profile/image/2224/profile_Michael_Ngari_Muchiri_pre_op_picture1_AMHF_BKKH_.jpg\",\n" +
-	              "    \"profileUrl\": \"https://watsi.org/profile/d2b79fee498b-michael\",\n" +
-	              "    \"receivedDonation\": 980,\n" +
-	              "    \"story\": \"The days treatment!\",\n" +
-	              "    \"targetDonation\": 980,\n" +
-	              "    \"createdAt\": \"2014-08-04T05:08:49.475Z\",\n" +
-	              "    \"updatedAt\": \"2014-08-04T20:07:12.902Z\",\n" +
-	              "    \"objectId\": \"Gibye7bUBM\"\n" +
-	              "}";
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-        
-		codepath.watsiapp.modelsv2.Patient patient = gson.fromJson(sample, codepath.watsiapp.modelsv2.Patient.class);
-        patient.persist();
 	}
 	public void showDonateDialog(String dialogHeader, String patientId,
 			String donateTo) {
@@ -74,7 +42,6 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		PaymentAmountFragment paymenttDialog = PaymentAmountFragment
 				.newInstance(dialogHeader, patientId, donateTo);
 		paymenttDialog.show(fm, "fragment_payment_amount");
-
 	}
 
 	private void setupSlidingTabs(ViewPager vpPager2) {
