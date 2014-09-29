@@ -1,4 +1,7 @@
 
+Under major refactoring : 
+-------------------------------
+
 Watsi Android Application
 ===============
 
