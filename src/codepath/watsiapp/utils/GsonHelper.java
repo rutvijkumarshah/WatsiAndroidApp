@@ -20,17 +20,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***/
 
-package codepath.watsiapp.modelsv2;
+package codepath.watsiapp.utils;
 
-import com.activeandroid.Model;
-import com.activeandroid.query.Select;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public abstract class BaseModel extends Model {
+public class GsonHelper {
 	
-	public abstract long persist();
-	
-	@SuppressWarnings("unchecked")
-	public static <T extends Model> T loadByObjectId(Class<T> type, String objectId) {	
-		return (T) new Select().from(type).where("objectId=?",  objectId).executeSingle();
+	public static Gson getGson() {
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+		return gson;
 	}
 }

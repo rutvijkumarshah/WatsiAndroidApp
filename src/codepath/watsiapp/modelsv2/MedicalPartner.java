@@ -1,13 +1,13 @@
 package codepath.watsiapp.modelsv2;
 
+import static codepath.watsiapp.utils.GsonHelper.getGson;
+
 import java.util.Date;
 import java.util.List;
 
-import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-
 @Table(name = "MedicalPartner")
 public class MedicalPartner extends BaseModel{
 	
@@ -56,5 +56,12 @@ public class MedicalPartner extends BaseModel{
 	public long persist() {
 		return this.save();
 	}
+
+	
+	public static  MedicalPartner fromJson(String jsonString) {
+		MedicalPartner partner=getGson().fromJson(jsonString, MedicalPartner.class);
+		return partner;
+	}
+
 
 }

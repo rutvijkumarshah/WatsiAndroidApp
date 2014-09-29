@@ -9,6 +9,8 @@ import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
 import com.activeandroid.ActiveAndroid;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
