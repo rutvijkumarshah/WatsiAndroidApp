@@ -3,6 +3,8 @@ package codepath.watsiapp.modelsv2;
 
 import java.util.Date;
 
+import codepath.watsiapp.utils.Util.ShareableItem;
+
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 /***
@@ -40,7 +42,7 @@ import com.activeandroid.annotation.Table;
  ****/
 
 @Table(name = "Patient")
-public class Patient extends BaseModel{
+public class Patient extends BaseModel implements ShareableItem{
 
 
 	/*** Basic Properties ***/
@@ -116,6 +118,18 @@ public class Patient extends BaseModel{
 		this.receivedDonation=patient.receivedDonation;
 		this.targetDonation=patient.targetDonation;
 	}
+	@Override
+	public String getShareableUrl() {
+		return getProfileUrl();
+	}
+	public int getDonationProgressPecentage() {
+		double donationReceived = getReceivedDonation();
+		double targetDonation = getTargetDonation();
+		return (int) ((donationReceived*100)/targetDonation);
+	}
+	public double getDonationToGo() {
+		return getTargetDonation() - getReceivedDonation();
+	}
 	
 	///Getter Setters
 	public int getAge() {
@@ -136,9 +150,14 @@ public class Patient extends BaseModel{
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getFullName() {
+		return String.format("%s%s", this.firstName,getLastName());
 	}
+
+	private String getLastName() {
+		return this.lastName == null ? "" : " "+this.lastName;
+	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -208,7 +227,7 @@ public class Patient extends BaseModel{
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	
 
 
 	

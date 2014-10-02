@@ -11,7 +11,6 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
 import codepath.watsiapp.fragments.PaymentAmountFragment;
-import codepath.watsiapp.modelsv2.Main;
 import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -93,7 +92,7 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return PatientListFragment.newInstance();
+				return codepath.watsiapp.fragmentsv2.PatientListFragment.newInstance();
 			case 1:
 				return PatientFeedFragment.newInstance();
 
