@@ -1,7 +1,5 @@
 package codepath.watsiapp.modelsv2;
 
-import static codepath.watsiapp.utils.GsonHelper.getGson;
-
 import java.util.Date;
 
 import codepath.watsiapp.models.Donation;
@@ -78,15 +76,15 @@ import com.activeandroid.annotation.Table;
 public class NewsItem extends BaseModel{
 	
 	@Column(name = "patient")
-	public Patient patient;
+	private Patient patient;
 	
-	public Donation donation;
+	private Donation donation;
 	
 	@Column(name = "type")
-	public String type;
+	private String type;
 	
 	@Column(name = "campaign_content")
-	public String campaignContent;
+	private String campaignContent;
 	
 	
 	
@@ -97,34 +95,85 @@ public class NewsItem extends BaseModel{
 	 * 
 	 * ***/
 	@Column(name = "object_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-	public String objectId;
+	private String objectId;
     
     @Column(name = "created_at")
-	public Date createdAt;
+    private Date createdAt;
     
     @Column(name = "updated_at")
-	public Date updatedAt;
+    private Date updatedAt;
 
 	@Override
 	public long persist() {
 		Patient patient=this.patient;
-		Patient existingPatient=loadByObjectId(Patient.class, patient.objectId);
+		Patient existingPatient=loadByObjectId(Patient.class, patient.getObjectId());
 		if(existingPatient!=null) {
-			if(existingPatient.updatedAt.getTime() < patient.updatedAt.getTime()) {
+			if(existingPatient.getUpdatedAt().getTime() < patient.getUpdatedAt().getTime()) {
 				//New Object is more recent, replacing it with new object
 				existingPatient.reload(patient);
 				this.patient=existingPatient;
 			}
 		}
 		patient.persist();
-		this.save();
-		return 0;
+		return this.save();
 	}
 
-	
-	public static  NewsItem fromJson(String jsonString) {
-		NewsItem newsItem=getGson().fromJson(jsonString, NewsItem.class);
-		return newsItem;
+	public Patient getPatient() {
+		return patient;
 	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Donation getDonation() {
+		return donation;
+	}
+
+	public void setDonation(Donation donation) {
+		this.donation = donation;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCampaignContent() {
+		return campaignContent;
+	}
+
+	public void setCampaignContent(String campaignContent) {
+		this.campaignContent = campaignContent;
+	}
+
+	public String getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
 
 }

@@ -3,17 +3,10 @@
  */
 package codepath.watsiapp.modelsv2;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.annotation.SuppressLint;
-import android.util.Log;
+
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import static codepath.watsiapp.utils.GsonHelper.getGson;
 
 /**
  * Represents user who has funded for one or more treatments for Patient(s).
@@ -37,10 +30,10 @@ import static codepath.watsiapp.utils.GsonHelper.getGson;
 public class Donor extends BaseModel {
 
 	/*** Basic Properties ***/
-	public String email;
-	public String firstName;
-	public String lastName;
-	public Date memberSinceDate;
+	private String email;
+	private String firstName;
+	private String lastName;
+	private Date memberSince;
 	
 	/**** 
 	 * Common fields for every Entity 
@@ -71,22 +64,57 @@ public class Donor extends BaseModel {
 		return this.save();
 	}
 
-	@SuppressLint("SimpleDateFormat")
-	public static  Donor fromJson(String jsonString) {
-		Donor donor=getGson().fromJson(jsonString, Donor.class);
-		JSONObject memberSince=null;
-		String memberSinceStr=null;
-		try {
-			memberSince = new JSONObject(jsonString).getJSONObject("memberSince");
-			memberSinceStr=memberSince.getString("iso");
-			Date dt=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(memberSinceStr);
-			donor.memberSinceDate=dt;//Assign membersince Date from JSON Object
-		} catch (JSONException e) {
-			Log.e("JSON_DESERIALIZATION","Exception while parsing jsonString "+jsonString,e);
-		} catch (ParseException e) {
-			Log.e("DATE_PARSING","Exception while parsing Date "+memberSinceStr,e);
-		}
-		
-		return donor;
+	public String getEmail() {
+		return email;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public Date getMemberSince() {
+		return memberSince;
+	}
+
+	public void setMemberSince(Date memberSince) {
+		this.memberSince = memberSince;
+	}
+
+	public String getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	
 }

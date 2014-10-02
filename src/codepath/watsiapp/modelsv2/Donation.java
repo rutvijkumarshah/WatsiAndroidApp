@@ -41,34 +41,72 @@ import android.util.Log;
 
 public class Donation  {
 
-	public Patient patient;
-	public Donor donor;
-	public double donationAmount;
-	public boolean isAnonymous;
-	public String objectId;
-	public Date createdAt;    
-	public Date updatedAt;
-	public Date donationDateTime;
-
+	private Patient patient;
+	private Donor donor;
+	private double donationAmount;
+	private boolean isAnonymous;
+	private String objectId;
+	private Date createdAt;    
+	private Date updatedAt;
+	private Date donationDateTime;
+	private Date donationDate;
 	
-	
-	@SuppressLint("SimpleDateFormat")
-	public static  Donation fromJson(String jsonString) {
-		Donation donation=getGson().fromJson(jsonString, Donation.class);
-		JSONObject memberSince=null;
-		String memberSinceStr=null;
-		try {
-			memberSince = new JSONObject(jsonString).getJSONObject("donationDate");
-			memberSinceStr=memberSince.getString("iso");
-			Date dt=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(memberSinceStr);
-			donation.donationDateTime=dt;//Assign donationTimestamp Date from JSON Object
-		} catch (JSONException e) {
-			Log.e("JSON_DESERIALIZATION","Exception while parsing jsonString "+jsonString,e);
-		} catch (ParseException e) {
-			Log.e("DATE_PARSING","Exception while parsing Date "+memberSinceStr,e);
-		}
-		
-		return donation;
+	public Patient getPatient() {
+		return patient;
 	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	public Donor getDonor() {
+		return donor;
+	}
+	public void setDonor(Donor donor) {
+		this.donor = donor;
+	}
+	public double getDonationAmount() {
+		return donationAmount;
+	}
+	public void setDonationAmount(double donationAmount) {
+		this.donationAmount = donationAmount;
+	}
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+	public String getObjectId() {
+		return objectId;
+	}
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public Date getDonationDateTime() {
+		return donationDateTime;
+	}
+	public void setDonationDateTime(Date donationDateTime) {
+		this.donationDateTime = donationDateTime;
+	}
+	public Date getDonationDate() {
+		return donationDate;
+	}
+	public void setDonationDate(Date donationDate) {
+		this.donationDate = donationDate;
+	}
+	
+	
+	
 	
 }

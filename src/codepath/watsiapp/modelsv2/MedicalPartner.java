@@ -1,7 +1,5 @@
 package codepath.watsiapp.modelsv2;
 
-import static codepath.watsiapp.utils.GsonHelper.getGson;
-
 import java.util.Date;
 import java.util.List;
 
@@ -27,10 +25,10 @@ public class MedicalPartner extends BaseModel{
  */
 
 	@Column(name = "med_partner_name")
-	public String name;
+	private String name;
 	
 	@Column(name = "web_url")
-	public String websiteUrl;
+	private String websiteUrl;
 
 	public static List<MedicalPartner> findAll() {
 		return new Select().from(MedicalPartner.class).execute();
@@ -44,24 +42,57 @@ public class MedicalPartner extends BaseModel{
 	 * 
 	 * ***/
 	@Column(name = "object_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-	public String objectId;
+	private  String objectId;
     
     @Column(name = "created_at")
-	public Date createdAt;
+    private  Date createdAt;
     
     @Column(name = "updated_at")
-	public Date updatedAt;
+    private  Date updatedAt;
 
 	@Override
 	public long persist() {
 		return this.save();
 	}
 
-	
-	public static  MedicalPartner fromJson(String jsonString) {
-		MedicalPartner partner=getGson().fromJson(jsonString, MedicalPartner.class);
-		return partner;
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public String getWebsiteUrl() {
+		return websiteUrl;
+	}
+
+	public void setWebsiteUrl(String websiteUrl) {
+		this.websiteUrl = websiteUrl;
+	}
+
+	public String getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
 }

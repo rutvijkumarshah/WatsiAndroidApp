@@ -24,9 +24,6 @@ package codepath.watsiapp.modelsv2;
 
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
@@ -35,25 +32,25 @@ import com.activeandroid.query.Select;
 public class PaymentConfirmation extends BaseModel {
 	
 	@Column(name="donorName",notNull=true)
-	public String donorName;
+	private String donorName;
 	
 	@Column(name="donorEmail",notNull=true)
-	public String donorEmail;
+	private String donorEmail;
 	
 	@Column(name="patientObjectId",notNull=true)
-	public String patientObjectId;
+	private String patientObjectId;
 	
 	@Column(name="amount",notNull=true)
-	public double amount;
+	private double amount;
 	
 	@Column(name="payPalConfirmation",notNull=true)
-	public String payPalConfirmation;
+	private String payPalConfirmation;
 	
 	@Column(name="isAnonymous",notNull=true)
-	public boolean isAnonymous;
+	private boolean isAnonymous;
 	
 	@Column(name="isSynced",notNull=true)
-	public boolean isSynced;
+	private boolean isSynced;
 	
 
 	@Override
@@ -63,20 +60,48 @@ public class PaymentConfirmation extends BaseModel {
 	public List<PaymentConfirmation> findNonSyncedConfirmations() {
 		return new Select().from(PaymentConfirmation.class).where("isSynced=?",false).execute();
 	}
-	public String toJSON() throws JSONException {
-		JSONObject payConfirmJson=new JSONObject();
-		JSONObject patientJson=new JSONObject();
-		patientJson.put("__type", "Pointer");
-		patientJson.put("className", "Patient");
-		patientJson.put("objectId", this.patientObjectId);
-		
-		payConfirmJson.put("patient", patientJson);
-		payConfirmJson.put("donorName", this.donorName);
-		payConfirmJson.put("donorEmail", this.donorEmail);
-		payConfirmJson.put("amount", this.amount);
-		payConfirmJson.put("payPalConfirmation", this.payPalConfirmation);
-		payConfirmJson.put("isAnonymous", this.isAnonymous);
-		
-		return payConfirmJson.toString();
+	public String getDonorName() {
+		return donorName;
 	}
+	public void setDonorName(String donorName) {
+		this.donorName = donorName;
+	}
+	public String getDonorEmail() {
+		return donorEmail;
+	}
+	public void setDonorEmail(String donorEmail) {
+		this.donorEmail = donorEmail;
+	}
+	public String getPatientObjectId() {
+		return patientObjectId;
+	}
+	public void setPatientObjectId(String patientObjectId) {
+		this.patientObjectId = patientObjectId;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	public String getPayPalConfirmation() {
+		return payPalConfirmation;
+	}
+	public void setPayPalConfirmation(String payPalConfirmation) {
+		this.payPalConfirmation = payPalConfirmation;
+	}
+	public boolean isAnonymous() {
+		return isAnonymous;
+	}
+	public void setAnonymous(boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+	public boolean isSynced() {
+		return isSynced;
+	}
+	public void setSynced(boolean isSynced) {
+		this.isSynced = isSynced;
+	}
+	
+	
 }

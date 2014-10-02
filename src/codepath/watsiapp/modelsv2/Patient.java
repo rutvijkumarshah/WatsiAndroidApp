@@ -3,10 +3,8 @@ package codepath.watsiapp.modelsv2;
 
 import java.util.Date;
 
-
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import static codepath.watsiapp.utils.GsonHelper.getGson;
 /***
  * Represents Patient in Application.
  * 
@@ -47,44 +45,43 @@ public class Patient extends BaseModel{
 
 	/*** Basic Properties ***/
 	@Column(name = "age")
-	public int age;
+	private int age;
 	
 	@Column(name = "country")
-	public String country;
+	private String country;
 
 	@Column(name = "firstName")
-	public String firstName;
+	private String firstName;
 
 	@Column(name = "lastName")
-	public String lastName;
+	private String lastName;
 
 	
 	@Column(name = "is_fully_funded")
-	public boolean isFullyFunded;
+	private boolean isFullyFunded;
 	
 	@Column(name = "medicalNeed")
-	public String medicalNeed;
+	private String medicalNeed;
 
 	@Column(name = "photo_url")
-	public String photoUrl;
+	private String photoUrl;
 	
 	@Column(name = "profile_url")
-	public String profileUrl;
+	private String profileUrl;
 	
 	@Column(name = "received_donation")
-	public double receivedDonation;
+	private double receivedDonation;
 	
 	@Column(name = "story")
-	public String story;
+	private String story;
 	
 	@Column(name = "target_donation")
-	public double targetDonation;
+	private double targetDonation;
 	
 	/*** Associated objects *****/
-
 	
 	@Column(name = "medical_partner")
-	public MedicalPartner medicalPartner;
+	private MedicalPartner medicalPartner;
 	
 	/**** 
 	 * Common fields for every Entity 
@@ -93,21 +90,14 @@ public class Patient extends BaseModel{
 	 * 
 	 * ***/
 	@Column(name = "object_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-	public String objectId;
+	private String objectId;
     
     @Column(name = "created_at")
-	public Date createdAt;
+    private Date createdAt;
     
     @Column(name = "updated_at")
-	public Date updatedAt;
+    private Date updatedAt;
 
-	public String getFullName() {
-		return String.format("%s%s", this.lastName,getLastName());
-	}
-
-	private String getLastName() {
-		return this.lastName == null ? "" : " "+this.lastName;
-	}
 
 	
 	@Override
@@ -126,11 +116,102 @@ public class Patient extends BaseModel{
 		this.receivedDonation=patient.receivedDonation;
 		this.targetDonation=patient.targetDonation;
 	}
-	public static  Patient fromJson(String jsonString) {
-		Patient patient=getGson().fromJson(jsonString, Patient.class);
-		return patient;
+	
+	///Getter Setters
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public boolean isFullyFunded() {
+		return isFullyFunded;
+	}
+	public void setFullyFunded(boolean isFullyFunded) {
+		this.isFullyFunded = isFullyFunded;
+	}
+	public String getMedicalNeed() {
+		return medicalNeed;
+	}
+	public void setMedicalNeed(String medicalNeed) {
+		this.medicalNeed = medicalNeed;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	public String getProfileUrl() {
+		return profileUrl;
+	}
+	public void setProfileUrl(String profileUrl) {
+		this.profileUrl = profileUrl;
+	}
+	public double getReceivedDonation() {
+		return receivedDonation;
+	}
+	public void setReceivedDonation(double receivedDonation) {
+		this.receivedDonation = receivedDonation;
+	}
+	public String getStory() {
+		return story;
+	}
+	public void setStory(String story) {
+		this.story = story;
+	}
+	public double getTargetDonation() {
+		return targetDonation;
+	}
+	public void setTargetDonation(double targetDonation) {
+		this.targetDonation = targetDonation;
+	}
+	public MedicalPartner getMedicalPartner() {
+		return medicalPartner;
+	}
+	public void setMedicalPartner(MedicalPartner medicalPartner) {
+		this.medicalPartner = medicalPartner;
+	}
+	public String getObjectId() {
+		return objectId;
+	}
+	public void setObjectId(String objectId) {
+		this.objectId = objectId;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
+
+
+	
 	
 }
 

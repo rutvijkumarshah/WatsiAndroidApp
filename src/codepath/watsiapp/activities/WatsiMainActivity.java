@@ -7,17 +7,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.fragments.PatientFeedFragment;
 import codepath.watsiapp.fragments.PatientListFragment;
 import codepath.watsiapp.fragments.PaymentAmountFragment;
-import codepath.watsiapp.modelsv2.Donor;
+import codepath.watsiapp.modelsv2.Main;
 import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.parse.ParseAnalytics;
 import com.paypal.android.sdk.payments.PayPalService;
 
@@ -36,35 +33,17 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());
 		vpPager.setAdapter(adapterViewPager);
 		setupSlidingTabs(vpPager);
-		DoTest();
+		
 	}
 
-	private void DoTest() {
-		String sample="{\n" +
-	              "            \"email\": \"rutvij.shah@yahoo.com\",\n" +
-	              "            \"firstName\": \"Rutvij\",\n" +
-	              "            \"lastName\": \"Shah\",\n" +
-	              "            \"memberSince\": {\n" +
-	              "                \"__type\": \"Date\",\n" +
-	              "                \"iso\": \"2014-07-28T05:56:28.259Z\"\n" +
-	              "            },\n" +
-	              "            \"createdAt\": \"2014-07-28T05:56:28.342Z\",\n" +
-	              "            \"updatedAt\": \"2014-07-28T05:56:28.342Z\",\n" +
-	              "            \"objectId\": \"SFoGgpWECe\"\n" +
-	              "        }";
-		
-		Donor donor = Donor.fromJson(sample);
-		assert donor.getFullName().equals("Rutvij Shah");
-		assert donor.memberSinceDate!=null;
-		Toast.makeText(this, ""+donor.memberSinceDate, Toast.LENGTH_LONG).show();
-	}
+	
 	public void showDonateDialog(String dialogHeader, String patientId,
 			String donateTo) {
 		FragmentManager fm = getSupportFragmentManager();
 		PaymentAmountFragment paymenttDialog = PaymentAmountFragment
 				.newInstance(dialogHeader, patientId, donateTo);
 		paymenttDialog.show(fm, "fragment_payment_amount");
-
+		
 	}
 
 	private void setupSlidingTabs(ViewPager vpPager2) {

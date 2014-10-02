@@ -2,6 +2,7 @@ package codepath.watsiapp;
 
 import android.app.Application;
 import codepath.watsiapp.activities.WatsiMainActivity;
+import codepath.watsiapp.api.Services;
 import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.MedicalPartner;
@@ -9,8 +10,6 @@ import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
 import com.activeandroid.ActiveAndroid;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -20,8 +19,8 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.PushService;
 
-public class WatsiApplication extends Application {
-
+public class WatsiApplication extends Application {	
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -29,13 +28,18 @@ public class WatsiApplication extends Application {
 
 		activeAndroidInit();
 		
+		String apiKey=getString(R.string.parse_REST_Api_Key);
+		String clientKey=getString(R.string.parse_client_key);
+		String appId=getString(R.string.parse_app_id);
+		
 		// Add your initialization code here
-	    Parse.initialize(this, getString(R.string.parse_app_id),
-	            getString(R.string.parse_client_key));
+	    Parse.initialize(this, appId,clientKey);
 	    
 	    ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
 		configurePush();
-
+		
+		Services.init(appId,apiKey);
+		
 		/**
 		 * We dont need automatic user for our app.
 		 * It creates problem as well for My profile view as PareLogin consider it valid user and does not force user to login.
@@ -58,6 +62,7 @@ public class WatsiApplication extends Application {
         	.defaultDisplayImageOptions(defaultOptions)
             .build();
         ImageLoader.getInstance().init(config);
+     
 	}
 
 	private void configurePush() {
@@ -85,7 +90,5 @@ public class WatsiApplication extends Application {
 		//Parse.enableLocalDatastore(getApplicationContext());
 		Parse.enableLocalDatastore(this);
 	}
-
-	
 
 }

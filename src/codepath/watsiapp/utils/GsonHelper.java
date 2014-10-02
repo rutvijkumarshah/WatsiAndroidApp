@@ -22,13 +22,37 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
+import codepath.watsiapp.modelsv2.Donation;
+import codepath.watsiapp.modelsv2.DonationDeserializer;
+import codepath.watsiapp.modelsv2.Donor;
+import codepath.watsiapp.modelsv2.DonorDeserializer;
+import codepath.watsiapp.modelsv2.PaymentConfirmation;
+import codepath.watsiapp.modelsv2.PaymentConfirmationSerializer;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class GsonHelper {
+	private static final String DATE_FORMAT_PATTERN="yyyy-MM-dd'T'HH:mm:ss";
+	
+	@SuppressLint("SimpleDateFormat")
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN);
 	
 	public static Gson getGson() {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+		Gson gson = new GsonBuilder()
+		.setDateFormat(DATE_FORMAT_PATTERN)
+		.registerTypeAdapter(PaymentConfirmation.class, new PaymentConfirmationSerializer())
+        .registerTypeAdapter(Donation.class, new DonationDeserializer())
+        .registerTypeAdapter(Donor.class, new DonorDeserializer())
+        .create();
 		return gson;
+	}
+	public static Date parseDate(String strDate) throws ParseException {
+			return dateFormat.parse(strDate);
 	}
 }

@@ -9,6 +9,7 @@
     <string name="lableUserName">User!</string>
     <string name="lblBtNewsAction">Fund Treatment</string>
     <string name="lblNewsHeading">You can make a difference !</string>
+    <string name="parse_REST_Api_Key">J2aUON2KwGuqAm6nH47qfB3IIABpZtzcd6OTdCte</string>
     <string name="parse_app_id">tezu5wFV9Z59i6HRSmKdfbcfv3wuUh84QlLrFOjJ</string>
     <string name="parse_client_key">SfhVI8iQxgdS63YMEPABsLOTaHoEoc78wJOQJFyS</string>
     <string name="facebook_app_id">783088611711767</string>
