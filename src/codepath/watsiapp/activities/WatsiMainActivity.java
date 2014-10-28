@@ -14,8 +14,6 @@ import codepath.watsiapp.fragments.PaymentAmountFragment;
 import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.parse.ParseAnalytics;
 import com.paypal.android.sdk.payments.PayPalService;
 

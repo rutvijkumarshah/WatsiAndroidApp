@@ -8,7 +8,7 @@ import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.NewsItem;
 import codepath.watsiapp.models.Patient;
 
-import com.activeandroid.ActiveAndroid;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

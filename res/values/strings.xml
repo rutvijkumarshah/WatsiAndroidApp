@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Watsi2</string>
+    <string name="app_name">Watsi</string>
     <string name="lblLocation">Location</string>
     <string name="lblMedicalPartner">Medical Partner</string>
     <string name="title_activity_patient_detail">PatientDetail</string>
