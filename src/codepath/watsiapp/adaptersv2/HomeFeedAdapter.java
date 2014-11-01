@@ -4,6 +4,9 @@ import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
 import static codepath.watsiapp.utils.Util.startShareIntentWithTwitter;
+
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -11,32 +14,29 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.activities.WatsiMainActivity;
-import codepath.watsiapp.models.Donation;
-import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.models.FeedItem;
 import codepath.watsiapp.models.FeedItem.ItemType;
-import codepath.watsiapp.models.NewsItem;
-import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.ParseHelper;
+import codepath.watsiapp.modelsv2.Donation;
+import codepath.watsiapp.modelsv2.Donor;
+import codepath.watsiapp.modelsv2.NewsItem;
+import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.utils.Util;
 import codepath.watsiapp.utils.Util.ShareableItem;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter;
 
-public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
+public class HomeFeedAdapter extends ArrayAdapter<NewsItem> {
 
 	private WatsiMainActivity activity;
 	public static final int PAGE_SIZE = 20; 
 
+	private ArrayList<NewsItem> newsItems;
 	private static final String TAG = "HOME_FEED_ADAPTER";
 
 
@@ -58,35 +58,20 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	}
 	private ViewHolder viewHolder;
 
-	public HomeFeedAdapter(Context context,ParseQueryAdapter.QueryFactory<NewsItem> queryFactory) {
+	public HomeFeedAdapter(Context context,ArrayList<NewsItem> newsItems) {
 		//Custom Query
-		super(context,queryFactory); 
+		super(context,R.layout.item_patient_news,newsItems); 
 		activity = (WatsiMainActivity) context;
-		this.setObjectsPerPage(PAGE_SIZE);
+		this.newsItems=newsItems;
 		
 	}
 
-	public HomeFeedAdapter(final Context context) {
-
-		// load all patients
-		// if required this is the place to apply where filters on patients list
-		this(context, new ParseQueryAdapter.QueryFactory<NewsItem>() {
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			public ParseQuery create() {
-				return new ParseHelper(context).getAllNewsFeedItem();
-			}
-		});
-	}
 
 
 	@Override
-	public int getViewTypeCount() {
-		return FeedItem.ItemType.values().length;
-	}
+	public View getView(int position, View convertView,ViewGroup parent) {
 
-	@Override
-	public View getItemView(final NewsItem newsItem, View convertView,ViewGroup parent) {
-
+		final NewsItem newsItem=getItem(position);
 		
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
@@ -99,7 +84,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		}
 
 		switch(newsItem.getItemType()) {
-		case CAMPAIGN_CONTENT : 
+		case CAMPAIGN_MESSAGE : 
 			convertView = getCampaignContentItemView(newsItem, convertView, parent);
 			viewHolder.donationProgress.setVisibility(View.INVISIBLE);
 			break;
@@ -227,10 +212,11 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 			Log.e(TAG, "Exxception while getting donation details "+e,e);
 			return convertView;
 		}
-
+		
+		
 		String shortDescription = patient.getFirstName() + " was helped !";
 		String donorNameToUse = donor.getFirstName();
-		if (dn.getIsAnonymous()) {
+		if (dn.isAnonymous()) {
 			// remove the donor name and call him 'A generous donor'
 			donorNameToUse = "A generous donor";
 		}
@@ -249,17 +235,13 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 		ItemType itemType=ItemType.FULLY_FUNDED;
 		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		Patient patient;
-		try {
-			patient = newsItem.getPatient().fetchIfNeeded();
-		} catch (ParseException e) {
-			Log.e(TAG, "Exxception while getting patient details "+e,e);;
-			return convertView;
-		}
+			patient = newsItem.getPatient();
+	
 
 		String shortDescription = patient.getFirstName() + " fully funded!!";
 		String message = patient.getFullName() + " will now be able to get medical" +
 				" treatment. Donors like you helped raise " +
-				Util.formatAmount(patient.getDonationReceived()) +". Big Thank You to all the donors !!"; 
+				Util.formatAmount(patient.getReceivedDonation()) +". Big Thank You to all the donors !!"; 
 
 		viewHolder.patient = patient;
 		viewHolder.shareableItem = patient;
@@ -271,13 +253,8 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 	private View getOnBoardedItemView(NewsItem newsItem, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder = (ViewHolder) convertView.getTag();
 		Patient patient;
-		try {
-			patient = newsItem.getPatient().fetchIfNeeded();
-		} catch (ParseException e) {
-			Log.e(TAG, "Exxception while getting donation details "+e,e);
-			return convertView;
-		}
-
+			patient = newsItem.getPatient();
+	
 		String shortDescription = patient.getFirstName() + " is looking for help!";
 		String message = patient.getMedicalNeed()  + ". You can help!"; 
 
@@ -306,7 +283,7 @@ public class HomeFeedAdapter extends ParseQueryAdapter<NewsItem> {
 
 		viewHolder.shortDescription.setText(shortDescription);
 		
-		if (viewHolder.itemType != ItemType.CAMPAIGN_CONTENT) {
+		if (viewHolder.itemType != ItemType.CAMPAIGN_MESSAGE) {
 			viewHolder.message.setMaxLines(3);
 			viewHolder.message.setEllipsize(TextUtils.TruncateAt.END);
 		} 

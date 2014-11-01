@@ -1,4 +1,4 @@
-package codepath.watsiapp.fragments;
+package codepath.watsiapp.fragmentsv2;
 
 import java.util.ArrayList;
 
@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.api.Services;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
+import com.activeandroid.util.Log;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 
 import eu.erikw.PullToRefreshListView;
@@ -23,23 +25,22 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class PatientFeedFragment extends Fragment {
 
-	private codepath.watsiapp.adaptersv2.HomeFeedAdapter patientFeedAdapter;
+	private codepath.watsiapp.adaptersv2.HomeFeedAdapter patientAdapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	
 	private static final String TAG="PATIENT_FEED";
+	private ArrayList<codepath.watsiapp.modelsv2.NewsItem> patients=new ArrayList<codepath.watsiapp.modelsv2.NewsItem>();
 	
-	public static final int PAGE_SIZE = 10;
+	public static final int PAGE_SIZE = 5; 
+
 	
-	private ArrayList<codepath.watsiapp.modelsv2.NewsItem> newsItems=new ArrayList<codepath.watsiapp.modelsv2.NewsItem>();
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		patientFeedAdapter=new codepath.watsiapp.adaptersv2.HomeFeedAdapter(getActivity(), newsItems);
+		patientAdapter=new codepath.watsiapp.adaptersv2.HomeFeedAdapter(getActivity(), patients);
 	}
-
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -48,9 +49,8 @@ public class PatientFeedFragment extends Fragment {
 				false);
 
 		progressBar=(ProgressBar)v.findViewById(R.id.pf_progressBar);
-		
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_feed_list);
-		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientFeedAdapter);
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientAdapter);
 		swingBottomInAnimationAdapter.setInitialDelayMillis(0);
 		swingBottomInAnimationAdapter.setAbsListView(listView);
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
@@ -58,13 +58,11 @@ public class PatientFeedFragment extends Fragment {
 		setupIintialViews();
 		return v;
 	}
-
-	
+ 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		progressBar.setVisibility(View.VISIBLE);
-		populateData(PAGE_SIZE,0);
+		setupIintialViews();
 	}
 
 	private void setupIintialViews() {
@@ -83,7 +81,7 @@ public class PatientFeedFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				progressBar.setVisibility(View.VISIBLE);
-				patientFeedAdapter.clear();
+				patientAdapter.clear();
 				
 				populateData(PAGE_SIZE,0,true);
 			}
@@ -93,23 +91,26 @@ public class PatientFeedFragment extends Fragment {
 	private void populateData(int pageSize,int skip) {
 		populateData(pageSize,skip,false);
 	}
-	
-	private void populateData(int pageSize,int skip,final boolean isPulledToRefresh) {
+	private void populateData(final int pageSize,final int skip,final boolean isPulledToRefresh) {
 		Services.getInstance().getNewsItemService().getNewsItems(pageSize, skip, new Callback<NewsItemsResponse>() {
 
 			@Override
-			public void failure(RetrofitError arg0) {
-				// TODO Auto-generated method stub
+			public void failure(RetrofitError err) {
+
+				Log.e("Error while loading page :"+pageSize+" and skip="+skip,err);
+				Toast.makeText(getActivity(), "Error:"+err, Toast.LENGTH_LONG).show();
+				progressBar.setVisibility(View.INVISIBLE);
 				
 			}
 
 			@Override
-			public void success(NewsItemsResponse response, Response arg1) {
+			public void success(NewsItemsResponse newsItemResponse, Response arg1) {
+				
 				if(isPulledToRefresh) {
 					listView.onRefreshComplete();
 				}
-				patientFeedAdapter.addAll(response.results);
-				patientFeedAdapter.notifyDataSetChanged();
+				patientAdapter.addAll(newsItemResponse.results);
+				patientAdapter.notifyDataSetChanged();
 				progressBar.setVisibility(View.INVISIBLE);
 				
 			}

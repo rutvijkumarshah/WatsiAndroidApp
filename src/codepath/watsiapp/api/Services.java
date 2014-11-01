@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.api;
 
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -37,7 +35,7 @@ import retrofit.http.Query;
 import codepath.watsiapp.modelsv2.Donation;
 import codepath.watsiapp.modelsv2.Donor;
 import codepath.watsiapp.modelsv2.NewsItem;
-import codepath.watsiapp.modelsv2.Patient;
+import codepath.watsiapp.modelsv2.NewsItemsResponse;
 import codepath.watsiapp.modelsv2.PatientsResponse;
 import codepath.watsiapp.utils.GsonHelper;
 
@@ -62,7 +60,7 @@ public class Services {
 	public interface NewsItemService {
 		@GET("/NewsItem?include=patient,donation,donation.donor&count=1&order=-updatedAt")
 		public void getNewsItems(@Query("limit") int limit,
-				@Query("skip") int skip, Callback<NewsItem> callback);
+				@Query("skip") int skip, Callback<NewsItemsResponse> callback);
 
 	}
 

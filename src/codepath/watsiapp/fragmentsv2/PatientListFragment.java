@@ -124,7 +124,7 @@ public class PatientListFragment extends Fragment {
 			
 			@Override
 			public void failure(RetrofitError err) {
-				// TODO Auto-generated method stub
+			
 				Toast.makeText(PatientListFragment.this.getActivity(), "Error:"+err.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 				progressBar.setVisibility(View.INVISIBLE);
 			}

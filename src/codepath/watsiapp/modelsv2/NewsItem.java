@@ -2,7 +2,7 @@ package codepath.watsiapp.modelsv2;
 
 import java.util.Date;
 
-import codepath.watsiapp.models.Donation;
+import codepath.watsiapp.models.FeedItem.ItemType;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -175,5 +175,8 @@ public class NewsItem extends BaseModel{
 	}
 	
 	
+	public ItemType getItemType(){
+		return ItemType.valueOf(getType().toUpperCase());
+	}
 
 }

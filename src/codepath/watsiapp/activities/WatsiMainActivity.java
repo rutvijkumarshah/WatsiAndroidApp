@@ -94,7 +94,7 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 			case 0:
 				return codepath.watsiapp.fragmentsv2.PatientListFragment.newInstance();
 			case 1:
-				return PatientFeedFragment.newInstance();
+				return codepath.watsiapp.fragmentsv2.PatientFeedFragment.newInstance();
 
 			default:
 				return null;

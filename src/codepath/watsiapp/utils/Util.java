@@ -56,6 +56,7 @@ import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.interfaces.DonationInfoStorage;
 import codepath.watsiapp.models.MedicalPartner;
 
+import com.activeandroid.util.Log;
 import com.astuetz.PagerSlidingTabStrip;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PaymentActivity;
@@ -234,6 +235,9 @@ public class Util {
 	}
 
 	public static String formatAmount(double amount) {
+		if(amount == 0){
+			Log.d("Ohh Hello");
+		}
 		return String.valueOf("$" + Math.ceil(amount)).split("\\.")[0];
 	}
 

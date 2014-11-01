@@ -57,7 +57,14 @@ public class DonationDeserializer implements JsonDeserializer<Donation>{
 		donation.setPatient(patient);
 		donation.setDonor(donor);
 		donation.setDonationDate(dt);
-		donation.setAnonymous(obj.get("isAnonymous").getAsBoolean());
+		double donationAmount = obj.get("donationAmount").getAsDouble();
+		
+		JsonElement anonymous = obj.get("isAnonymous");
+		if(anonymous!=null){
+			
+			donation.setAnonymous(anonymous.getAsBoolean());
+		}
+		donation.setDonationAmount(donationAmount);
 		donation.setObjectId(obj.get("objectId").getAsString());
 		return donation;
 	}
