@@ -174,7 +174,7 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		// Replace the container with the new fragment
 		ft.replace(R.id.donations,
-				DonationListFragment.newInstance(donor.getObjectId()));
+				codepath.watsiapp.fragmentsv2.DonationListFragment.newInstance(donor.getObjectId()));
 		ft.commit();
 	}
 

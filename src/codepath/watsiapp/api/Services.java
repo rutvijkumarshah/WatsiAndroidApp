@@ -33,6 +33,7 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import codepath.watsiapp.modelsv2.Donation;
+import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.modelsv2.Donor;
 import codepath.watsiapp.modelsv2.NewsItem;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
@@ -75,7 +76,7 @@ public class Services {
 		@GET("/Donation/{donationObjectId}?include=patient,donor")
 		public void findtDonationById(
 				@Path("donationObjectId") String donationObjectId,
-				Callback<Donation> callback);
+				Callback<DonationsResponse> callback);
 	}
 
 	public interface PaymentConfirmatons {
