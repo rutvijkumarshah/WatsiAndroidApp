@@ -18,7 +18,7 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-***/
+***//*
 
 package codepath.watsiapp.utils;
 
@@ -42,13 +42,13 @@ public class ParseHelper {
 		ParseQuery<Patient> patientQuery= new ParseQuery<Patient>("Patient");
 		
 		if(!Util.isNetworkAvailable(context)) {
-			/***
+			*//***
 			 * 
 			 * Parse Offline logic is erroring out for boolean key sorting.
 			 * In offline mode patient objects will be sorted by createdDate 
 			 * 
 			 * 
-			 */
+			 *//*
 			patientQuery.orderByAscending("updatedAt");
 			patientQuery.fromLocalDatastore();
 		}else {
@@ -99,3 +99,4 @@ public class ParseHelper {
 		return query;
 	}
 }
+*/

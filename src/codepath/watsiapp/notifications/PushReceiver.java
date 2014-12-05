@@ -3,6 +3,9 @@ package codepath.watsiapp.notifications;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,15 +16,13 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 import codepath.watsiapp.R;
-import codepath.watsiapp.R.drawable;
 import codepath.watsiapp.activities.PatientDetailActivity;
-import codepath.watsiapp.models.Donation;
-import codepath.watsiapp.models.Patient;
-import codepath.watsiapp.utils.ParseHelper;
+import codepath.watsiapp.api.Services;
+import codepath.watsiapp.modelsv2.Donation;
+import codepath.watsiapp.modelsv2.DonationsResponse;
+import codepath.watsiapp.modelsv2.Patient;
+import codepath.watsiapp.modelsv2.PatientsResponse;
 import codepath.watsiapp.utils.Util;
-
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 public class PushReceiver extends BroadcastReceiver {
 	private static final String TAG = "PushReceiver";
@@ -51,34 +52,48 @@ public class PushReceiver extends BroadcastReceiver {
 		}
 	}   
 
-	private void handleDonationRaisedNotification(Context context, String donationId) {
-		ParseHelper parseHelper = new ParseHelper(context);
-		ParseQuery<Donation> query = parseHelper.findDonationById(donationId);
-		try {
-			Donation donation = query.getFirst();
-			Patient p = donation.getPatient();
-			// Now open the patient details as a new activity.
-			String msg = Util.formatAmount(donation.getDonationAmount()) +
-					     " was donated to " + p.getFirstName();
-			postNotification(context, msg, p.getObjectId());
-		} catch (ParseException e) {
-			Toast.makeText(context, "Failed to open patient details", Toast.LENGTH_SHORT).show();
-			Log.e(TAG, "Excepton while geting donation info from donation Id="+donationId);
-		}
+	private void handleDonationRaisedNotification(final Context context, final String donationId) {
+		
+		Services.getInstance().getDonationService().findById(donationId, new Callback<DonationsResponse>() {
+			
+			@Override
+			public void success(DonationsResponse response, Response arg1) {
+				Donation donation =response.results.get(0);
+				
+				Patient p = donation.getPatient();
+				// Now open the patient details as a new activity.
+				String msg = Util.formatAmount(donation.getDonationAmount()) +
+						     " was donated to " + p.getFirstName();
+			}
+			
+			@Override
+			public void failure(RetrofitError e) {
+				Toast.makeText(context, "Failed to open patient details", Toast.LENGTH_SHORT).show();
+				Log.e(TAG, "Excepton while geting donation info from donation Id="+donationId);
+				
+			}
+		});
+		
 		
 	}
 	
-	private void handleNewsForPatient(Context context, String patientId, String news)
+	private void handleNewsForPatient(final Context context, final String patientId, final String news)
 	{
-		ParseQuery<Patient> query = ParseQuery.getQuery(Patient.class);
-		try {
-			Patient p = query.get(patientId);
-			p.fetchIfNeeded();
-			String msg = p.getFirstName() + news; 
-			postNotification(context, msg, patientId);
-		} catch (ParseException e) {
-			Log.e(TAG, "Exception while getting patient  from patientId="+patientId);
-		}
+		Services.getInstance().getPatientService().findById(patientId, new Callback<Patient>() {
+
+			@Override
+			public void failure(RetrofitError e) {
+				Log.e(TAG, "Exception while getting patient  from patientId="+patientId);
+				
+			}
+
+			@Override
+			public void success(Patient patient, Response arg1) {
+				String msg = patient.getFirstName() + news; 
+				postNotification(context, msg, patientId);
+				
+			}
+		});
 	}
 
 	private void postNotification(Context ctx, String title, String patientId) {

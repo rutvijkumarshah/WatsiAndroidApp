@@ -122,7 +122,7 @@ public class DonationListFragment extends Fragment {
 		populateData(pageSize,skip,false);
 	}
 	private void populateData(final int pageSize,final int skip,final boolean isPulledToRefresh) {
-		Services.getInstance().getDonationService().findtDonationById(this.donorId, new Callback<DonationsResponse>() {
+		Services.getInstance().getDonationService().findDonationsByDonarId(this.donorId, new Callback<DonationsResponse>() {
 			
 			@Override
 			public void success(DonationsResponse arg0, Response arg1) {

@@ -37,6 +37,7 @@ import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.modelsv2.Donor;
 import codepath.watsiapp.modelsv2.NewsItem;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
+import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.modelsv2.PatientsResponse;
 import codepath.watsiapp.utils.GsonHelper;
 
@@ -55,6 +56,12 @@ public class Services {
 		@GET("/Patient?order=isFullyFunded,-createdAt&include=medicalPartner&count=1")
 		public void getPatients(@Query("limit") int limit,
 				@Query("skip") int skip, Callback<PatientsResponse> callback);
+		
+		@GET("/Patient/{patientObjectId}?include=medicalPartner")
+		public void findById(
+				@Path("patientObjectId") String patientObjectId,
+				Callback<Patient> callback);
+
 
 	}
 
@@ -68,15 +75,23 @@ public class Services {
 	public interface DonorService {
 		// ?where={\"email\" : \"{donorEmail}\" }"
 		@GET("/Donor")
-		public void findtDonorById(@Query("where") String whereClause,
+		public void findById(@Query("where") String whereClause,
 				Callback<Donor> callback);
 	}
 
 	public interface DonationService {
 		@GET("/Donation/{donationObjectId}?include=patient,donor")
-		public void findtDonationById(
+		public void findById(
 				@Path("donationObjectId") String donationObjectId,
 				Callback<DonationsResponse> callback);
+	
+		@GET("/Donation?include=patient,donor?" +
+				"where={\"donor\":{\"__type\":\"Pointer\",\"className\":\"Donor\"," +
+				"\"objectId\":\"{donorObjectId}\"}}&count=1&limit=10&include=patient&order=-donationDate")
+		public void findDonationsByDonarId(
+				@Path("donorObjectId") String donorObjectId,
+				Callback<DonationsResponse> callback);
+					
 	}
 
 	public interface PaymentConfirmatons {

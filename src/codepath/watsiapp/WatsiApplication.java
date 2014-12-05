@@ -3,7 +3,6 @@ package codepath.watsiapp;
 import android.app.Application;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.api.Services;
-import codepath.watsiapp.models.Donation;
 import codepath.watsiapp.models.Donor;
 import codepath.watsiapp.models.MedicalPartner;
 import codepath.watsiapp.models.NewsItem;
@@ -82,7 +81,7 @@ public class WatsiApplication extends Application {
 		// Register Models
 		ParseObject.registerSubclass(Donor.class);
 		ParseObject.registerSubclass(Patient.class);
-		ParseObject.registerSubclass(Donation.class);
+//		ParseObject.registerSubclass(Donation.class);
 		ParseObject.registerSubclass(NewsItem.class);
 		ParseObject.registerSubclass(MedicalPartner.class);
 		// useful for temporarily storing data to local datastore so that it can
