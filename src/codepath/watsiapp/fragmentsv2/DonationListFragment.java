@@ -22,10 +22,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.fragmentsv2;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,13 +34,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import codepath.watsiapp.R;
-import codepath.watsiapp.adapters.DonationAdapter;
+import codepath.watsiapp.adaptersv2.DonationAdapter;
+import codepath.watsiapp.api.Services;
 import codepath.watsiapp.interfaces.OnDonationStatsCalculatedListener;
-import codepath.watsiapp.models.Donation;
+import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
-import com.parse.ParseQueryAdapter.OnQueryLoadListener;
+import com.activeandroid.util.Log;
 
 import eu.erikw.PullToRefreshListView;
 import eu.erikw.PullToRefreshListView.OnRefreshListener;
@@ -53,12 +56,17 @@ public class DonationListFragment extends Fragment {
 	private static final String DONOR_ID = "DONOR_ID";
 	private OnDonationStatsCalculatedListener listener;
 
+	public static final int PAGE_SIZE = 20;
+	
+	private ArrayList<codepath.watsiapp.modelsv2.Donation> donations=new ArrayList<codepath.watsiapp.modelsv2.Donation>();
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle bundle = getArguments();
 		String donor__id = bundle.getString(DONOR_ID);
 		this.donorId = donor__id;
+		donationAdapter=new codepath.watsiapp.adaptersv2.DonationAdapter(getActivity(), donations);
 	}
 
 	@Override
@@ -75,35 +83,7 @@ public class DonationListFragment extends Fragment {
 				false);
 
 		progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-		donationAdapter = new DonationAdapter(getActivity(), donorId);
-		donationAdapter
-				.addOnQueryLoadListener(new OnQueryLoadListener<Donation>() {
-
-					@Override
-					public void onLoaded(List<Donation> donations, Exception exp) {
-						progressBar.setVisibility(View.INVISIBLE);
-						listView.onRefreshComplete();
-						if (exp == null) {
-							
-							double totalDonations = 0.00;
-							final Set<String> treatments = new HashSet<String>();
-							for (Donation donation : donations) {
-								totalDonations += donation.getDonationAmount();
-								treatments.add(donation.getPatient()
-										.getObjectId());
-							}
-							listener.totalDonationsCalculated(totalDonations);
-							listener.totalTreatmentsCalculated(treatments
-									.size());
-							Donation.pinAllInBackground(donations);	
-						}
-					}
-
-					@Override
-					public void onLoading() {
-						progressBar.setVisibility(View.VISIBLE);
-					}
-				});
+		//donationAdapter = new DonationAdapter(getActivity(), donorId);
 		listView = (PullToRefreshListView) v.findViewById(R.id.donation_list);
 		listView.setAdapter(donationAdapter);
 		setupIintialViews();
@@ -120,7 +100,9 @@ public class DonationListFragment extends Fragment {
 		listView.setOnScrollListener(new EndlessScrollListener() {
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
-				if (totalItemsCount > 0) {
+				if(totalItemsCount > 0) {
+					populateData(PAGE_SIZE,totalItemsCount);
+					
 				}
 			}
 
@@ -128,11 +110,44 @@ public class DonationListFragment extends Fragment {
 		listView.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
+				progressBar.setVisibility(View.VISIBLE);
 				donationAdapter.clear();
-				donationAdapter.loadObjects();
+				
+				populateData(PAGE_SIZE,0,true);
 			}
 		});
+	}
 
+	private void populateData(int pageSize,int skip) {
+		populateData(pageSize,skip,false);
+	}
+	private void populateData(final int pageSize,final int skip,final boolean isPulledToRefresh) {
+		Services.getInstance().getDonationService().findtDonationById(this.donorId, new Callback<DonationsResponse>() {
+			
+			@Override
+			public void success(DonationsResponse arg0, Response arg1) {
+
+				if(isPulledToRefresh) {
+					listView.onRefreshComplete();
+				}
+				donationAdapter.addAll(arg0.results);
+				donationAdapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.INVISIBLE);
+				
+				
+			}
+			
+			@Override
+			public void failure(RetrofitError err) {
+				Log.e("Error while loading page :"+pageSize+" and skip="+skip,err);
+				Toast.makeText(getActivity(), "Error:"+err, Toast.LENGTH_LONG).show();
+				progressBar.setVisibility(View.INVISIBLE);
+			
+				
+			}
+		});
+		
+		
 	}
 
 	public static DonationListFragment newInstance(String donorId) {
