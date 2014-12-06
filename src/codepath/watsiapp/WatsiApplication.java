@@ -18,8 +18,6 @@ public class WatsiApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		parsePreInit();
-
 		activeAndroidInit();
 		
 		String apiKey=getString(R.string.parse_REST_Api_Key);
@@ -68,21 +66,6 @@ public class WatsiApplication extends Application {
 		ActiveAndroid.initialize(this);
 
 	}
-	/**
-	 * Parse has many configurations that can be turned on or off before
-	 * initialization. All of them can go inside this function.
-	 */
-	private void parsePreInit() {
-		// Register Models
-//		ParseObject.registerSubclass(Donor.class);
-//		ParseObject.registerSubclass(Patient.class);
-//		ParseObject.registerSubclass(Donation.class);
-//		ParseObject.registerSubclass(NewsItem.class);
-//		ParseObject.registerSubclass(MedicalPartner.class);
-		// useful for temporarily storing data to local datastore so that it can
-		// be synced later.
-		//Parse.enableLocalDatastore(getApplicationContext());
-		Parse.enableLocalDatastore(this);
-	}
+	
 
 }
