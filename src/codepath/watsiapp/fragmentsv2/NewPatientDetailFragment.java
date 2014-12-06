@@ -1,4 +1,4 @@
-package codepath.watsiapp.fragments;
+package codepath.watsiapp.fragmentsv2;
 
 import static codepath.watsiapp.utils.Util.startShareIntent;
 import static codepath.watsiapp.utils.Util.startShareIntentWithFaceBook;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
-import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.utils.Util;
 
 import com.parse.ParseException;
@@ -49,12 +49,8 @@ public class NewPatientDetailFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		patientId = getArguments().getString("patient_id", "");
 		// Get patient object based on id that we have got.
-		patientObj = ParseObject.createWithoutData(Patient.class, patientId);
-		try {
-			patientObj = patientObj.fetchIfNeeded();
-		} catch (ParseException e) {
-			Log.e(TAG, "Exception while getting patient by id="+patientId+" "+e,e);
-		}
+		patientObj= Patient.loadByObjectId(Patient.class, patientId);
+		
 	}
 
 	  // Define the listener of the interface type
@@ -193,22 +189,8 @@ public class NewPatientDetailFragment extends Fragment {
 				return PatientImageViewFragment.newInstance(patientObj
 						.getPhotoUrl());
 			} else {
-				String ageStr = null;
-				int age = patientObj.getAge();
-				if (age == 0) {
-					ageStr = "a cute little baby";
-				}
-				else if (age == 1) {
-					ageStr ="a year old";
-				} else {
-					ageStr = age + " years old";
-				}
-				return PatientSummaryFragment.newInstance(
-						patientObj.getMedicalNeed(), ageStr,
-						patientObj.getCountry(),
-						patientObj.getDonationProgressPecentage() + "% funded",
-						patientId
-						);
+				
+				return PatientSummaryFragment.newInstance(patientObj);
 			}
 		}
 

@@ -2,7 +2,8 @@ package codepath.watsiapp.modelsv2;
 
 import java.util.Date;
 
-import codepath.watsiapp.models.FeedItem.ItemType;
+
+import codepath.watsiapp.modelsv2.FeedItem.ItemType;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;

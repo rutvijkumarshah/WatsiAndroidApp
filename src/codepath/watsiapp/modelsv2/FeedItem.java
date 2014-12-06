@@ -1,4 +1,4 @@
-package codepath.watsiapp.models;
+package codepath.watsiapp.modelsv2;
 
 
 public interface FeedItem {

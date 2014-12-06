@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import codepath.watsiapp.R;
-import codepath.watsiapp.fragments.NewPatientDetailFragment;
-import codepath.watsiapp.fragments.NewPatientDetailFragment.OnDonateClickedListener;
-import codepath.watsiapp.fragments.PaymentAmountFragment;
+import codepath.watsiapp.fragmentsv2.NewPatientDetailFragment;
+import codepath.watsiapp.fragmentsv2.PaymentAmountFragment;
+import codepath.watsiapp.fragmentsv2.NewPatientDetailFragment.OnDonateClickedListener;
 
 public class PatientDetailActivity extends BaseFragmentActivity implements OnDonateClickedListener {
 	private String patientId;

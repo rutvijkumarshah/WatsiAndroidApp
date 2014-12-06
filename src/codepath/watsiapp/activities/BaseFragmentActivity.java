@@ -25,6 +25,9 @@ package codepath.watsiapp.activities;
 
 import org.json.JSONException;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -40,17 +43,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import codepath.watsiapp.R;
+import codepath.watsiapp.api.Services;
+import codepath.watsiapp.api.Services.PaymentConfirmatons;
 import codepath.watsiapp.interfaces.DonationInfoStorage;
-import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.modelsv2.PaymentConfirmation;
 import codepath.watsiapp.utils.PrefsHelper;
 import codepath.watsiapp.utils.Util;
 
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
+
 
 public class BaseFragmentActivity extends FragmentActivity implements DonationInfoStorage {
 
@@ -148,20 +152,36 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	@Override
 	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
 	    if (resultCode == Activity.RESULT_OK) {
-	        PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+	        com.paypal.android.sdk.payments.PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
 	        if (confirm != null) {
 	            try {
 	            	showThankYouNote();
-	                ParseObject confirmation = new ParseObject("PaymentConfirmatons");
-	                confirmation.put("donorName", getUserFullName());
-	                confirmation.put("donorEmail", getUserEmail());
-	                confirmation.put("patient", Patient.createWithoutData(Patient.class, getPatientId()));
-	                confirmation.put("amount", getDonationAmount());
-	                confirmation.put("confirmation", confirm.toJSONObject().toString(4));
-	                confirmation.put("isAnonymous", isAnonymousDonation());
-	                confirmation.saveInBackground();
+	            	PaymentConfirmation confirmation=new PaymentConfirmation();
+	            	
+	            	confirmation.setDonorName(getUserFullName());
+	            	confirmation.setDonorEmail(getUserEmail());
+	            	confirmation.setPatientObjectId(getPatientId());
+	            	confirmation.setAmount(getDonationAmount());
+	            	confirmation.setPayPalConfirmation(confirm.toJSONObject().toString(4));
+	            	confirmation.setAnonymous(isAnonymousDonation());
+	            	
+	            	Services.getInstance().getPaymentConfirmatons().postConfirmation(confirmation, new Callback<PaymentConfirmation>() {
+
+						@Override
+						public void failure(RetrofitError arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void success(PaymentConfirmation confirmation,
+								Response arg1) {
+							prefs.clear();
+							
+						}
+					});
 	                
-	                prefs.clear();
+	                
 
 	            } catch (JSONException e) {
 	                Log.e(TAG_PAYPAL, "an extremely unlikely failure occurred: ", e);

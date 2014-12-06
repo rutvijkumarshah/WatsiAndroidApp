@@ -26,7 +26,7 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class PatientListFragment extends Fragment {
 	
-	private PatientAdapter patientAdapter;
+	private PatientAdapter adapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	private ArrayList<Patient> patients=new ArrayList<Patient>();
@@ -47,7 +47,7 @@ public class PatientListFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		patientAdapter=new PatientAdapter(getActivity(), patients);
+		adapter=new PatientAdapter(getActivity(), patients);
 	}
 
 
@@ -63,7 +63,7 @@ public class PatientListFragment extends Fragment {
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_list);
 		
 		
-		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(patientAdapter);
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
 		swingBottomInAnimationAdapter.setInitialDelayMillis(0);
 		swingBottomInAnimationAdapter.setAbsListView(listView);
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
@@ -96,7 +96,7 @@ public class PatientListFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				progressBar.setVisibility(View.VISIBLE);
-				patientAdapter.clear();
+				adapter.clear();
 				
 				populateData(PAGE_SIZE,0,true);
 			}
@@ -112,14 +112,20 @@ public class PatientListFragment extends Fragment {
 		Services.getInstance().getPatientService().getPatients(pageSize, skip, new Callback<PatientsResponse>() {
 			
 			@Override
-			public void success(PatientsResponse patientsResponse, Response arg1) {
+			public void success(PatientsResponse response, Response arg1) {
+				if(isPulledToRefresh) {
+					Patient.deleteAll(Patient.class);
+				}
+				
+				for (Patient obj : response.results) {
+					adapter.add(obj);
+					obj.persist();
+				}
+				adapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.INVISIBLE);
 				if(isPulledToRefresh) {
 					listView.onRefreshComplete();
 				}
-				patientAdapter.addAll(patientsResponse.results);
-				patientAdapter.notifyDataSetChanged();
-				progressBar.setVisibility(View.INVISIBLE);
-				
 			}
 			
 			@Override

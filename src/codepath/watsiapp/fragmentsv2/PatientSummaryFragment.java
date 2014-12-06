@@ -20,7 +20,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  ***/
 
-package codepath.watsiapp.fragments;
+package codepath.watsiapp.fragmentsv2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,46 +30,26 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import codepath.watsiapp.R;
-import codepath.watsiapp.models.MedicalPartner;
-import codepath.watsiapp.models.Patient;
+import codepath.watsiapp.modelsv2.MedicalPartner;
+import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.utils.Util;
-
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
 
 public class PatientSummaryFragment extends Fragment {
 
-	private static final String MEDICAL_NEED_KEY = "EXTRA_MEDICAL_NEED";
-	private static final String AGE_KEY = "EXTRA_AGE";
-	private static final String LOCATION_KEY = "EXTRA_LOCATION";
-	private static final String FUNDEDPROGRESS_KEY = "EXTRA_FUNDEDPROGRESS";
-	private static final String PATIENT_ID__KEY = "EXTRA_PATIENT_ID";
-
-	private String medicalNeed;
-	private String age;
-	private String location;
-	private String fundedProgress;
+	private static final String PATIENT_OBJ__KEY = "EXTRA_PATIENT_OBJ";
 
 	private TextView medicalNeedTv;
 	private TextView personBio;
 	private TextView percentageFundedTv;
 	private TextView medicalPartnerVal;
-	private String patientId;
 	private Patient patientObj;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
-		medicalNeed = getArguments().getString(MEDICAL_NEED_KEY);
-		age = getArguments().getString(AGE_KEY);
-		location = getArguments().getString(LOCATION_KEY);
-		fundedProgress = getArguments().getString(FUNDEDPROGRESS_KEY);
-		patientId = getArguments().getString(PATIENT_ID__KEY);
-		patientObj = ParseObject.createWithoutData(Patient.class, patientId);
-
+		patientObj=(Patient)getArguments().getSerializable(PATIENT_OBJ__KEY);
+	
 	}
 
 	@Override
@@ -83,43 +63,35 @@ public class PatientSummaryFragment extends Fragment {
 		percentageFundedTv = (TextView) v.findViewById(R.id.percentageFunded);
 		medicalPartnerVal = (TextView) v.findViewById(R.id.medicalPartnerVal);
 
-		medicalNeedTv.setText(medicalNeed);
+		medicalNeedTv.setText(patientObj.getMedicalNeed());
 		Util.applyPrimaryFont(getActivity(), medicalNeedTv);
-		personBio.setText(patientObj.getFullName() +" is " +age +" from "+location+"." );
+		personBio.setText(patientObj.getFullName() +" is " +patientObj.getAgeString() +" from "+patientObj.getCountry()+"." );
 		Util.applyPrimaryFont(getActivity(), personBio);
-		percentageFundedTv.setText(fundedProgress);
+		
+		
+		percentageFundedTv.setText(patientObj.getDonationProgressPecentage() + "% funded");
 		Util.applyPrimaryFont(getActivity(), percentageFundedTv);
 
-		patientObj.getMedicalPartner(new GetCallback<MedicalPartner>() {
+		final MedicalPartner medicalPartner=patientObj.getMedicalPartner();
+		medicalPartnerVal.setText(medicalPartner.getName());
+		Util.applyPrimaryFont(getActivity(), medicalPartnerVal);
+		Util.makeTextViewHyperlink(medicalPartnerVal);
+		medicalPartnerVal.setOnClickListener(new OnClickListener() {
 			@Override
-			public void done(final MedicalPartner object, ParseException arg1) {
-				medicalPartnerVal.setText(object.getName());
-				Util.applyPrimaryFont(getActivity(), medicalPartnerVal);
-				Util.makeTextViewHyperlink(medicalPartnerVal);
-				medicalPartnerVal.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Util.starShowMedicalPartnerIntent(getActivity(),
-								object.getWebsiteUrl());
-					}
-				});
+			public void onClick(View v) {
+				Util.starShowMedicalPartnerIntent(getActivity(),
+						medicalPartner.getWebsiteUrl());
 			}
 		});
-
+	
 		return v;
 
 	}
 
-	public static PatientSummaryFragment newInstance(String medicalNeed,
-			String ageStr, String location, String fundedProgressStr,
-			String patientId) {
+	public static PatientSummaryFragment newInstance(Patient patient) {
 		PatientSummaryFragment fragment = new PatientSummaryFragment();
 		Bundle args = new Bundle();
-		args.putString(MEDICAL_NEED_KEY, medicalNeed);
-		args.putString(AGE_KEY, ageStr);
-		args.putString(LOCATION_KEY, location);
-		args.putString(FUNDEDPROGRESS_KEY, fundedProgressStr);
-		args.putString(PATIENT_ID__KEY, patientId);
+		args.putSerializable(PATIENT_OBJ__KEY, patient);
 		fragment.setArguments(args);
 		return fragment;
 	}

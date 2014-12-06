@@ -3,10 +3,6 @@ package codepath.watsiapp;
 import android.app.Application;
 import codepath.watsiapp.activities.WatsiMainActivity;
 import codepath.watsiapp.api.Services;
-import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.models.MedicalPartner;
-import codepath.watsiapp.models.NewsItem;
-import codepath.watsiapp.models.Patient;
 
 import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -15,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseFacebookUtils;
-import com.parse.ParseObject;
 import com.parse.PushService;
 
 public class WatsiApplication extends Application {	
@@ -79,11 +74,11 @@ public class WatsiApplication extends Application {
 	 */
 	private void parsePreInit() {
 		// Register Models
-		ParseObject.registerSubclass(Donor.class);
-		ParseObject.registerSubclass(Patient.class);
+//		ParseObject.registerSubclass(Donor.class);
+//		ParseObject.registerSubclass(Patient.class);
 //		ParseObject.registerSubclass(Donation.class);
-		ParseObject.registerSubclass(NewsItem.class);
-		ParseObject.registerSubclass(MedicalPartner.class);
+//		ParseObject.registerSubclass(NewsItem.class);
+//		ParseObject.registerSubclass(MedicalPartner.class);
 		// useful for temporarily storing data to local datastore so that it can
 		// be synced later.
 		//Parse.enableLocalDatastore(getApplicationContext());

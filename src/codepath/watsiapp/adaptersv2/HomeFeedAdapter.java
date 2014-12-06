@@ -21,9 +21,10 @@ import android.widget.TextView;
 import codepath.watsiapp.R;
 import codepath.watsiapp.activities.PatientDetailActivity;
 import codepath.watsiapp.activities.WatsiMainActivity;
-import codepath.watsiapp.models.FeedItem.ItemType;
+
 import codepath.watsiapp.modelsv2.Donation;
 import codepath.watsiapp.modelsv2.Donor;
+import codepath.watsiapp.modelsv2.FeedItem.ItemType;
 import codepath.watsiapp.modelsv2.NewsItem;
 import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.utils.Util;

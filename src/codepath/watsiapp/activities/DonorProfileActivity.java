@@ -1,27 +1,26 @@
 package codepath.watsiapp.activities;
 
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
+import retrofit.Callback;
+import retrofit.RetrofitError;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codepath.watsiapp.R;
+import codepath.watsiapp.api.Services;
 import codepath.watsiapp.fragmentsv2.PatientFeedFragment;
 import codepath.watsiapp.interfaces.OnDonationStatsCalculatedListener;
-import codepath.watsiapp.models.Donor;
-import codepath.watsiapp.utils.ParseHelper;
+import codepath.watsiapp.modelsv2.*;
 import codepath.watsiapp.utils.Util;
 
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class DonorProfileActivity extends BaseFragmentActivity implements
@@ -102,22 +101,32 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 		}
 	}
 
-	private void showDonorInformaiton(String fullName,String email,boolean isFacebookLinkedUser) {
+	private void showDonorInformaiton(String fullName,String email,final boolean isFacebookLinkedUser) {
 		
 		donarFullName.setText(fullName);
-		ParseHelper parseHelper = new ParseHelper(getApplicationContext());
-		ParseQuery<Donor> query = parseHelper.findDonorByEmail(email);
-		try {
-			donor = query.getFirst();
-		} catch (ParseException exp) {
-			Log.e(TAG_IGNORE_EXP, "Donor not found from email address ");
-		}
+		String whereClause="?where={\"email\" : \"%s\" }";
 		
-		if (donor != null) {
-			showDetailsForDonor(isFacebookLinkedUser);
-		} else {
-			showDetailsForNonDonor();
-		}
+		Services.getInstance().getDonorService().findById(String.format(whereClause, email), new Callback<Donor>() {
+			
+			@Override
+			public void failure(RetrofitError arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void success(Donor donorObj, retrofit.client.Response arg1) {
+				// TODO Auto-generated method stub
+				donor=donorObj;
+				if (donor != null) {
+					showDetailsForDonor(isFacebookLinkedUser);
+				} else {
+					showDetailsForNonDonor();
+				}
+			}
+		});
+		
+		
 	}
 	private void setDefaultUserPic() {
 		String uri = "@drawable/profile_img";

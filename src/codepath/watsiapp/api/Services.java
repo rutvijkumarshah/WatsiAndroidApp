@@ -32,13 +32,12 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
-import codepath.watsiapp.modelsv2.Donation;
 import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.modelsv2.Donor;
-import codepath.watsiapp.modelsv2.NewsItem;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
 import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.modelsv2.PatientsResponse;
+import codepath.watsiapp.modelsv2.PaymentConfirmation;
 import codepath.watsiapp.utils.GsonHelper;
 
 public class Services {
@@ -96,7 +95,7 @@ public class Services {
 
 	public interface PaymentConfirmatons {
 		@POST("/PaymentConfirmatons")
-		public void postConfirmation(PaymentConfirmatons confirmation,Callback<PaymentConfirmatons> callback);
+		public void postConfirmation(PaymentConfirmation confirmation,Callback<PaymentConfirmation> callback);
 	}
 
 	// Add getters for services here

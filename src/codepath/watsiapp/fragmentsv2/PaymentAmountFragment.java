@@ -1,4 +1,4 @@
-package codepath.watsiapp.fragments;
+package codepath.watsiapp.fragmentsv2;
 
 import static codepath.watsiapp.utils.Util.applyPrimaryFont;
 import android.app.Activity;

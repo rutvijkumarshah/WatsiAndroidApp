@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import codepath.watsiapp.R;
-import codepath.watsiapp.fragments.PaymentAmountFragment;
+import codepath.watsiapp.fragmentsv2.PaymentAmountFragment;
 import codepath.watsiapp.utils.Util;
 
 import com.astuetz.PagerSlidingTabStrip;

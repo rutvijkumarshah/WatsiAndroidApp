@@ -14,7 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.api.Services;
+import codepath.watsiapp.modelsv2.NewsItem;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
+import codepath.watsiapp.modelsv2.Patient;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
 import com.activeandroid.util.Log;
@@ -25,7 +27,7 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class PatientFeedFragment extends Fragment {
 
-	private codepath.watsiapp.adaptersv2.HomeFeedAdapter feedAdapter;
+	private codepath.watsiapp.adaptersv2.HomeFeedAdapter adapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	
@@ -39,7 +41,7 @@ public class PatientFeedFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		feedAdapter=new codepath.watsiapp.adaptersv2.HomeFeedAdapter(getActivity(), newsItems);
+		adapter=new codepath.watsiapp.adaptersv2.HomeFeedAdapter(getActivity(), newsItems);
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +52,7 @@ public class PatientFeedFragment extends Fragment {
 
 		progressBar=(ProgressBar)v.findViewById(R.id.pf_progressBar);
 		listView = (PullToRefreshListView) v.findViewById(R.id.patient_feed_list);
-		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(feedAdapter);
+		SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
 		swingBottomInAnimationAdapter.setInitialDelayMillis(0);
 		swingBottomInAnimationAdapter.setAbsListView(listView);
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
@@ -81,7 +83,7 @@ public class PatientFeedFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				progressBar.setVisibility(View.VISIBLE);
-				feedAdapter.clear();
+				adapter.clear();
 				
 				populateData(PAGE_SIZE,0,true);
 			}
@@ -104,14 +106,21 @@ public class PatientFeedFragment extends Fragment {
 			}
 
 			@Override
-			public void success(NewsItemsResponse newsItemResponse, Response arg1) {
+			public void success(NewsItemsResponse response, Response arg1) {
 				
+				if(isPulledToRefresh) {
+					NewsItem.deleteAll(NewsItem.class);
+				}
+				
+				for (NewsItem obj : response.results) {
+					adapter.add(obj);
+					obj.persist();
+				}
+				adapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.INVISIBLE);
 				if(isPulledToRefresh) {
 					listView.onRefreshComplete();
 				}
-				feedAdapter.addAll(newsItemResponse.results);
-				feedAdapter.notifyDataSetChanged();
-				progressBar.setVisibility(View.INVISIBLE);
 				
 			}
 		});

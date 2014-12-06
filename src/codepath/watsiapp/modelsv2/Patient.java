@@ -7,6 +7,7 @@ import codepath.watsiapp.utils.Util.ShareableItem;
 
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 /***
  * Represents Patient in Application.
  * 
@@ -227,10 +228,20 @@ public class Patient extends BaseModel implements ShareableItem{
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 
+	public  String getAgeString(){
+		String ageStr = null;
+		int age = getAge();
+		if (age == 0) {
+			ageStr = "a cute little baby";
+		}
+		else if (age == 1) {
+			ageStr ="a year old";
+		} else {
+			ageStr = age + " years old";
+		}
+		return ageStr;
+	}
 
-	
-	
 }
 

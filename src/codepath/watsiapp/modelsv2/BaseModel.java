@@ -22,10 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.modelsv2;
 
+import java.io.Serializable;
+
 import com.activeandroid.Model;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
-public abstract class BaseModel extends Model {
+public abstract class BaseModel extends Model implements Serializable{
 	
 	public abstract long persist();
 	
@@ -33,4 +36,8 @@ public abstract class BaseModel extends Model {
 	public static <T extends Model> T loadByObjectId(Class<T> type, String objectId) {	
 		return (T) new Select().from(type).where("objectId=?",  objectId).executeSingle();
 	}
+	
+	public static <T extends Model> void deleteAll(Class<T> type) { 
+		 new Delete().from(type).execute(); 
+	} 
 }

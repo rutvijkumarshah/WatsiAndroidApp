@@ -54,7 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import codepath.watsiapp.activities.ParseDispatchActivity;
 import codepath.watsiapp.interfaces.DonationInfoStorage;
-import codepath.watsiapp.models.MedicalPartner;
+import codepath.watsiapp.modelsv2.MedicalPartner;
 
 import com.activeandroid.util.Log;
 import com.astuetz.PagerSlidingTabStrip;
@@ -74,6 +74,8 @@ public class Util {
 	private static final Set<String> TWITTER_ACTIVITIES=new HashSet<String>(Arrays.asList("com.twitter.android.composer.ComposerActivity"));
 	public static final String UNIVERSAL_FUND_URL = "https://watsi.org/funds/universal-fund";
 
+	
+	
 	private static class UniversalFeedItem implements ShareableItem {
 		public UniversalFeedItem() {
 		}

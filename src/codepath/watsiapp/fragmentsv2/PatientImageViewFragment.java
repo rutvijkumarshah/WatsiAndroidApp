@@ -20,7 +20,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***/
 
-package codepath.watsiapp.fragments;
+package codepath.watsiapp.fragmentsv2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

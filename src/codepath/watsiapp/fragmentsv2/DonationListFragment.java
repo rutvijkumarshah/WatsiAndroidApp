@@ -39,6 +39,7 @@ import codepath.watsiapp.R;
 import codepath.watsiapp.adaptersv2.DonationAdapter;
 import codepath.watsiapp.api.Services;
 import codepath.watsiapp.interfaces.OnDonationStatsCalculatedListener;
+import codepath.watsiapp.modelsv2.Donation;
 import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.utils.EndlessScrollListener;
 
@@ -49,7 +50,7 @@ import eu.erikw.PullToRefreshListView.OnRefreshListener;
 
 public class DonationListFragment extends Fragment {
 
-	private DonationAdapter donationAdapter;
+	private DonationAdapter adapter;
 	private eu.erikw.PullToRefreshListView listView;
 	private ProgressBar progressBar;
 	private String donorId;
@@ -66,7 +67,7 @@ public class DonationListFragment extends Fragment {
 		Bundle bundle = getArguments();
 		String donor__id = bundle.getString(DONOR_ID);
 		this.donorId = donor__id;
-		donationAdapter=new codepath.watsiapp.adaptersv2.DonationAdapter(getActivity(), donations);
+		adapter=new codepath.watsiapp.adaptersv2.DonationAdapter(getActivity(), donations);
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class DonationListFragment extends Fragment {
 		progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 		//donationAdapter = new DonationAdapter(getActivity(), donorId);
 		listView = (PullToRefreshListView) v.findViewById(R.id.donation_list);
-		listView.setAdapter(donationAdapter);
+		listView.setAdapter(adapter);
 		setupIintialViews();
 		return v;
 	}
@@ -111,7 +112,7 @@ public class DonationListFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				progressBar.setVisibility(View.VISIBLE);
-				donationAdapter.clear();
+				adapter.clear();
 				
 				populateData(PAGE_SIZE,0,true);
 			}
@@ -125,15 +126,21 @@ public class DonationListFragment extends Fragment {
 		Services.getInstance().getDonationService().findDonationsByDonarId(this.donorId, new Callback<DonationsResponse>() {
 			
 			@Override
-			public void success(DonationsResponse arg0, Response arg1) {
+			public void success(DonationsResponse response, Response arg1) {
 
+				if(isPulledToRefresh) {
+					Donation.deleteAll(Donation.class);
+				}				
+				for (Donation obj : response.results) {
+					adapter.add(obj);
+					obj.persist();
+				}
+				adapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.INVISIBLE);
+				
 				if(isPulledToRefresh) {
 					listView.onRefreshComplete();
 				}
-				donationAdapter.addAll(arg0.results);
-				donationAdapter.notifyDataSetChanged();
-				progressBar.setVisibility(View.INVISIBLE);
-				
 				
 			}
 			

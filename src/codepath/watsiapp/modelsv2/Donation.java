@@ -39,7 +39,7 @@ import android.util.Log;
  
  */
 
-public class Donation  {
+public class Donation extends BaseModel   {
 
 	private Patient patient;
 	private Donor donor;
@@ -104,6 +104,10 @@ public class Donation  {
 	}
 	public void setDonationDate(Date donationDate) {
 		this.donationDate = donationDate;
+	}
+	@Override
+	public long persist() {
+		return save();
 	}
 	
 	
