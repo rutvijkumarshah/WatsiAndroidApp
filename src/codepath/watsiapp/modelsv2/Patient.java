@@ -83,7 +83,7 @@ public class Patient extends BaseModel implements ShareableItem{
 	
 	/*** Associated objects *****/
 	
-	@Column(name = "medical_partner")
+	@Column(name = "medical_partner", onDelete = Column.ForeignKeyAction.CASCADE)
 	private MedicalPartner medicalPartner;
 	
 	/**** 

@@ -34,7 +34,7 @@ public abstract class BaseModel extends Model implements Serializable{
 	
 	@SuppressWarnings("unchecked")
 	public static <T extends Model> T loadByObjectId(Class<T> type, String objectId) {	
-		return (T) new Select().from(type).where("objectId=?",  objectId).executeSingle();
+		return (T) new Select().from(type).where("object_id=?",  objectId).executeSingle();
 	}
 	
 	public static <T extends Model> void deleteAll(Class<T> type) { 
