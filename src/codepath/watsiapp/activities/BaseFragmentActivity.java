@@ -72,7 +72,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 			payPalConfig = new PayPalConfiguration()
 					.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
 					.clientId(
-							getString(R.string.twitter_consumer_key));
+							getString(R.string.paypal_client_id));
 		} catch (Exception e) {
 			Log.e(TAG_PAYPAL, "Exception while paypal init configuration"+e,e);
 		}
