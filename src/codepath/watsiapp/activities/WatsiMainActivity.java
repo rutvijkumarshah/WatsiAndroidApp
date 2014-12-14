@@ -24,7 +24,7 @@ public class WatsiMainActivity extends BaseFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		//generateFacebookKey();
 		ParseAnalytics.trackAppOpened(getIntent());
 		vpPager = (ViewPager) findViewById(R.id.viewPager);
 		adapterViewPager = new PatientsPagerAdapter(getSupportFragmentManager());

@@ -61,7 +61,7 @@ public class DonationAdapter extends ArrayAdapter<Donation> {
 	public DonationAdapter(Context context,ArrayList<Donation> donations) {
 		//Custom Query
 		super(context,R.layout.item_patient_news,donations); 
-		activity = (WatsiMainActivity) context;
+		activity = (FragmentActivity) context;
 		this.donations=donations;
 		
 	}

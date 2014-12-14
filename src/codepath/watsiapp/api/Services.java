@@ -32,6 +32,7 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import codepath.watsiapp.modelsv2.DonarsResponse;
 import codepath.watsiapp.modelsv2.DonationsResponse;
 import codepath.watsiapp.modelsv2.Donor;
 import codepath.watsiapp.modelsv2.NewsItemsResponse;
@@ -75,7 +76,7 @@ public class Services {
 		// ?where={\"email\" : \"{donorEmail}\" }"
 		@GET("/Donor")
 		public void findById(@Query("where") String whereClause,
-				Callback<Donor> callback);
+				Callback<DonarsResponse> callback);
 	}
 
 	public interface DonationService {
@@ -84,11 +85,9 @@ public class Services {
 				@Path("donationObjectId") String donationObjectId,
 				Callback<DonationsResponse> callback);
 	
-		@GET("/Donation?include=patient,donor?" +
-				"where={\"donor\":{\"__type\":\"Pointer\",\"className\":\"Donor\"," +
-				"\"objectId\":\"{donorObjectId}\"}}&count=1&limit=10&include=patient&order=-donationDate")
+		@GET("/Donation?include=patient,donor")
 		public void findDonationsByDonarId(
-				@Path("donorObjectId") String donorObjectId,
+				@Query("where") String whereClause,
 				Callback<DonationsResponse> callback);
 					
 	}
@@ -177,7 +176,7 @@ public class Services {
 					.setEndpoint("https://api.parse.com/1/classes")
 					.setRequestInterceptor(reqIntercepter)
 					.setConverter(new GsonConverter(GsonHelper.getGson()))
-					.setLogLevel(LogLevel.NONE).setLog(new AndroidLog(LOG_TAG))
+					.setLogLevel(LogLevel.FULL).setLog(new AndroidLog(LOG_TAG))
 					.build();
 		}
 	}

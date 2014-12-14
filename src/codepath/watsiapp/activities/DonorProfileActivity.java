@@ -104,9 +104,9 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 	private void showDonorInformaiton(String fullName,String email,final boolean isFacebookLinkedUser) {
 		
 		donarFullName.setText(fullName);
-		String whereClause="?where={\"email\" : \"%s\" }";
+		String whereClause="{\"email\" : \"%s\" }";
 		
-		Services.getInstance().getDonorService().findById(String.format(whereClause, email), new Callback<Donor>() {
+		Services.getInstance().getDonorService().findById(String.format(whereClause, email), new Callback<DonarsResponse>() {
 			
 			@Override
 			public void failure(RetrofitError arg0) {
@@ -115,9 +115,9 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 			}
 
 			@Override
-			public void success(Donor donorObj, retrofit.client.Response arg1) {
-				// TODO Auto-generated method stub
-				donor=donorObj;
+			public void success(DonarsResponse response, retrofit.client.Response arg1) {
+				
+				donor=response.results.get(0);
 				if (donor != null) {
 					showDetailsForDonor(isFacebookLinkedUser);
 				} else {
@@ -165,9 +165,10 @@ public class DonorProfileActivity extends BaseFragmentActivity implements
 					@Override
 					public void onCompleted(GraphUser user, Response response) {
 						ImageLoader imgImageLoader = ImageLoader.getInstance();
-						imgImageLoader.displayImage(
+						String profileImgUrl=
 								"http://graph.facebook.com/" + user.getId()
-										+ "/picture?type=large", profilePicture);
+								+ "/picture?type=large";
+						imgImageLoader.displayImage(profileImgUrl, profilePicture);
 						String email = user.asMap().get("email").toString();
 						showDonorInformaiton(user.getName(),email,true);
 					}

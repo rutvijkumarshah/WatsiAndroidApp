@@ -123,7 +123,9 @@ public class DonationListFragment extends Fragment {
 		populateData(pageSize,skip,false);
 	}
 	private void populateData(final int pageSize,final int skip,final boolean isPulledToRefresh) {
-		Services.getInstance().getDonationService().findDonationsByDonarId(this.donorId, new Callback<DonationsResponse>() {
+		String whereClause="{\"donor\":{\"__type\":\"Pointer\",\"className\":\"Donor\",\"objectId\":\"%s\"}}&count=1&limit=10&include=patient&order=-donationDate";
+		String whereValue=String.format(whereClause, this.donorId);
+		Services.getInstance().getDonationService().findDonationsByDonarId(whereValue, new Callback<DonationsResponse>() {
 			
 			@Override
 			public void success(DonationsResponse response, Response arg1) {

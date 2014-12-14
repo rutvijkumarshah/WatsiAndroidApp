@@ -23,6 +23,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 package codepath.watsiapp.activities;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.json.JSONException;
 
 import retrofit.Callback;
@@ -30,9 +33,14 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,7 +52,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import codepath.watsiapp.R;
 import codepath.watsiapp.api.Services;
-import codepath.watsiapp.api.Services.PaymentConfirmatons;
 import codepath.watsiapp.interfaces.DonationInfoStorage;
 import codepath.watsiapp.modelsv2.PaymentConfirmation;
 import codepath.watsiapp.utils.PrefsHelper;
@@ -268,6 +275,21 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 		prefs.set(donationAmount, patientId, isAnonymousDonation, fullName, email);
 		
 	}
+	
+	protected void generateFacebookKey(){
+		try {
+            PackageInfo info = getPackageManager().getPackageInfo("codepath.watsiapp", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d(">>>>>                     KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (NameNotFoundException e) {
+         e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+         e.printStackTrace();
+        }
+    }
 	
 
 }
