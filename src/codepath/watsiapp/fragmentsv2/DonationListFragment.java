@@ -132,10 +132,13 @@ public class DonationListFragment extends Fragment {
 
 				if(isPulledToRefresh) {
 					Donation.deleteAll(Donation.class);
-				}				
+				}
+				double totalDonations = 0.00;
 				for (Donation obj : response.results) {
+					
 					adapter.add(obj);
 					obj.persist();
+					totalDonations+=obj.getDonationAmount();
 				}
 				adapter.notifyDataSetChanged();
 				progressBar.setVisibility(View.INVISIBLE);
@@ -143,7 +146,8 @@ public class DonationListFragment extends Fragment {
 				if(isPulledToRefresh) {
 					listView.onRefreshComplete();
 				}
-				
+				listener.totalDonationsCalculated(totalDonations);
+				listener.totalTreatmentsCalculated(response.results.size());
 			}
 			
 			@Override

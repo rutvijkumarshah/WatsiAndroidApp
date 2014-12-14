@@ -176,7 +176,7 @@ public class Services {
 					.setEndpoint("https://api.parse.com/1/classes")
 					.setRequestInterceptor(reqIntercepter)
 					.setConverter(new GsonConverter(GsonHelper.getGson()))
-					.setLogLevel(LogLevel.FULL).setLog(new AndroidLog(LOG_TAG))
+					.setLogLevel(LogLevel.NONE).setLog(new AndroidLog(LOG_TAG))
 					.build();
 		}
 	}
