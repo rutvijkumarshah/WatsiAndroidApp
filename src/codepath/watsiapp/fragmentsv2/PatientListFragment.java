@@ -68,7 +68,7 @@ public class PatientListFragment extends Fragment {
 		swingBottomInAnimationAdapter.setAbsListView(listView);
 		swingBottomInAnimationAdapter.setAnimationDurationMillis(5000);
 		listView.setAdapter(swingBottomInAnimationAdapter);
-
+			
 		setupIintialViews();
 		return v;
 	}

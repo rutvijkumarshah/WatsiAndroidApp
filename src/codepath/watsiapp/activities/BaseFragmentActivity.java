@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 package codepath.watsiapp.activities;
 
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -61,27 +60,27 @@ import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
+import com.ca.mdo.CAMobileDevOps;
 
-
-public class BaseFragmentActivity extends FragmentActivity implements DonationInfoStorage {
+public class BaseFragmentActivity extends FragmentActivity implements
+		DonationInfoStorage {
 
 	protected MenuItem myprofile;
 	private MenuItem logout;
 	private PrefsHelper prefs;
-	
-	private static PayPalConfiguration payPalConfig;
-	private static final String TAG_PAYPAL="PAYPAL_PROCESSING";
-		
 
-	private  void setupPayPalConfig() {
+	private static PayPalConfiguration payPalConfig;
+	private static final String TAG_PAYPAL = "PAYPAL_PROCESSING";
+
+	private void setupPayPalConfig() {
 		try {
-				
-			payPalConfig = new PayPalConfiguration()
-					.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-					.clientId(
-							getString(R.string.paypal_client_id));
+
+			payPalConfig = new PayPalConfiguration().environment(
+					PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(
+					getString(R.string.paypal_client_id));
 		} catch (Exception e) {
-			Log.e(TAG_PAYPAL, "Exception while paypal init configuration"+e,e);
+			Log.e(TAG_PAYPAL, "Exception while paypal init configuration" + e,
+					e);
 		}
 	}
 
@@ -112,7 +111,8 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		prefs=new PrefsHelper(this);
+		CAMobileDevOps.initialize(this);
+		prefs = new PrefsHelper(this);
 		setupPayPalConfig();
 		Intent intent = new Intent(this, PayPalService.class);
 		intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
@@ -137,6 +137,22 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	protected void onResume() {
 		super.onResume();
 		checkLogOutVisible();
+		try {
+			CAMobileDevOps.activityResume(this);
+		} catch (Exception e) {
+			Log.e("CA_MAA_SDK", e.getLocalizedMessage(), e);
+		}
+
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		try {
+			CAMobileDevOps.activityPause(this);
+		} catch (Exception e) {
+			Log.e("CA_MAA_SDK", e.getLocalizedMessage(), e);
+		}
 	}
 
 	private void logout() {
@@ -155,52 +171,56 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 			finish();
 		}
 	}
-	
+
 	@Override
-	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-	    if (resultCode == Activity.RESULT_OK) {
-	        com.paypal.android.sdk.payments.PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-	        if (confirm != null) {
-	            try {
-	            	showThankYouNote();
-	            	PaymentConfirmation confirmation=new PaymentConfirmation();
-	            	
-	            	confirmation.setDonorName(getUserFullName());
-	            	confirmation.setDonorEmail(getUserEmail());
-	            	confirmation.setPatientObjectId(getPatientId());
-	            	confirmation.setAmount(getDonationAmount());
-	            	confirmation.setPayPalConfirmation(confirm.toJSONObject().toString(4));
-	            	confirmation.setAnonymous(isAnonymousDonation());
-	            	
-	            	Services.getInstance().getPaymentConfirmatons().postConfirmation(confirmation, new Callback<PaymentConfirmation>() {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == Activity.RESULT_OK) {
+			com.paypal.android.sdk.payments.PaymentConfirmation confirm = data
+					.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+			if (confirm != null) {
+				try {
+					showThankYouNote();
+					PaymentConfirmation confirmation = new PaymentConfirmation();
 
-						@Override
-						public void failure(RetrofitError arg0) {
-							// TODO Auto-generated method stub
-							
-						}
+					confirmation.setDonorName(getUserFullName());
+					confirmation.setDonorEmail(getUserEmail());
+					confirmation.setPatientObjectId(getPatientId());
+					confirmation.setAmount(getDonationAmount());
+					confirmation.setPayPalConfirmation(confirm.toJSONObject()
+							.toString(4));
+					confirmation.setAnonymous(isAnonymousDonation());
 
-						@Override
-						public void success(PaymentConfirmation confirmation,
-								Response arg1) {
-							prefs.clear();
-							
-						}
-					});
-	                
-	                
+					Services.getInstance()
+							.getPaymentConfirmatons()
+							.postConfirmation(confirmation,
+									new Callback<PaymentConfirmation>() {
 
-	            } catch (JSONException e) {
-	                Log.e(TAG_PAYPAL, "an extremely unlikely failure occurred: ", e);
-	            }
-	        }
-	    }
-	    else if (resultCode == Activity.RESULT_CANCELED) {
-	        Log.i(TAG_PAYPAL, "The user canceled.");
-	    }
-	    else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-	        Log.i(TAG_PAYPAL, "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-	    }
+										@Override
+										public void failure(RetrofitError arg0) {
+											// TODO Auto-generated method stub
+
+										}
+
+										@Override
+										public void success(
+												PaymentConfirmation confirmation,
+												Response arg1) {
+											prefs.clear();
+
+										}
+									});
+
+				} catch (JSONException e) {
+					Log.e(TAG_PAYPAL,
+							"an extremely unlikely failure occurred: ", e);
+				}
+			}
+		} else if (resultCode == Activity.RESULT_CANCELED) {
+			Log.i(TAG_PAYPAL, "The user canceled.");
+		} else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+			Log.i(TAG_PAYPAL,
+					"An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+		}
 	}
 
 	@Override
@@ -226,7 +246,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	@Override
 	public void setUserFullName(String fullName) {
 		prefs.setUserFullName(fullName);
-		
+
 	}
 
 	@Override
@@ -237,13 +257,13 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	@Override
 	public void setDonationAmount(float value) {
 		prefs.setDonationAmount(value);
-		
+
 	}
 
 	@Override
 	public void setPatientId(String value) {
 		prefs.setPatientId(value);
-		
+
 	}
 
 	@Override
@@ -256,8 +276,7 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 		prefs.setAnonymousDonation(isAnonymousDonation);
 	}
 
-	
-	private  void showThankYouNote() {
+	private void showThankYouNote() {
 		LayoutInflater inflater = this.getLayoutInflater();
 		View view = inflater.inflate(R.layout.toast_thanks_for_donation,
 				(ViewGroup) this.findViewById(R.id.thanks_note));
@@ -272,24 +291,26 @@ public class BaseFragmentActivity extends FragmentActivity implements DonationIn
 	@Override
 	public void set(float donationAmount, String patientId,
 			boolean isAnonymousDonation, String fullName, String email) {
-		prefs.set(donationAmount, patientId, isAnonymousDonation, fullName, email);
-		
+		prefs.set(donationAmount, patientId, isAnonymousDonation, fullName,
+				email);
+
 	}
-	
-	protected void generateFacebookKey(){
+
+	protected void generateFacebookKey() {
 		try {
-            PackageInfo info = getPackageManager().getPackageInfo("codepath.watsiapp", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d(">>>>>                     KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (NameNotFoundException e) {
-         e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-         e.printStackTrace();
-        }
-    }
-	
+			PackageInfo info = getPackageManager().getPackageInfo(
+					"codepath.watsiapp", PackageManager.GET_SIGNATURES);
+			for (Signature signature : info.signatures) {
+				MessageDigest md = MessageDigest.getInstance("SHA");
+				md.update(signature.toByteArray());
+				Log.d(">>>>>                     KeyHash:",
+						Base64.encodeToString(md.digest(), Base64.DEFAULT));
+			}
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

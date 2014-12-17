@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Application</key>
+	<array>
+		<dict>
+			<key>tenantID</key>
+			<string>CAINC-USERSTORE</string>
+			<key>appId</key>
+			<string>WatsiApp</string>
+			<key>baseURL</key>
+			<string>https://collector.mobility.ca.com/mdo/collector/v1</string>
+			<key>profileURL</key>
+			<string>https://mdo.mobility.ca.com/mdo/v1/profiles/CAINC-USERSTORE/WatsiApp</string>
+			<key>appKey</key>
+			<string>26aae680-861f-11e4-9c8f-c1dc47923ba5</string>
+		</dict>
+	</array>
+</dict>
+</plist>
