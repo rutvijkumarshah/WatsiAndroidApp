@@ -28,6 +28,7 @@ import retrofit.RestAdapter;
 import retrofit.RestAdapter.LogLevel;
 import retrofit.android.AndroidLog;
 import retrofit.converter.GsonConverter;
+import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
@@ -94,7 +95,7 @@ public class Services {
 
 	public interface PaymentConfirmatons {
 		@POST("/PaymentConfirmatons")
-		public void postConfirmation(PaymentConfirmation confirmation,Callback<PaymentConfirmation> callback);
+		public void postConfirmation(@Body PaymentConfirmation confirmation,Callback<PaymentConfirmation> callback);
 	}
 
 	// Add getters for services here
